@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.hzitshop.mapper.SystemUserMapper">
+
+    <sql id="tbSystemUserBaseColumnSql">
+        user_id,
+        user_name,
+        age,
+        gender,
+        qq,
+        email,
+        is_lock,
+        address,
+        dept,
+        job_id,
+        company,
+        create_time,
+        create_by,
+        update_time,
+        update_by
+    </sql>
+
+    <sql id="tbSystemUserBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.userId)">
+                    user_id = #{map.userId}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.userName)">
+                    AND user_name = #{map.userName}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.age)">
+                    AND age = #{map.age}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.gender)">
+                    AND gender = #{map.gender}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.qq)">
+                    AND qq = #{map.qq}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.email)">
+                    AND email = #{map.email}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.isLock)">
+                    AND is_lock = #{map.isLock}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.address)">
+                    AND address = #{map.address}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.dept)">
+                    AND dept = #{map.dept}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.jobId)">
+                    AND job_id = #{map.jobId}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.company)">
+                    AND company = #{map.company}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.createTime)">
+                    AND create_time = #{map.createTime}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.createBy)">
+                    AND create_by = #{map.createBy}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateTime)">
+                    AND update_time = #{map.updateTime}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateBy)">
+                    AND update_by = #{map.updateBy}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertTbSystemUser" parameterType="com.hzit.hzitshop.entity.SystemUser">
+        INSERT INTO tb_system_user(
+        <include refid="tbSystemUserBaseColumnSql"/>
+        )VALUES(
+            #{userId},
+            #{userName},
+            #{age},
+            #{gender},
+            #{qq},
+            #{email},
+            #{isLock},
+            #{address},
+            #{dept},
+            #{jobId},
+            #{company},
+            #{createTime},
+            #{createBy},
+            #{updateTime},
+            #{updateBy}
+        )
+    </insert>
+    <!--查询总记录数-->
+    <select id="getTotal"  resultType="int">
+        select count(*) from tb_system_user
+    </select>
+    <delete id="deleteTbSystemUserByUserId" parameterType="Integer">
+        DELETE FROM tb_system_user WHERE user_id = #{userId}
+    </delete>
+
+    <update id="updateTbSystemUser" parameterType="com.hzit.hzitshop.entity.SystemUser">
+        UPDATE tb_system_user
+        <set>
+            user_name = #{userName} ,
+            age = #{age} ,
+            gender = #{gender} ,
+            qq = #{qq} ,
+            email = #{email} ,
+            is_lock = #{isLock} ,
+            address = #{address} ,
+            dept = #{dept} ,
+            job_id = #{jobId} ,
+            company = #{company} ,
+            update_time = #{updateTime} ,
+            update_by = #{updateBy} ,
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <!--用户的禁用与启用-->
+    <update id="lockUser" parameterType="map">
+        UPDATE  tb_system_user
+        set is_lock = #{map.isLock} where user_id=#{map.userId}
+    </update>
+    <select id="searchTbSystemUserByParams" parameterType="map" resultMap="tbSystemUserMap">
+        SELECT
+        <include refid="tbSystemUserBaseColumnSql"/>
+        FROM tb_system_user
+        <include refid="tbSystemUserBaseWhereSql"/>
+        limit #{map.offset},#{map.limit}
+    </select>
+    <!--根据userId查询单条记录-->
+    <select id="selectOne" parameterType="int" resultMap="tbSystemUserMap">
+        select 
+        <include refid="tbSystemUserBaseColumnSql"></include>
+        from tb_system_user
+
+        <where>
+            user_id = #{userId}
+        </where>
+    </select>
+
+    <!--批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+        DELETE from tb_system_user
+        <where>
+            user_id in 
+            <foreach  collection="array" open="(" separator="," close=")" item="id">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+    <resultMap type="com.hzit.hzitshop.entity.SystemUser" id="tbSystemUserMap">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="qq" property="qq"/>
+        <result column="email" property="email"/>
+        <result column="is_lock" property="isLock"/>
+        <result column="address" property="address"/>
+        <result column="dept" property="dept"/>
+        <result column="job_id" property="jobId"/>
+        <result column="company" property="company"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_by" property="updateBy"/>
+    </resultMap>
+
+</mapper>

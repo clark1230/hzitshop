@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.hzitshop.mapper.RolePermissionMapper">
+
+    <sql id="tbRolePermissionBaseColumnSql">
+        id,
+        role_id,
+        permission_id
+    </sql>
+
+    <sql id="tbRolePermissionBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.id)">
+                    id = #{map.id}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.roleId)">
+                    AND role_id = #{map.roleId}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.permissionId)">
+                    AND permission_id = #{map.permissionId}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertTbRolePermission" parameterType="com.hzit.hzitshop.entity.RolePermission">
+        INSERT INTO tb_role_permission(
+        <include refid="tbRolePermissionBaseColumnSql"/>
+        )VALUES(
+            #{id},
+            #{roleId},
+            #{permissionId}
+        )
+    </insert>
+
+    
+    <delete id="deleteTbRolePermissionById" parameterType="Integer">
+        DELETE FROM tb_role_permission WHERE id = #{id}
+    </delete>
+
+    <update id="updateTbRolePermission" parameterType="com.hzit.hzitshop.entity.RolePermission">
+        UPDATE tb_role_permission
+        <set>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(roleId)">
+                role_id = #{roleId} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(permissionId)">
+                permission_id = #{permissionId} ,
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="searchTbRolePermissionByParams" parameterType="map" resultMap="tbRolePermissionMap">
+        SELECT
+        <include refid="tbRolePermissionBaseColumnSql"/>
+        FROM tb_role_permission
+        <include refid="tbRolePermissionBaseWhereSql"/>
+    </select>
+
+    <resultMap type="com.hzit.hzitshop.entity.RolePermission" id="tbRolePermissionMap">
+        <id column="id" property="id"/>
+        <result column="role_id" property="roleId"/>
+        <result column="permission_id" property="permissionId"/>
+    </resultMap>
+
+</mapper>
