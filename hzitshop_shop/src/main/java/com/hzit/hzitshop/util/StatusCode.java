@@ -1,7 +1,10 @@
 package com.hzit.hzitshop.util;
 
+/**
+ * 服务器异步返回客户端的响应消息
+ */
 public class StatusCode {
-    private int code;//状态码
+    private int code;//状态码        200:表示服务器处理成功  500:表示服务器处理失败
     private String msg;//消息
 
     public StatusCode() {

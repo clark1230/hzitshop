@@ -48,13 +48,13 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                 width:100,
                 title:'地址'
             },{
-                field:'dept',
-                width:100,
-                title:'部门'
-            },{
                 field:'company',
                 width:100,
                 title:'公司'
+            },{
+                field:'dept',
+                width:100,
+                title:'部门'
             },{
                 field:'jobId',
                 width:70,

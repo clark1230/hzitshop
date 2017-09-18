@@ -33,13 +33,16 @@
             <%--<div class="layui-btn-group larry-group" >--%>
             <div class="" id="larry_group">
                 <div class="layui-inline">
-                    <button class="layui-btn"  data-type="add"><i class="layui-icon">&#xe61f;</i><cite>增加角色</cite></button>
+                    <button class="layui-btn"  data-type="add"><i class="layui-icon">&#xe61f;</i><cite>增加</cite></button>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-danger"  data-type="del"><i class="layui-icon">&#xe640;</i><cite>(批量)删除</cite></button>
+                    <button class="layui-btn layui-btn-warm"  data-type="edit"><i class="layui-icon">&#xe642;</i><cite>修改</cite></button>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal"  data-type="grant"><i class="layui-icon">&#xe613;</i><cite>(批量)授权</cite></button>
+                    <button class="layui-btn layui-btn-normal"  data-type="expand"><i class="layui-icon">&#xe61a;</i><cite>展开</cite></button>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal"  data-type="close"><i class="layui-icon">&#xe619;</i><cite>收缩</cite></button>
                 </div>
                 <div class="layui-input-inline" style="display: inline-block;">
                     <input type="text" name="search" value="" id="search_input" placeholder="请输入搜索内容!" class="layui-input">
@@ -65,6 +68,7 @@
 <script type="text/javascript" src="${path}/assets/ztree/jquery.ztree.all.js"></script>
 <script type="text/javascript" src="${path}/common/frame/layui/layui.js"></script>
 <script type="text/javascript" src="${path}/backstage/js/common.js"></script>
+<script type="text/javascript" src="${path}/assets/layer/layer.js"></script>
 <script type="text/javascript" src="${path}/assets/js/hzitshop/org/org.js"></script>
 </body>
 </html>

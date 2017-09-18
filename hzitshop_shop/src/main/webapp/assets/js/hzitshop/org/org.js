@@ -1,5 +1,5 @@
 $(function(){
-
+    var treeObj;
     $.get('/orgAjax.action', function (result) {
         var setting = {
             //页面上的显示效果
@@ -31,9 +31,86 @@ $(function(){
         };
 
         $(function () {
-            $.fn.zTree.init($("#tree"), setting, result);
+            treeObj = $.fn.zTree.init($("#tree"), setting, result);
+            //展开所有的节点
+            treeObj.expandAll(true);
         });
     });
 
 
+
+    //------------------------------layui start------------------------------------------------
+    layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
+        var $ = layui.$,
+            layer = layui.layer,
+            form = layui.form,
+            table = layui.table,
+            common = layui.common,
+            jquery=layui.jquery;
+
+
+        $('#larry_group .layui-btn').on('click',function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        var active = {
+            add:function(){//添加用户信息
+                //common.larryCmsMessage('最近好累，还是过段时间在写吧！','error');
+                //先获取要添加的组织的父级编号和名称
+                var checkNodes = treeObj.getCheckedNodes(true);//获取所有勾选的节点
+                if(checkNodes.length == 0){
+                    layer.msg('请选择要添加子节点的节点!',{icon:3});
+                }else if(checkNodes.length >1){
+                    layer.msg('所选节点不能大于1个,请选择一个具体的节点!',{icon:3});
+                }else{
+                    //获取父级组织编号和名称
+                    var parentOrgId = checkNodes[0].orgId;  //组织编号
+                    var parentOrgName =checkNodes[0].name;//组织名称
+                    var param = '?parentOrgId='+ parentOrgId+"&parentOrgName="+parentOrgName;
+                    layer.open({
+                        type: 2,
+                        title: '添加组织信息',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true,
+                        area: ['500px', '500px'],
+                        content: '/addOrg.action'+param //iframe的url
+                    });
+                }
+
+                //location.href ='/addOrg.action';
+            },edit:function(){//批量删除数据
+                var checkNodes = treeObj.getCheckedNodes(true);//获取所有勾选的节点
+                if(checkNodes.length == 0){
+                    layer.msg('请选择要编辑节点!',{icon:3});
+                }else if(checkNodes.length >1){
+                    layer.msg('所选节点不能大于1个,请选择一个具体的节点!',{icon:3});
+                }else{
+                    //获取父级组织编号和名称
+                    var orgId = checkNodes[0].orgId;
+                    var param = '?orgId='+orgId;
+                    layer.open({
+                        type: 2,
+                        title: '编辑组织信息',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true,
+                        area: ['500px', '500px'],
+                        content: '/editOrg.action'+param //iframe的url
+                    });
+                }
+            },
+            expand:function(){     //展开
+                treeObj.expandAll(true);//true表示展开
+            },
+            close:function(){
+                treeObj.expandAll(false);//收缩
+            }
+        };
+    });
+
+    //-----------------------------layui end -------------------------------------------------
+
 });
+
