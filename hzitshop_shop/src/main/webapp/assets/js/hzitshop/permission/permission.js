@@ -130,7 +130,7 @@ $(function(){
                         shadeClose: true,
                         shade: false,
                         maxmin: true,
-                        area: ['600px', '700px'],
+                        area: ['100%', '100%'],
                         content: '/addPermission.action'+param //iframe的url
                     });
                 }

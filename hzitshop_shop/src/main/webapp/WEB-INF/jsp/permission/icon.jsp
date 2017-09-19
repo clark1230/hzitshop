@@ -1,28 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: GIGABYTE
-  Date: 2017/9/19
-  Time: 0:18
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-    pageContext.setAttribute("path",path);
-%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>IconFont</title>
-    <link rel="stylesheet" type="text/css" href="${path}/common/frame/layui/css/layui.css" media="all">
-    <link rel="stylesheet" type="text/css" href="${path}/common/css/gobal.css" media="all">
-    <link rel="stylesheet" href="${path}/backstage/subgroup/fontdemo.css">
-</head>
-<body>
+
 <div class="larry-box">
     <blockquote class="layui-elem-quote">
-        <h1 class="inline-block">LarryCMS 图标管理 ：</h1>
+        <h1 class="inline-block">系统图标管理</h1>
         <div class="larry-con inline-block">
             当前共计：<em id="nums" class="inline-block"></em>个图标
             <input type="text" id="search_text" placeholder="请输入要查找的图标名" class="inline-block layui-input">
@@ -31,7 +10,6 @@
     </blockquote>
 </div>
 <div class="main markdown">
-
     <ul class="icon_lists clear">
 
         <li>
@@ -607,10 +585,5 @@
 
 
     </ul>
-
 </div>
-<script type="text/javascript" src="${path}/common/frame/layui/layui.js"></script>
-<script type="text/javascript" src="${path}/backstage/js/common.js"></script>
-<script type="text/javascript" src="${path}/backstage/subgroup/js/font.js"></script>
-</body>
-</html>
+

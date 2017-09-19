@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>合众电商后台管理系统</title>
+    <title>合众艾特后台管理系统</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="renderer" content="webkit">
@@ -35,7 +35,7 @@
     <div class="layui-header larrycms-header">
         <div class="layui-logo larrycms-logo">
             <!-- <img src="../common/images/logo.png"> -->
-            LarryMS
+            合众艾特
         </div>
         <!-- 右侧 -->
         <div class="larrycms-top pos-a">
@@ -75,9 +75,9 @@
             <!-- 管理员信息      -->
             <div class="user-info">
                 <div class="photo">
-                    <img src="../../backstage/images/user.jpg" alt="">
+                    <img src="${path}/assets/images/java.jpg" alt="">
                 </div>
-                <p>larry您好！欢迎登录</p>
+                <p>admin您好！欢迎登录</p>
             </div>
             <!-- 系统菜单 -->
             <div class="sys-menu-box" >
