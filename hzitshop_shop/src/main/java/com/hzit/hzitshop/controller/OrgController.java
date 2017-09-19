@@ -1,5 +1,6 @@
 package com.hzit.hzitshop.controller;
 
+import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.service.OrgService;
 import com.hzit.hzitshop.util.StatusCode;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,13 +36,25 @@ public class OrgController {
      * 异步获取组织数据
      * @return
      */
-    @RequestMapping(value = {"orgAjax"},method = RequestMethod.GET)
+    @RequestMapping(value = {"orgAjaxTree"},method = RequestMethod.GET)
     @ResponseBody
-    public List<Org>  orgAjax(){
+    public List<Org>  orgAjaxTree(){
         List<Org> orgList = orgService.getOrg();
         return orgList;
     }
 
+    /**
+     * 异步获取表格分页
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping(value = {"orgAjax"},method = RequestMethod.GET)
+    @ResponseBody
+    public LayuiData<Org> orgAjax(int page,int limit){
+        LayuiData<Org> layuiData = orgService.selectPage(page,limit);
+        return layuiData;
+    }
     /**
      * 跳转到添加组织页面
      * @return
@@ -61,6 +75,7 @@ public class OrgController {
     @RequestMapping(value={"addOrg"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addOrg(Org org){
+        org.setCreateTime(new Date());
         //保存组织信息
         int result = orgService.insert(org);
         return StatusCodeUtil.check(result);
@@ -72,7 +87,10 @@ public class OrgController {
      * @return
      */
     @RequestMapping(value={"editOrg"},method=RequestMethod.GET)
-    public String editOrg(int orgId){
+    public String editOrg(int orgId,Model model){
+        Org org = orgService.selectOne(orgId);
+        model.addAttribute("org",org);
+        model.addAttribute("orgList",orgService.getAll());
         return "org/editOrg";
     }
 
@@ -83,7 +101,9 @@ public class OrgController {
     @RequestMapping(value={"editOrg"},method=RequestMethod.POST)
     @ResponseBody
     public StatusCode editOrg(Org org){
-        return null;
+        org.setUpdateTime(new Date());
+        int result = orgService.update(org);
+        return StatusCodeUtil.check(result);
     }
     
 }

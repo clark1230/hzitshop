@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     String path = request.getContextPath();
     pageContext.setAttribute("path",path);
@@ -15,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>编辑组织</title>
+    <title>添加组织</title>
     <meta name="keywords" content="" />
     <meta name="description" content="LarryCMS Version:1.09" />
     <meta name="Author" content="larry" />
@@ -41,36 +40,44 @@
 </head>
 <body>
 <div class="larry-grid larry-wrapper">
-    <form id="editOrg" class="layui-form form" action="/addOrg.action" method="post">
-        <input type="hidden" name="orgId" value="${org.orgId}"/>
+    <form id="addPermission" class="layui-form form" action="/addPermission.action" method="post">
         <div class="layui-form-item">
-            <label class="layui-form-label">组织名:</label>
+            <label class="layui-form-label">权限名:</label>
             <div class="layui-input-block">
-                <input type="text" name="name" value="${org.name}"  lay-verify="required" placeholder="请输入组织名称!" autocomplete="off" class="layui-input">
+                <input type="text" name="title"   lay-verify="required" placeholder="请输入权限名称!" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">组织代码:</label>
+            <label class="layui-form-label">图标:</label>
             <div class="layui-input-block">
-                <input type="text" name="orgCode" value="${org.orgCode}"  lay-verify="required" placeholder="请输入组织代码!" autocomplete="off" class="layui-input">
+                <input type="text" name="icon"   lay-verify="required" placeholder="请输入图标名称!" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <!--父级组织名称-->
         <div class="layui-form-item">
-            <label class="layui-form-label">父级组织名:</label>
+            <label class="layui-form-label">权限:</label>
             <div class="layui-input-block">
-                <select name="orgParentId" >
-                    <option value=""></option>
-                    <c:forEach items="${orgList}" var="org2">
-                        <option value="${org2.orgId}">${org2.name}</option>
-                    </c:forEach>
-                </select>
+                <input type="text" name="url"   lay-verify="required" placeholder="请输入权限!" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否展开:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="spread" value="true" title="展开">
+                <input type="radio" name="spread" value="false" title="收缩" checked>
+            </div>
+        </div>
+        <!--父级权限名称-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">父级权限名:</label>
+            <div class="layui-input-block">
+                <input type="text"  value="${pName}" readonly="readonly"   autocomplete="off" class="layui-input">
+                <input type="hidden"  value="${pid}" name="pid"/>
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">描述:</label>
             <div class="layui-input-block">
-                <textarea name="description" placeholder="请输入内容!" class="layui-textarea">${org.description}</textarea>
+                <textarea name="description" placeholder="请输入内容!" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
@@ -104,8 +111,8 @@
                 //layer.msg(JSON.stringify(data.field));
                 $.ajax({
                     method:'post',
-                    url:'/editOrg.action',
-                    data:$('#editOrg').serialize(),
+                    url:'/addPermission.action',
+                    data:$('#addPermission').serialize(),
                     success:function(resp){
                         if(resp.code === 200){
                             layer.msg(resp.msg,{icon:1});

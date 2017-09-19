@@ -60,7 +60,7 @@
 			"pid": "0",
 			"title": "权限管理",
 			"icon": "&#xe7c0;",
-			"url": "/org.action",
+			"url": "/permission.action",
 			"spread": false
 		}, {
 			"id": "10",

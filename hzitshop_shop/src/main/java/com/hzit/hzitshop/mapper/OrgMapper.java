@@ -15,6 +15,20 @@ public interface OrgMapper {
 	int updateTbOrg(Org tbOrg);
 
 
-	List<Org> searchTbOrgByParams(@Param("map") Map<String, String> map);
+	List<Org> searchTbOrgByParams(@Param("map") Map<String, Object> map);
+
+	/**
+	 * 根据组织编号查询数据
+	 * @param orgId
+	 * @return
+	 */
+	Org selectOne(int orgId);
+
+	/**
+	 * 获取查询记录数
+	 * @param map
+	 * @return
+	 */
+	int  getTotal(@Param("map") Map<String,Object> map);
 
 } 

@@ -1,6 +1,6 @@
 $(function(){
     var treeObj;
-    $.get('/orgAjaxTree.action', function (result) {
+    $.get('/permissionAjaxTree.action', function (result) {
         var setting = {
             //页面上的显示效果
             view: {
@@ -23,8 +23,8 @@ $(function(){
             data: {
                 simpleData: {
                     enable: true,
-                    idKey: "orgId",
-                    pIdKey: "orgParentId",
+                    idKey: "id",
+                    pIdKey: "pid",
                     rootPId: 0
                 }
             }
@@ -121,17 +121,17 @@ $(function(){
                     layer.msg('所选节点不能大于1个,请选择一个具体的节点!',{icon:3});
                 }else{
                     //获取父级组织编号和名称
-                    var parentOrgId = checkNodes[0].orgId;  //组织编号
-                    var parentOrgName =checkNodes[0].name;//组织名称
-                    var param = '?parentOrgId='+ parentOrgId+"&parentOrgName="+parentOrgName;
+                    var pid = checkNodes[0].id;  //组织编号
+                    var pName =checkNodes[0].title;//组织名称
+                    var param = '?pid='+ pid+"&pName="+pName;
                     layer.open({
                         type: 2,
-                        title: '添加组织信息',
+                        title: '添加权限信息',
                         shadeClose: true,
                         shade: false,
                         maxmin: true,
-                        area: ['500px', '500px'],
-                        content: '/addOrg.action'+param //iframe的url
+                        area: ['600px', '700px'],
+                        content: '/addPermission.action'+param //iframe的url
                     });
                 }
 
@@ -148,12 +148,12 @@ $(function(){
                     var param = '?orgId='+orgId;
                     layer.open({
                         type: 2,
-                        title: '编辑组织信息',
+                        title: '编辑权限信息',
                         shadeClose: true,
                         shade: false,
                         maxmin: true,
                         area: ['500px', '500px'],
-                        content: '/editOrg.action'+param //iframe的url
+                        content: '/editPermission.action'+param //iframe的url
                     });
                 }
             },

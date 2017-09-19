@@ -73,30 +73,12 @@
     <update id="updateTbOrg" parameterType="com.hzit.hzitshop.entity.Org">
         UPDATE tb_org
         <set>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orgParentId)">
                 org_parent_id = #{orgParentId} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orgCode)">
                 org_code = #{orgCode} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(name)">
                 name = #{name} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(description)">
                 description = #{description} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(createTime)">
-                create_time = #{createTime} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(createBy)">
-                create_by = #{createBy} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateTime)">
                 update_time = #{updateTime} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateBy)">
                 update_by = #{updateBy} ,
-            </if>
         </set>
         WHERE org_id = #{orgId}
     </update>
@@ -106,8 +88,18 @@
         <include refid="tbOrgBaseColumnSql"/>
         FROM tb_org
         <include refid="tbOrgBaseWhereSql"/>
+        limit #{map.offset},#{map.limit}
     </select>
-
+    <!--根据orgId 查询一条数据-->
+    <select id="selectOne" parameterType="int" resultMap="tbOrgMap">
+        select
+        <include refid="tbOrgBaseColumnSql"/>
+        from tb_org where org_id=#{orgId}
+    </select>
+    <!--查询总记录数-->
+    <select id="getTotal" resultType="int" parameterType="map">
+        select count(*) from tb_org
+    </select>
     <resultMap type="com.hzit.hzitshop.entity.Org" id="tbOrgMap">
         <id column="org_id" property="orgId"/>
         <result column="org_parent_id" property="orgParentId"/>

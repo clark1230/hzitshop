@@ -19,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="Shortcut Icon" href="/favicon.ico"/>
     <!-- load css -->
-   <link rel="stylesheet"  type="text/css" href="${path}/common/frame/layui/css/layui.css" media="all">
+    <link rel="stylesheet"  type="text/css" href="${path}/common/frame/layui/css/layui.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/common/css/gobal.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/common/css/animate.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/backstage/css/common.css" media="all">
@@ -69,7 +69,7 @@
 <script type="text/javascript" src="${path}/common/frame/layui/layui.js"></script>
 <script type="text/javascript" src="${path}/backstage/js/common.js"></script>
 <script type="text/javascript" src="${path}/assets/layer/layer.js"></script>
-<script type="text/javascript" src="${path}/assets/js/hzitshop/org/org.js"></script>
+<script type="text/javascript" src="${path}/assets/js/hzitshop/permission/permission.js"></script>
 </body>
 </html>
 

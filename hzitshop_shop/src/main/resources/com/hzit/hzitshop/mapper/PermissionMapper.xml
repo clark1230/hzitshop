@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.hzitshop.mapper.PermissionMapper">
+
+    <sql id="tbPermissionBaseColumnSql">
+        id,
+        pid,
+        title,
+        icon,
+        url,
+        spread,
+        description,
+        create_time,
+        create_by,
+        update_by,
+        update_time
+    </sql>
+
+    <sql id="tbPermissionBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.id)">
+                    id = #{map.id}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.pid)">
+                    AND pid = #{map.pid}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.title)">
+                    AND title = #{map.title}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.icon)">
+                    AND icon = #{map.icon}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.url)">
+                    AND url = #{map.url}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.spread)">
+                    AND spread = #{map.spread}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.description)">
+                    AND description = #{map.description}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.createTime)">
+                    AND create_time = #{map.createTime}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.createBy)">
+                    AND create_by = #{map.createBy}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateBy)">
+                    AND update_by = #{map.updateBy}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateTime)">
+                    AND update_time = #{map.updateTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertTbPermission" parameterType="com.hzit.hzitshop.entity.Permission">
+        INSERT INTO tb_permission(
+        <include refid="tbPermissionBaseColumnSql"/>
+        )VALUES(
+            #{id},
+            #{pid},
+            #{title},
+            #{icon},
+            #{url},
+            #{spread},
+            #{description},
+            #{createTime},
+            #{createBy},
+            #{updateBy},
+            #{updateTime}
+        )
+    </insert>
+
+    
+    <delete id="deleteTbPermissionById" parameterType="Integer">
+        DELETE FROM tb_permission WHERE id = #{id}
+    </delete>
+
+    <update id="updateTbPermission" parameterType="com.hzit.hzitshop.entity.Permission">
+        UPDATE tb_permission
+        <set>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(pid)">
+                pid = #{pid} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
+                title = #{title} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(icon)">
+                icon = #{icon} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(url)">
+                url = #{url} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(spread)">
+                spread = #{spread} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(description)">
+                description = #{description} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(createTime)">
+                create_time = #{createTime} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(createBy)">
+                create_by = #{createBy} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateBy)">
+                update_by = #{updateBy} ,
+            </if>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateTime)">
+                update_time = #{updateTime} ,
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="searchTbPermissionByParams" parameterType="map" resultMap="tbPermissionMap">
+        SELECT
+        <include refid="tbPermissionBaseColumnSql"/>
+        FROM tb_permission
+        <include refid="tbPermissionBaseWhereSql"/>
+        limit #{map.offset},#{map.limit}
+    </select>
+    <!--根据id获取指定的数据-->
+    <select id="selectOne" parameterType="int" resultMap="tbPermissionMap">
+        SELECT
+        <include refid="tbPermissionBaseColumnSql"/>
+        FROM tb_permission
+        where id=#{id}
+    </select>
+    <select id="getTotal" resultType="int" parameterType="map">
+        select count(*) from tb_permission
+    </select>
+    <resultMap type="com.hzit.hzitshop.entity.Permission" id="tbPermissionMap">
+        <id column="id" property="id"/>
+        <result column="pid" property="pid"/>
+        <result column="title" property="title"/>
+        <result column="icon" property="icon"/>
+        <result column="url" property="url"/>
+        <result column="spread" property="spread"/>
+        <result column="description" property="description"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+</mapper>

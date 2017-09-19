@@ -32,7 +32,6 @@
     <link rel="stylesheet" type="text/css" href="${path}/backstage/css/common.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/backstage/css/sys.css" media="all">
 </head>
-</head>
 <body>
 <div class="larry-grid larry-wrapper">
     <form id="addSystemUser" class="layui-form" action="/addSystemUser.action" method="post">
