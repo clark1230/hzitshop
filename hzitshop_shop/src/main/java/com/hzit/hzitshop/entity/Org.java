@@ -42,6 +42,10 @@ public class Org {
 	 */
 	private String updateBy;
 	/**
+	 * 组织类型 公司,部门,岗位
+	 */
+	private String type;
+	/**
 	 * 组织编号
 	 * @param orgId
 	 */
@@ -176,4 +180,12 @@ public class Org {
     public String getUpdateBy(){
     	return updateBy;
     }
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

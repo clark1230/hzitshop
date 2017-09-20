@@ -151,17 +151,17 @@
 <!-- 主题配置 -->
 <div class="larryThemeContent" id="LarryThemeSet" style="display:none;">
     <div class="larry-theme-form">
-        <h3>系统主题预设</h3>
+        <h3>系统主题设置</h3>
         <form action="" class="layui-form larry-theme-con">
             <div class="layui-form-item select-theme">
                 <label class="layui-form-label">主题选择</label>
                 <div class="layui-input-block">
                     <select lay-filter="larryTheme"  lay-verify="" id="themeName">
-                        <option value="larry">LarryCMS默认主题</option>
-                        <option value="A">LarryCMS深蓝主题</option>
-                        <option value="B">LarryCMS墨绿主题</option>
-                        <option value="C">LarryCMS藏青主题</option>
-                        <option value="larry_">我要自定义主题</option>
+                        <option value="larry">默认主题</option>
+                        <option value="A">深蓝主题</option>
+                        <option value="B">墨绿主题</option>
+                        <option value="C">藏青主题</option>
+                        <%--<option value="larry_">我要自定义主题</option>--%>
                     </select>
                 </div>
             </div>

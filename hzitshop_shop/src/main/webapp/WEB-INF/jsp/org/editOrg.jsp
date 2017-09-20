@@ -62,10 +62,19 @@
                 <select name="orgParentId" >
                     <option value=""></option>
                     <c:forEach items="${orgList}" var="org2">
-                        <option value="${org2.orgId}">${org2.name}</option>
+                        <option value="${org2.orgId}" <c:if test="${org.orgParentId ==org2.orgId}">selected</c:if>>${org2.name}</option>
                     </c:forEach>
                 </select>
             </div>
+        </div>
+        <!--组织类型-->
+        <div class="layui-input-block">
+            <select name="type" >
+                <option value=""></option>
+                <option value="公司" <c:if test="${org.type =='公司'}">selected</c:if>>公司</option>
+                <option value="部门" <c:if test="${org.type =='部门'}">selected</c:if>>部门</option>
+                <option value="岗位" <c:if test="${org.type =='岗位'}">selected</c:if>>岗位</option>
+            </select>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">描述:</label>

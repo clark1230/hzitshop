@@ -57,7 +57,7 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                 title:'部门'
             },{
                 field:'jobId',
-                width:70,
+                width:100,
                 title:'岗位'
             },{
                 field:'createBy',

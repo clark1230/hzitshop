@@ -75,6 +75,10 @@ $(function(){
                     width: 120,
                     title: '父级'
                 },{
+                    field:'type',
+                    title:'组织类型',
+                    width:100
+                },{
                     field:'description',
                     title:'描述',
                     width:100
@@ -146,6 +150,11 @@ $(function(){
                     //获取父级组织编号和名称
                     var orgId = checkNodes[0].orgId;
                     var param = '?orgId='+orgId;
+                    //var pId = checkNodes[0].orgParentId;
+                    if(orgId == 1){
+                        layer.msg('不允许编辑根节点!',{icon:2});
+                        return false;
+                    }
                     layer.open({
                         type: 2,
                         title: '编辑组织信息',

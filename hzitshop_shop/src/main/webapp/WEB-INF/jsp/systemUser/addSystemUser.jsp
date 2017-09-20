@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: GIGABYTE
@@ -83,43 +84,31 @@
         <div class="layui-form-item">
             <label class="layui-form-label">公司:</label>
             <div class="layui-input-block">
-                <select name="company" >
+                <select name="company" lay-filter="company">
                     <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
+                    <c:forEach items="${orgCompany}" var="org">
+                        <option value="${org.name}_${org.orgId}">${org.name}</option>
+                    </c:forEach>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">部门:</label>
             <div class="layui-input-block">
-                <select name="dept" >
+                <select name="dept" id="dept"  lay-filter="dept">
                     <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">岗位:</label>
             <div class="layui-input-block">
-                <select name="jobId" >
+                <select name="jobId" id="job" lay-filter="job">
                     <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
+
                 </select>
             </div>
         </div>
-
 
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -129,7 +118,6 @@
             </div>
         </div>
     </form>
-
 
 </div>
 <!-- 加载js文件 -->
@@ -142,10 +130,46 @@
        $('#goback').click(function(){
           history.go(-1);
        });
-
+       
 
         layui.use('form', function(){
             var form = layui.form;
+            
+            //监听下拉列表事件
+            form.on('select(company)',function(data){
+                //截取数据
+                var orgParentId = data.value.substring(data.value.indexOf("_")+1);
+                //异步获取部门信息
+                getOrg(orgParentId,$('#dept'));
+            });
+            form.on('select(dept)', function(data){
+                var  value= data.value;
+                if(value ==''){
+                    layer.msg('请先选择公司!',{icon:3});
+                }else{
+                    var orgParentId = value.substring(value.indexOf("_")+1);
+                    getOrg(orgParentId,$('#job'))
+                }
+            });
+            form.on('select(job)',function(data){
+               if(data.value ==''){
+                   layer.msg('请先选择部门!',{icon:3});
+               }else{
+
+               }
+            });
+
+            function getOrg(orgId,selctor){
+                $.get('/orgTypeAjax.action?orgParentId='+orgId,function(resp){
+                    //拼接标签
+                    selctor.find('option:gt(0)').remove();//删除生成的标签
+                    for(var i=0;i<resp.length;i++){
+                        var $option = $('<option value="'+resp[i].name+'_'+resp[i].orgId+'">'+resp[i].name+'</option>');
+                        selctor.append($option);
+                    }
+                    form.render(); //重新渲染
+                });
+            }
             //监听提交
             form.on('submit(add)', function(data){
                 //layer.msg(JSON.stringify(data.field));

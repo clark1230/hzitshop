@@ -1,7 +1,9 @@
 package com.hzit.hzitshop.controller;
 
 import com.hzit.hzitshop.entity.LayuiData;
+import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.entity.SystemUser;
+import com.hzit.hzitshop.service.OrgService;
 import com.hzit.hzitshop.service.SystemUserService;
 import com.hzit.hzitshop.util.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import java.util.Map;
 public class SystemUserController {
     @Autowired
     private SystemUserService userService;
+    @Autowired
+    private OrgService orgService;
 
     /**
      * 跳转到系统用户主页
@@ -45,7 +49,19 @@ public class SystemUserController {
      * @return
      */
     @RequestMapping(value = {"addSystemUser"},method = RequestMethod.GET)
-    public String addSystemUser(){
+    public String addSystemUser(Model model){
+        Map<String,Object> map = new HashMap<>();
+        map.put("type","公司");
+        List<Org> orgCompany = orgService.findByType(map);
+//        map.clear();;
+//        map.put("type","部门");
+//        List<Org> orgDept = orgService.findByType(map);
+//        map.clear();;
+//        map.put("type","岗位");
+//        List<Org> orgJob = orgService.findByType(map);
+        model.addAttribute("orgCompany",orgCompany);
+//        model.addAttribute("orgDept",orgDept);
+//        model.addAttribute("orgJob",orgJob);
         return "systemUser/addSystemUser";
     }
 

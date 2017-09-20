@@ -44,7 +44,7 @@ public class SystemUser {
 	/**
 	 *  岗位编号
 	 */
-	private Integer jobId;
+	private String jobId;
 	/**
 	 *  公司名称
 	 */
@@ -204,7 +204,7 @@ public class SystemUser {
 	 * 岗位编号
 	 * @param jobId
 	 */
-	public void setJobId(Integer jobId){
+	public void setJobId(String jobId){
 		this.jobId = jobId;
 	}
 	
@@ -212,7 +212,7 @@ public class SystemUser {
      * 岗位编号
      * @return
      */	
-    public Integer getJobId(){
+    public String getJobId(){
     	return jobId;
     }
 	/**

@@ -75,7 +75,7 @@
             /*background-color: red;*/
             right: 0;
             color:#1E9FFF;
-            top:-14px;
+            top:-10px;
             width:50px;
             height: 50px;
         }
@@ -769,7 +769,7 @@
             //var $i = $('<i class="layui-icon">&#xe715;</i>');
             //$i.html(txt);
             //$i.css('font-size','30px');
-            var $div = '<div id="myDiv" class="icon-show"><i class="larry-icon">&#xe744;</i></div>';
+            var $div = '<div id="myDiv" class="icon-show"><i class="larry-icon" style="font-size:35px;">'+txt+'</i></div>';
             
             $('#showIcon').append($div);
         });

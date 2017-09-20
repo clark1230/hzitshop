@@ -61,6 +61,17 @@
                 <input type="hidden"  value="${parentOrgId}" name="orgParentId"/>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">组织类型:</label>
+            <div class="layui-input-block">
+                <select name="type" >
+                    <option value=""></option>
+                    <option value="公司">公司</option>
+                    <option value="部门">部门</option>
+                    <option value="岗位">岗位</option>
+                </select>
+            </div>
+        </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">描述:</label>
             <div class="layui-input-block">

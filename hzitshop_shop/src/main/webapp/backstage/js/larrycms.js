@@ -188,21 +188,10 @@ layui.use(['jquery','larryElem','layer','common','form','larryMenu','larryTab'],
 			docE.webkitCancelFullScreen();
 		}
 	}
-	// 支持作者
-	$('#dianzhan').click(function(event) {
-		layer.open({
-			type: 1,
-			title: false,
-			closeBtn: true,
-			shadeClose: false,
-			shade: 0.75,
-			area: ['520px', '288px;'],
-			content: '<img src="images/dianzhan.jpg"/>'
-		})
-	});
+	
 	// 登出系统
 	$('#logout').on('click',function(){
-		var url ='login.html';
+		var url ='/logout.action';
 		console.log(url);
 		common.logOut('退出登陆提示！','你真的确定要退出系统吗？',url);
 	});

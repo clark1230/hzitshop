@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>合众电商系统登陆</title>
+    <title>合众艾特系统登陆</title>
     <link rel="stylesheet" href="${path}/assets/login/css/font-awesome.min.css">
     <link rel="stylesheet" href="${path}/assets/login/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${path}/assets/login/css/htmleaf-demo.css">
@@ -156,13 +156,14 @@
 <body>
 <div class="htmleaf-container">
     <header class="htmleaf-header">
-        <h1>合众电商系统登陆!</h1>
+        <h1>合众艾特系统登陆!</h1>
+        <h3>学IT选合众!</h3>
     </header>
     <div class="demo form-bg" style="padding: 20px 0;">
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <form action="../../backstage/index.html" method="post" class="form-horizontal">
+                    <form action="/login.action" method="post" class="form-horizontal">
                         <span class="heading">用户登录</span>
                         <div class="form-group">
                             <input type="text" class="form-control" name="username" placeholder="请输入用户名!">
@@ -171,14 +172,14 @@
                         <div class="form-group help">
                             <input type="password" class="form-control" name="password" placeholder="请输入密码!">
                             <i class="fa fa-lock"></i>
-                            <a href="#" class="fa fa-question-circle"></a>
+                            <a href="#" id="forgetPwd" class="fa fa-question-circle"></a>
                         </div>
                         <div class="form-group">
                             <div class="main-checkbox">
                                 <input type="checkbox" value="true" id="rememberMe" name="rememberMe"/>
                                 <label for="rememberMe"></label>
                             </div>
-                            <span class="text">记住我!</span>
+                            <span class="text">记住我!(勾选后7天内直接登陆系统)</span>
                             <button type="submit" class="btn btn-default">登录</button>
                             <span class="error">${error}</span>
                         </div>
@@ -188,5 +189,15 @@
         </div>
     </div>
 </div>
+<script src="${path}/common/js/jquery-1.12.4.min.js"></script>
+<script src="${path}/assets/layer/layer.js"></script>
+<script>
+    //forgetPwd
+    $(function(){
+        $('#forgetPwd').click(function(){
+           layer.alert('<p style="color:black;font-size: 23px;">忘记密码，请联系管理员<br/>邮箱:xianyaoji@hzitxx.com</p>',{shade:0});
+        });
+    });
+</script>
 </body>
 </html>

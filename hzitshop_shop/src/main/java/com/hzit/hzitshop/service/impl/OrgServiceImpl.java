@@ -67,4 +67,16 @@ public class OrgServiceImpl  implements OrgService {
         layuiData.setData(orgMapper.searchTbOrgByParams(map));
         return layuiData;
     }
+
+    /**
+     * 根据类型查询组织信息
+     * @param map
+     * @return
+     */
+    @Override
+    public List<Org> findByType(Map<String, Object> map) {
+        map.put("offset",0);
+        map.put("limit",orgMapper.getTotal(map));
+        return  orgMapper.searchTbOrgByParams(map);
+    }
 }

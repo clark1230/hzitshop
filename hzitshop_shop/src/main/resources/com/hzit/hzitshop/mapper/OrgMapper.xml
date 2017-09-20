@@ -12,7 +12,8 @@
         create_time,
         create_by,
         update_time,
-        update_by
+        update_by,
+        type
     </sql>
 
     <sql id="tbOrgBaseWhereSql">
@@ -44,7 +45,9 @@
                 </if>
                 <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateBy)">
                     AND update_by = #{map.updateBy}
-                </if>
+                </if> <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.type)">
+                  AND type = #{map.type}
+            </if>
             </where>
         </if>
     </sql>
@@ -61,7 +64,8 @@
             #{createTime},
             #{createBy},
             #{updateTime},
-            #{updateBy}
+            #{updateBy},
+            #{type}
         )
     </insert>
 
@@ -79,6 +83,7 @@
                 description = #{description} ,
                 update_time = #{updateTime} ,
                 update_by = #{updateBy} ,
+                type = #{type} ,
         </set>
         WHERE org_id = #{orgId}
     </update>
@@ -100,6 +105,7 @@
     <select id="getTotal" resultType="int" parameterType="map">
         select count(*) from tb_org
     </select>
+    
     <resultMap type="com.hzit.hzitshop.entity.Org" id="tbOrgMap">
         <id column="org_id" property="orgId"/>
         <result column="org_parent_id" property="orgParentId"/>
@@ -110,6 +116,7 @@
         <result column="create_by" property="createBy"/>
         <result column="update_time" property="updateTime"/>
         <result column="update_by" property="updateBy"/>
+        <result column="type" property="type"/>
     </resultMap>
 
 </mapper>

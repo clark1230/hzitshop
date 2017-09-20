@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 组织控制器
@@ -105,5 +107,17 @@ public class OrgController {
         int result = orgService.update(org);
         return StatusCodeUtil.check(result);
     }
-    
+
+    /**
+     * 异步获取组织信息
+     * @param type
+     * @return
+     */
+    @RequestMapping(value ={"orgTypeAjax"},method = RequestMethod.GET)
+    @ResponseBody
+    public List<Org> orgTypeAjax(String orgParentId){
+        Map<String,Object> map = new HashMap<>();
+        map.put("orgParentId",orgParentId);
+        return orgService.findByType(map);
+    }
 }
