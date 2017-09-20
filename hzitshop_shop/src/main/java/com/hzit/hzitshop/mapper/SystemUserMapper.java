@@ -41,4 +41,11 @@ public interface SystemUserMapper {
 	 * @return
 	 */
 	int deleteByIds(String[] ids);
+
+	/**
+	 * 系统登陆
+	 * @param map
+	 * @return
+	 */
+	SystemUser login(@Param("map")Map<String,Object> map);
 } 

@@ -22,4 +22,6 @@ public interface SystemUserService extends BaseService<SystemUser>{
      * @return
      */
     int deleteByIds(String[] ids);
+
+    SystemUser login(Map<String,Object> map);
 }

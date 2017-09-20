@@ -49,6 +49,11 @@ public class SystemUserServiceImpl  implements SystemUserService {
     }
 
     @Override
+    public SystemUser login(Map<String, Object> map) {
+        return userMapper.login(map);
+    }
+
+    @Override
     public int insert(SystemUser systemUser) {
        return userMapper.insertTbSystemUser(systemUser);
     }
@@ -73,3 +78,4 @@ public class SystemUserServiceImpl  implements SystemUserService {
         return userMapper.selectOne(id);
     }
 }
+

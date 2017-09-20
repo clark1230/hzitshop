@@ -49,5 +49,5 @@
 		<!-- 配置事务注解驱动 -->
 		<tx:annotation-driven transaction-manager="transactionManager" />
 
-
+		<import resource="shiro-web.xml"></import>
 </beans>

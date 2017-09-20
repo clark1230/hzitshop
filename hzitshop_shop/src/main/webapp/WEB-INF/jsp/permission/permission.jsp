@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="${path}/common/frame/layui/css/layui.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/common/css/gobal.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/common/css/animate.css" media="all">
+
     <link rel="stylesheet" type="text/css" href="${path}/backstage/css/common.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/backstage/css/user.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/assets/ztree/css/zTreeStyle/zTreeStyle.css" media="all">

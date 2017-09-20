@@ -165,6 +165,7 @@
                 <div class="col-md-offset-3 col-md-6">
                     <form action="/login.action" method="post" class="form-horizontal">
                         <span class="heading">用户登录</span>
+                        <p class="error">${error}</p>
                         <div class="form-group">
                             <input type="text" class="form-control" name="username" placeholder="请输入用户名!">
                             <i class="fa fa-user"></i>
@@ -180,8 +181,8 @@
                                 <label for="rememberMe"></label>
                             </div>
                             <span class="text">记住我!(勾选后7天内直接登陆系统)</span>
-                            <button type="submit" class="btn btn-default">登录</button>
-                            <span class="error">${error}</span>
+                            <button type="submit" class="btn btn-default">登录</button><br/>
+
                         </div>
                     </form>
                 </div>

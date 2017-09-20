@@ -72,7 +72,22 @@
 
     <insert id="insertTbSystemUser" parameterType="com.hzit.hzitshop.entity.SystemUser">
         INSERT INTO tb_system_user(
-        <include refid="tbSystemUserBaseColumnSql"/>
+        user_id,
+        user_name,
+        age,
+        gender,
+        qq,
+        email,
+        is_lock,
+        address,
+        dept,
+        job_id,
+        company,
+        create_time,
+        create_by,
+        update_time,
+        update_by,
+        password
         )VALUES(
             #{userId},
             #{userName},
@@ -88,12 +103,20 @@
             #{createTime},
             #{createBy},
             #{updateTime},
-            #{updateBy}
+            #{updateBy},
+            #{password}
         )
     </insert>
     <!--查询总记录数-->
     <select id="getTotal"  resultType="int">
         select count(*) from tb_system_user
+    </select>
+
+    <!--系统登陆-->
+    <select id="login"  resultMap="tbSystemUserMap" parameterType="map">
+      SELECT
+        <include refid="tbSystemUserBaseColumnSql"></include>
+        from tb_system_user where user_name=#{map.username} and password=#{map.password}
     </select>
     <delete id="deleteTbSystemUserByUserId" parameterType="Integer">
         DELETE FROM tb_system_user WHERE user_id = #{userId}
@@ -173,6 +196,7 @@
         <result column="create_by" property="createBy"/>
         <result column="update_time" property="updateTime"/>
         <result column="update_by" property="updateBy"/>
+        <result column="password" property="password"/>
     </resultMap>
 
 </mapper>
