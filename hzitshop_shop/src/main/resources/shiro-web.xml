@@ -65,38 +65,44 @@
 		<property name="successUrl" value="/index.action"/>
 	</bean>
 	<!--SSL(安全套接层) 过滤器-->
-	<bean id="sslFilter" class="org.apache.shiro.web.filter.authz.SslFilter">
+	<!--<bean id="sslFilter" class="org.apache.shiro.web.filter.authz.SslFilter">-->
 		<!--https 的默认端口是443-->
 		<!--担心端口被占用了，因此使用8443端口-->
-		<property name="port" value="8443"/>
-	</bean>
+		<!--<property name="port" value="8443"/>-->
+	<!--</bean>-->
 	<!-- Shiro 的 Web 过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager"/>
 		<property name="loginUrl" value="/login.action"/>
-		<property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+		<property name="unauthorizedUrl" value="/unauthorized.action"/>
 		<property name="filters">
 			<util:map>
 				<entry key="authc" value-ref="formAuthenticationFilter"/>
-				<entry key="ssl" value-ref="sslFilter"/>
+				<!--ssl 过滤器-->
+				<!--<entry key="ssl" value-ref="sslFilter"/>-->
 			</util:map>
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-
-				/login.action = ssl,anon
+				/unauthorized.action =anon
+				/assets/** = anon
+				/backstage/**= anon
+				/common/** = anon
+				/html/** = anon
+				/subgroup/** = anon
+				/login.action = anon
 				/logout.action =logout
 				/** = user
-				/**=roles
 			</value>
 		</property>
 	</bean>
 	<!--开启shiro权限注解-->
-	<aop:config proxy-target-class="true"></aop:config>
+	<!--<aop:config proxy-target-class="true"></aop:config>-->
 
-	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>
-	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager"></property>
-	</bean>
+	<!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>-->
+	<!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
+		<!--<property name="securityManager" ref="securityManager"></property>-->
+	<!--</bean>-->
+	<!-- 开启shiro的注解支持 -->
 
 </beans>

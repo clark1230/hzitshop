@@ -180,7 +180,7 @@
                                 <input type="checkbox" value="true" id="rememberMe" name="rememberMe"/>
                                 <label for="rememberMe"></label>
                             </div>
-                            <span class="text">记住我!(勾选后7天内直接登陆系统)</span>
+                            <span class="text" style="color:red;">记住我!(勾选后7天内直接自动登陆系统)</span>
                             <button type="submit" class="btn btn-default">登录</button><br/>
 
                         </div>

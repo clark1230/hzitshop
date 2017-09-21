@@ -51,6 +51,7 @@ public class LoginController {
     
     @RequestMapping(value = "logout")
     public String logout(){
-        return "login";
+        SecurityUtils.getSubject().logout();//注销
+        return "redirect:/login.action";
     }
 }

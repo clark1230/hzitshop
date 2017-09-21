@@ -66,6 +66,28 @@
                         </props>
                 </property>
         </bean>
+        <bean id="defaultAdvisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+                <!-- 必须改为true，即使用cglib方式为Action创建代理对象。默认值为false，使用JDK创建代理对象，会造成问题 -->
+                <property name="proxyTargetClass" value="true"></property>
+        </bean>
+
+        <!-- 使用shiro框架提供的切面类，用于创建代理对象 -->
+        <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
 
 
+
+        <!-- springmvc提供的简单异常处理器 -->
+        <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+                <!-- 定义默认的异常处理页面 -->
+                <property name="defaultErrorView" value="403"/>
+                <!-- 定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception -->
+                <property name="exceptionAttribute" value="ex"/>
+                <!-- 定义需要特殊处理的异常，这是重要点 -->
+                <property name="exceptionMappings">
+                        <props>
+                                <prop key="ssm.exception.CustomException">403</prop>
+                        </props>
+                        <!-- 还可以定义其他的自定义异常 -->
+                </property>
+        </bean>
 </beans>

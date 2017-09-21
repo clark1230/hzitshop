@@ -120,8 +120,10 @@
             <dependency>
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
-                <version>${jackson.version}</version>
+                <version>1.9.13</version>
             </dependency>
+
+
             <!-- jstl标签库组件 -->
             <dependency>
                 <groupId>javax.servlet</groupId>
