@@ -66,6 +66,10 @@ public class SystemUser {
 	 */
 	private String updateBy;
 	/**
+	 * 密码
+	 */
+	private String password;
+	/**
 	 * 用户编号
 	 * @param userId
 	 */
@@ -290,4 +294,12 @@ public class SystemUser {
     public String getUpdateBy(){
     	return updateBy;
     }
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

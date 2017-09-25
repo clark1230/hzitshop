@@ -5,6 +5,7 @@ import com.hzit.hzitshop.entity.Role;
 import com.hzit.hzitshop.entity.SystemUser;
 import com.hzit.hzitshop.service.RoleService;
 import com.hzit.hzitshop.util.StatusCode;
+import com.hzit.hzitshop.util.SubjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +57,7 @@ public class RoleController {
     @ResponseBody
     public StatusCode addRole(Role role){
         role.setCreateTime(new Date());
+        role.setCreateBy(SubjectUtil.getUser());
         int result = roleService.insert(role);
         return this.check(result);
     }
@@ -91,8 +93,8 @@ public class RoleController {
     @RequestMapping(value = {"editRole"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode editRole(Role role){
-        StatusCode sc = new StatusCode();
         role.setUpdateTime(new Date());
+        role.setUpdateBy(SubjectUtil.getUser());
         int result = roleService.update(role);
         return this.check(result);
     }

@@ -38,24 +38,8 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();//获取用户名
         String password=  new String((char[])token.getCredentials());
+        System.out.println("用户名为:"+username);
         return new SimpleAuthenticationInfo(username,password,this.getName());
     }
-//    @Autowired
-//    private SystemUserService userService;
-//    @Override
-//    public String getName() {
-//        return "userRealm";
-//    }
-//
-//    @Override
-//    public boolean supports(AuthenticationToken token) {
-//        return token instanceof UsernamePasswordToken;
-//    }
-//
-//    @Override
-//    public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-//        String username = (String) token.getPrincipal();//获取用户名
-//        String password=  new String((char[])token.getCredentials());
-//        return new SimpleAuthenticationInfo(username,password,this.getName());
-//    }
+
 }

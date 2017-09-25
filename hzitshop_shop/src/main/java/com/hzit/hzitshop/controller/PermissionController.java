@@ -6,6 +6,7 @@ import com.hzit.hzitshop.entity.Permission;
 import com.hzit.hzitshop.service.PermissionService;
 import com.hzit.hzitshop.util.StatusCode;
 import com.hzit.hzitshop.util.StatusCodeUtil;
+import com.hzit.hzitshop.util.SubjectUtil;
 import com.hzit.hzitshop.vo.PermissionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,6 +70,7 @@ public class PermissionController {
     @RequestMapping(value={"addPermission"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addOrg(Permission permission){
+        permission.setCreateBy(SubjectUtil.getUser());
         permission.setCreateTime(new Date());
         //保存组织信息
         int result = permissionService.insert(permission);

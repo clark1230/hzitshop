@@ -6,6 +6,7 @@ import com.hzit.hzitshop.entity.SystemUser;
 import com.hzit.hzitshop.service.OrgService;
 import com.hzit.hzitshop.service.SystemUserService;
 import com.hzit.hzitshop.util.StatusCode;
+import com.hzit.hzitshop.util.SubjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,6 +75,7 @@ public class SystemUserController {
     @ResponseBody
     public StatusCode addSystemUser(SystemUser systemUser){
         StatusCode sc = new StatusCode();
+        systemUser.setCreateBy(SubjectUtil.getUser());
         systemUser.setCreateTime(new Date());
         int result = userService.insert(systemUser);
         return  this.check(result);
@@ -101,6 +103,7 @@ public class SystemUserController {
     public StatusCode editSystemUser(SystemUser systemUser){
         StatusCode sc = new StatusCode();
         systemUser.setUpdateTime(new Date());
+        systemUser.setUpdateBy(SubjectUtil.getUser());
         int result = userService.update(systemUser);
         return this.check(result);
     }

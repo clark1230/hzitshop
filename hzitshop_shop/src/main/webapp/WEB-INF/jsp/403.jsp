@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>页面正在建设中！</title>
+    <title>没有权限!</title>
     <meta name="keywords" content="" />
     <meta name="description" content="LarryCMS Version:1.09" />
     <meta name="Author" content="larry" />

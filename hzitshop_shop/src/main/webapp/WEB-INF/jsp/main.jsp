@@ -37,7 +37,7 @@
     <div class="layui-row layui-col-space20" id="infoSwitch">
         <div class="layui-col-xs12  layui-col-sm12  layui-col-md12  layui-col-lg12">
             <blockquote class="layui-elem-quote  head-con">
-                <div>尊敬的admin<span id="weather"></span></div>
+                <div>尊敬的${username}<span id="weather"></span></div>
                 <i class="larry-icon close" id="closeInfo">&#xe707;</i>
             </blockquote>
         </div>

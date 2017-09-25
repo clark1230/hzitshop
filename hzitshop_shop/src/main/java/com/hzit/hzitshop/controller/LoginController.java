@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,14 +24,17 @@ public class LoginController {
     }
 
     @RequestMapping(value = {"login"},method = RequestMethod.POST)
-    public String login(String username, String password, String rememberMe, HttpSession httpSession, Model model){
+    public String login(String username, String password, String rememberMe, Model model){
         Subject subject = SecurityUtils.getSubject();//获取主体
         Map<String,Object> map = new HashMap<>();
         map.put("username",username);
         map.put("password",password);
-        SystemUser systemUser = userService.login(map);
+        SystemUser systemUser = userService.login(map); //查询登录信息
         if(systemUser == null){
             model.addAttribute("error","登陆失败!用户名或者密码错误!");
+            return "login";
+        }else  if("0".equals(systemUser.getIsLock())){ // 0:账号被锁定  1:未锁定
+            model.addAttribute("error","登陆失败!\""+username+"\"这个账号已被锁定!");
             return "login";
         }else{
             boolean remember = false;
@@ -43,15 +45,14 @@ public class LoginController {
             UsernamePasswordToken token = new UsernamePasswordToken(username,password);
             token.setRememberMe(remember);
             subject.login(token);
-            httpSession.setAttribute("username",username);
-            return "redirect:/index.action";
+            return "redirect:/index.action";//重定向到主页
         }
 
     }
     
     @RequestMapping(value = "logout")
     public String logout(){
-        SecurityUtils.getSubject().logout();//注销
-        return "redirect:/login.action";
+        SecurityUtils.getSubject().logout();//注销 (RememberMe功能也消失了)
+        return "redirect:/login.action"; //重定向到登录页
     }
 }

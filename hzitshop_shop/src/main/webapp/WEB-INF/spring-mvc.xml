@@ -6,6 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
         <context:component-scan base-package="com.hzit.hzitshop.controller"/>
+        <context:component-scan base-package="com.hzit.hzitshop.exception"/>
         <!--配置消息转换器-->
         <mvc:annotation-driven>
                 <!--配置消息转换器-->
@@ -76,18 +77,5 @@
 
 
 
-        <!-- springmvc提供的简单异常处理器 -->
-        <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-                <!-- 定义默认的异常处理页面 -->
-                <property name="defaultErrorView" value="403"/>
-                <!-- 定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception -->
-                <property name="exceptionAttribute" value="ex"/>
-                <!-- 定义需要特殊处理的异常，这是重要点 -->
-                <property name="exceptionMappings">
-                        <props>
-                                <prop key="ssm.exception.CustomException">403</prop>
-                        </props>
-                        <!-- 还可以定义其他的自定义异常 -->
-                </property>
-        </bean>
+        
 </beans>

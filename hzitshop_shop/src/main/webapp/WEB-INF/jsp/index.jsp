@@ -77,7 +77,7 @@
                 <div class="photo">
                     <img src="${path}/assets/images/java.jpg" alt="">
                 </div>
-                <p>admin您好！欢迎登录</p>
+                <p>${username}您好！欢迎登录</p>
             </div>
             <!-- 系统菜单 -->
             <div class="sys-menu-box" >

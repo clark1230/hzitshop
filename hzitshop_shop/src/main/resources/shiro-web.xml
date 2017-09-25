@@ -16,6 +16,7 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
+	
 	<bean id="sessionCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<!--在客户端存储session信息的cookie名称-->
 		<constructor-arg value="sid"></constructor-arg>
@@ -42,7 +43,9 @@
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<!--全局会话时间-->
 		<property name="globalSessionTimeout" value="180000"></property>
-		<!---->
+		<!--在路径后面重写sessionid-->
+		<property name="sessionIdUrlRewritingEnabled" value="true"></property>
+		<!--删除无效的session-->
 		<property name="deleteInvalidSessions" value="true"></property>
 		<property name="sessionIdCookie" ref="sessionCookie"></property>
 	</bean>
@@ -50,6 +53,7 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!--自定义域-->
 		<property name="realm" ref="userRealm"></property>
+		<!--<property name="cacheManager" ref="cacheManager"/>-->
 		<property name="sessionManager" ref="sessionManager"></property>
 		<!--RememberMe 管理器-->
 		<property name="rememberMeManager" ref="rememberMeManager"></property>
@@ -92,7 +96,7 @@
 				/subgroup/** = anon
 				/login.action = anon
 				/logout.action =logout
-				/** = user
+				/** = user    <!--user:身份验证通过或者RememberMe   authc:身份验证通过-->
 			</value>
 		</property>
 	</bean>

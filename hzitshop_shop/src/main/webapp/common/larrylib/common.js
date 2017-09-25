@@ -11,11 +11,11 @@ layui.define(['element','layer','jquery'],function(exports){
        element = layui.element;
    var LarryCommon = {
         larryCore: {
-            tit: 'LarryCMS提示您：',
-            version: 'LarryCMSV1.9',
-            errorTit:'LarryCMS错误提示！',
+            tit: '提示您：',
+            version: '版本1.0',
+            errorTit:'错误提示！',
             errorDataTit:'数据源配置出错',
-            paramsTit:'LarryMS参数错误提示',
+            paramsTit:'参数错误提示',
             closeTit:'关闭失败提示'
         },
         closeIndexs: {},
@@ -43,9 +43,6 @@ layui.define(['element','layer','jquery'],function(exports){
         },
        /**
         * @description 抛出异常错误信息
-        * @link        http://www.larrycms.com/
-        * @copyright   [LarryCMS]
-        * @author Larry_qin 2017-08-10
         * @param       {[type]}                 msg   [description]
         * @param       {[type]}                 title [description]
         * @return      {[type]}                       [description]
@@ -64,9 +61,6 @@ layui.define(['element','layer','jquery'],function(exports){
        },
        /**
         * @description 成功提示信息
-        * @link        http://www.larrycms.com/
-        * @copyright   [LarryCMS]
-        * @author Larry_qin 2017-08-10
         * @param       {[type]}                 msg   [description]
         * @param       {[type]}                 title [description]
         * @param       {[type]}                 time [description]
@@ -86,9 +80,6 @@ layui.define(['element','layer','jquery'],function(exports){
         },
        /**
         * @description 确认对话框
-        * @link        http://www.larrycms.com/
-        * @copyright   [LarryCMS]
-        * @author Larry_qin 2017-08-11
         * @param       {[type]}                 msg  [提示消息内容]
         * @param       {[type]}                 callback_ok [确认的回调函数]
         * @param       {[type]}                 callback_no  [取消的回调函数]
@@ -120,9 +111,6 @@ layui.define(['element','layer','jquery'],function(exports){
        // 系统消息提示处理
        /**
         * @description 
-        * @link        http://www.larrycms.com/
-        * @copyright   [LarryCMS]
-        * @author Larry_qin 2017-08-11
         * @param       {[type]}                 msg  [description]
         * @param       {[type]}                 mark [description]
         * @return      {[type]}                      [description]
@@ -212,9 +200,6 @@ layui.define(['element','layer','jquery'],function(exports){
        },
        /**
         * @description 加载jq第三方插件（可以使用layui Jq 也可以自定义传入任何版本的jq，并让依赖jq的第三方插件正常运行随调随用）
-        * @link        http://www.larrycms.com/
-        * @copyright   [LarryCMS]
-        * @author Larry_qin 2017-08-10
         * @param       {[type]}                 jsUrl    [description]
         * @param       {Function}               callback [description]
         * @return      {[type]}                          [description]
@@ -317,7 +302,7 @@ layui.define(['element','layer','jquery'],function(exports){
             parent.layer.confirm(text, {
                 title: title,
                 resize: false,
-                btn: ['确定退出系统', '不，我点错了！'],
+                btn: ['确定', '取消'],
                 btnAlign: 'c',
                 icon: 3
 
@@ -328,7 +313,7 @@ layui.define(['element','layer','jquery'],function(exports){
                 layer.msg('返回系统', {
                     time: 1500,
                     btnAlign: 'c',
-                    btn: ['OK']
+                    icon:1
                 });
             });
         }

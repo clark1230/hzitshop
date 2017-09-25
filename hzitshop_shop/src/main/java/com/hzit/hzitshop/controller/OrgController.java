@@ -5,6 +5,7 @@ import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.service.OrgService;
 import com.hzit.hzitshop.util.StatusCode;
 import com.hzit.hzitshop.util.StatusCodeUtil;
+import com.hzit.hzitshop.util.SubjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,6 +79,7 @@ public class OrgController {
     @ResponseBody
     public StatusCode addOrg(Org org){
         org.setCreateTime(new Date());
+        org.setCreateBy(SubjectUtil.getUser());
         //保存组织信息
         int result = orgService.insert(org);
         return StatusCodeUtil.check(result);
@@ -98,12 +100,14 @@ public class OrgController {
 
     /**
      * 处理表单数据
+     * 
      * @return
      */
     @RequestMapping(value={"editOrg"},method=RequestMethod.POST)
     @ResponseBody
     public StatusCode editOrg(Org org){
         org.setUpdateTime(new Date());
+        org.setUpdateBy(SubjectUtil.getUser());
         int result = orgService.update(org);
         return StatusCodeUtil.check(result);
     }
