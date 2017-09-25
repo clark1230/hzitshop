@@ -163,7 +163,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <form action="/login.action" method="post" class="form-horizontal">
+                    <form id="loginFrom" action="/login.action" method="post" class="form-horizontal">
                         <span class="heading">用户登录</span>
                         <p class="error">${error}</p>
                         <div class="form-group">
@@ -177,7 +177,7 @@
                         </div>
                         <div class="form-group">
                             <div class="main-checkbox">
-                                <input type="checkbox" value="true" id="rememberMe" name="rememberMe"/>
+                                <input type="checkbox" checked="checked" value="true" id="rememberMe" name="rememberMe"/>
                                 <label for="rememberMe"></label>
                             </div>
                             <span class="text" style="color:red;">记住我!(勾选后7天内直接自动登陆系统)</span>
@@ -191,6 +191,8 @@
     </div>
 </div>
 <script src="${path}/common/js/jquery-1.12.4.min.js"></script>
+<script src="${path}/assets/jqueryvalidate/js/jquery.validate.min.js"></script>
+<script src="${path}/assets/jqueryvalidate/js/messages_zh.min.js"></script>
 <script src="${path}/assets/layer/layer.js"></script>
 <script>
     //forgetPwd
@@ -198,6 +200,21 @@
         $('#forgetPwd').click(function(){
            layer.alert('<p style="color:black;font-size: 23px;">忘记密码，请联系管理员<br/>邮箱:xianyaoji@hzitxx.com</p>',{shade:0});
         });
+
+        $('#loginFrom').validate({
+            rules:{
+                username:{
+                    required:true
+                },
+                password:{
+                    required:true
+                }
+            },
+            messages:{
+                username:'请输入用户名!',
+                password:'请输入密码!'
+            }
+        })
     });
 </script>
 </body>

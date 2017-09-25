@@ -302,4 +302,26 @@ public class SystemUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "SystemUser{" +
+				"userId=" + userId +
+				", userName='" + userName + '\'' +
+				", age=" + age +
+				", gender='" + gender + '\'' +
+				", qq='" + qq + '\'' +
+				", email='" + email + '\'' +
+				", isLock='" + isLock + '\'' +
+				", address='" + address + '\'' +
+				", dept='" + dept + '\'' +
+				", jobId='" + jobId + '\'' +
+				", company='" + company + '\'' +
+				", createTime=" + createTime +
+				", createBy='" + createBy + '\'' +
+				", updateTime=" + updateTime +
+				", updateBy='" + updateBy + '\'' +
+				", password='" + password + '\'' +
+				'}';
+	}
 }

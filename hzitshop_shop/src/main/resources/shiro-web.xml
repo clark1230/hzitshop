@@ -15,7 +15,10 @@
 		http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-
+	 <!--缓存管理器-->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+	<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
+	</bean>
 	
 	<bean id="sessionCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<!--在客户端存储session信息的cookie名称-->
@@ -37,8 +40,22 @@
 		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"></property>
 		<property name="cookie" ref="rememberMeCookie"></property>
 	</bean>
+
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher"
+	class="com.hzit.hzitshop.shiro.RetryLimitCredentialMatcher">
+	<constructor-arg ref="cacheManager"/>
+	<!--hashAlgorithName  是必须的，没有默认值，可以是MD5或者sha-1,如果对密码安全有更高的要求可以使用SHA-256或者更高-->
+	<property name="hashAlgorithmName" value="md5" />
+	<!--默认为true，此时密码加密用的是Hex编码 ;fale 时使用Base64编码-->
+	<property name="storedCredentialsHexEncoded" value="true"/>
+	</bean>
 	<!--域的配置-->
-	<bean id="userRealm" class="com.hzit.hzitshop.shiro.UserRealm"></bean>
+	<bean id="userRealm" class="com.hzit.hzitshop.shiro.UserRealm">
+		<!--配置登录凭证 登录失败3次锁定15分钟-->
+		<property name="credentialsMatcher" ref="credentialsMatcher"/>
+		<property name="cachingEnabled" value="true"/>
+	</bean>
 	<!--session 管理器-->
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<!--全局会话时间-->
@@ -53,8 +70,8 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!--自定义域-->
 		<property name="realm" ref="userRealm"></property>
-		<!--<property name="cacheManager" ref="cacheManager"/>-->
 		<property name="sessionManager" ref="sessionManager"></property>
+		<property name="cacheManager" ref="cacheManager"/>
 		<!--RememberMe 管理器-->
 		<property name="rememberMeManager" ref="rememberMeManager"></property>
 	</bean>
@@ -68,12 +85,7 @@
 		<property name="loginUrl" value="/login.action"/>
 		<property name="successUrl" value="/index.action"/>
 	</bean>
-	<!--SSL(安全套接层) 过滤器-->
-	<!--<bean id="sslFilter" class="org.apache.shiro.web.filter.authz.SslFilter">-->
-		<!--https 的默认端口是443-->
-		<!--担心端口被占用了，因此使用8443端口-->
-		<!--<property name="port" value="8443"/>-->
-	<!--</bean>-->
+
 	<!-- Shiro 的 Web 过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager"/>
@@ -83,7 +95,6 @@
 			<util:map>
 				<entry key="authc" value-ref="formAuthenticationFilter"/>
 				<!--ssl 过滤器-->
-				<!--<entry key="ssl" value-ref="sslFilter"/>-->
 			</util:map>
 		</property>
 		<property name="filterChainDefinitions">
@@ -100,13 +111,5 @@
 			</value>
 		</property>
 	</bean>
-	<!--开启shiro权限注解-->
-	<!--<aop:config proxy-target-class="true"></aop:config>-->
-
-	<!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>-->
-	<!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
-		<!--<property name="securityManager" ref="securityManager"></property>-->
-	<!--</bean>-->
-	<!-- 开启shiro的注解支持 -->
 
 </beans>
