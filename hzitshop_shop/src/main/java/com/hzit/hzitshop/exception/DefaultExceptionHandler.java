@@ -24,5 +24,4 @@ public class DefaultExceptionHandler {
         mv.setViewName("403");
         return mv;
     }
-
 }

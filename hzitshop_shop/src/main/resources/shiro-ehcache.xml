@@ -20,17 +20,17 @@
            timeToIdleSeconds="900" timeToLiveSeconds="0" overflowToDisk="false"
            statistics="true">
     </cache>
-
+    <!--授权缓存-->
     <cache name="authorizationCache" eternal="false"
            timeToIdleSeconds="180000" timeToLiveSeconds="0" overflowToDisk="false"
            statistics="true">
     </cache>
-
+    <!--身份和凭证缓存-->
     <cache name="authenticationCache" eternal="false"
            timeToIdleSeconds="180000" timeToLiveSeconds="0" overflowToDisk="false"
            statistics="true">
     </cache>
-
+     <!--session缓存-->
     <cache name="shiro-activeSessionCache" eternal="false"
            timeToIdleSeconds="180000" timeToLiveSeconds="0" overflowToDisk="false"
            statistics="true">

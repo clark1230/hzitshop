@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: GIGABYTE
-  Date: 2017/9/16
-  Time: 23:41
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -14,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>后台首页</title>
+    <title>工作台</title>
     <meta name="keywords" content="" />
     <meta name="description" content="LarryCMS Version:1.09" />
     <meta name="Author" content="larry" />
@@ -68,8 +61,8 @@
             <section class="panel pos-r larry-ico-rotate">
                 <div class="inline-block layui-bg-blue larry-ico"><i class="larry-icon">&#xe795;</i></div>
                 <div class="inline-block right-value">
-                    <a data-href="subgroup/larrytab.html">
-                        <h3 class="no-count">larryTab组件</h3>
+                    <a data-href="/changePwd.action">
+                        <h3 class="no-count">修改密码</h3>
                     </a>
                 </div>
             </section>
@@ -112,7 +105,7 @@
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 layui-col-lg12">
             <blockquote class="layui-elem-quote tips-con">
                 <p>
-                    LarryMS后台系统界面模版完全基于Layui编写，<span class="tip">限于本人精力和经验有限，此模版中所展现出的仅是layui的冰山一角，同时感谢大家的关注和支持，希望喜欢此套模版的朋友帮忙多给予建议，互相学习交流！</span>
+                   系统公告..........................................................
                 </p>
 
             </blockquote>

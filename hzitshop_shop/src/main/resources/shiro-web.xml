@@ -63,9 +63,11 @@
 		<!--在路径后面重写sessionid-->
 		<property name="sessionIdUrlRewritingEnabled" value="true"></property>
 		<!--删除无效的session-->
-		<property name="deleteInvalidSessions" value="true"></property>
+		<!--<property name="deleteInvalidSessions" value="true"></property>-->
 		<property name="sessionIdCookie" ref="sessionCookie"></property>
+		<property name="sessionDAO" ref="sessionDAO" />
 	</bean>
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO" ></bean>
 	<!--安全管理器-->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!--自定义域-->

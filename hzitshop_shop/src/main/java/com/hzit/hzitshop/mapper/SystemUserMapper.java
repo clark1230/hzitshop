@@ -7,13 +7,32 @@ import org.apache.ibatis.annotations.Param;
 import com.hzit.hzitshop.entity.SystemUser;
 
 public interface SystemUserMapper {
-
+	/**
+	 * 添加用户数据
+	 * @param tbSystemUser
+	 * @return
+	 */
 	int insertTbSystemUser(SystemUser tbSystemUser);
 
+	/**
+	 * 根据id删除数据
+	 * @param userId
+	 * @return
+	 */
 	int deleteTbSystemUserByUserId(Integer userId);
 
+	/**
+	 * 根据用户编号更新数据
+	 * @param tbSystemUser
+	 * @return
+	 */
 	int updateTbSystemUser(SystemUser tbSystemUser);
 
+	/**
+	 * 数据分页
+	 * @param map
+	 * @return
+	 */
 	List<SystemUser> searchTbSystemUserByParams(@Param("map") Map<String, Object> map);
 
 	/**
@@ -48,4 +67,11 @@ public interface SystemUserMapper {
 	 * @return
 	 */
 	SystemUser login(@Param("map")Map<String,Object> map);
+
+	/**
+	 * 根据参数查询数据
+	 * @param map
+	 * @return
+	 */
+	List<SystemUser> selectByParams(@Param("map")Map<String,Object> map);
 } 

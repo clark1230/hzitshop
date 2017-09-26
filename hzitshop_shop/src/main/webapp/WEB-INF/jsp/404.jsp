@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>没有权限!</title>
+    <title>页面找不到!</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="Author" content="larry" />
@@ -68,8 +68,8 @@
 <div class="larry-grid larry-wrapper">
     <div class="larry-box clearfix ">
         <div class="inline-block left animated fadeInLeft">
-            <h1>  403!</h1>
-            <h2>我勒个去，没有权限访问该页面了!</h2>
+            <h1>  404!</h1>
+            <h2>我勒个去，页面被外星人劫持了!</h2>
         </div>
         <div class="inline-block right animated LarryRight">
             <a href="#" data-ke-src="#" data-ke-onclick="go();"><img src="${path}/common/images/404.gif" alt=""></a>

@@ -56,10 +56,6 @@ $(function(){
             limit: 20, //默认采用60
             cols: [
                 [{
-                    checkbox: true,
-                    width: 60,
-                    fixed: true
-                },{
                     field: 'name',
                     // edit:true,  //单元格编辑
                     width: 120,
@@ -69,11 +65,6 @@ $(function(){
                     // edit:true,  //单元格编辑
                     width: 120,
                     title: '组织代码'
-                },{
-                    field: 'orgParentId',
-                    // edit:true,  //单元格编辑
-                    width: 120,
-                    title: '父级'
                 },{
                     field:'type',
                     title:'组织类型',
@@ -85,7 +76,7 @@ $(function(){
                 },{
                     field:'createBy',
                     title:"录入人",
-                    width:80
+                    width:120
                 },{
                     field:'createTime',
                     title:'录入时间',
@@ -93,7 +84,7 @@ $(function(){
                 },{
                     field:'updateBy',
                     title:'修改人',
-                    width:80
+                    width:120
                 },{
                     field:'updateTime',
                     title:'修改时间',

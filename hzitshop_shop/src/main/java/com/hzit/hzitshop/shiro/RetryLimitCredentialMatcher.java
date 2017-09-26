@@ -10,7 +10,7 @@ import org.apache.shiro.cache.CacheManager;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 限制重试验证匹配器
+ * 限制重试次数的验证匹配器
  */
 public class RetryLimitCredentialMatcher extends HashedCredentialsMatcher {
     //集群中可能会导致出现验证多过3次的现象，因为AtomicInteger只能保证单节点并发

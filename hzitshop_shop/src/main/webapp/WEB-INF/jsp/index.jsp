@@ -75,7 +75,7 @@
             <!-- 管理员信息      -->
             <div class="user-info">
                 <div class="photo">
-                    <img src="${path}/assets/images/java.jpg" alt="">
+                    <img src="${path}/assets/images/user.png" alt="">
                 </div>
                 <p>${username}您好！欢迎登录</p>
             </div>
@@ -96,7 +96,7 @@
             </div>
             <ul class="layui-tab-title larrycms-tab-title" lay-allowclose="true" id="larry_tab_title" lay-filter="subadd">
                 <li class="layui-this" id="admin-home" lay-id="0" fresh="1">
-                    <i class="larry-icon">&#xe697;</i><em>后台首页</em>
+                    <i class="larry-icon">&#xe697;</i><em>工作台</em>
                 </li>
             </ul>
             <div class="title-right" id="titleRbox">

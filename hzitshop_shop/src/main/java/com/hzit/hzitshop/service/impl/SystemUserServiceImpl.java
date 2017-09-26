@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -51,6 +52,16 @@ public class SystemUserServiceImpl  implements SystemUserService {
     @Override
     public SystemUser login(Map<String, Object> map) {
         return userMapper.login(map);
+    }
+
+    /**
+     * 根据参数查询数据
+     * @param map
+     * @return
+     */
+    @Override
+    public List<SystemUser> selectByParams(Map<String, Object> map) {
+        return this.userMapper.selectByParams(map);
     }
 
     @Override

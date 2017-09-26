@@ -105,6 +105,16 @@
     <select id="getTotal" resultType="int" parameterType="map">
         select count(*) from tb_org
     </select>
+
+   <!--
+        SELECT *
+    FROM
+     tb_org org1,
+     tb_org org2
+
+     WHERE
+     org2.`org_parent_id` = org1.`org_id`
+   -->
     
     <resultMap type="com.hzit.hzitshop.entity.Org" id="tbOrgMap">
         <id column="org_id" property="orgId"/>

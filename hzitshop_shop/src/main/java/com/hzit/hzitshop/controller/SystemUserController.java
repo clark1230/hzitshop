@@ -6,7 +6,10 @@ import com.hzit.hzitshop.entity.SystemUser;
 import com.hzit.hzitshop.service.OrgService;
 import com.hzit.hzitshop.service.SystemUserService;
 import com.hzit.hzitshop.util.StatusCode;
+import com.hzit.hzitshop.util.StatusCodeUtil;
 import com.hzit.hzitshop.util.SubjectUtil;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class SystemUserController {
@@ -25,6 +25,8 @@ public class SystemUserController {
     private SystemUserService userService;
     @Autowired
     private OrgService orgService;
+    @Autowired
+    private SessionDAO sessionDAO;
 
     /**
      * 跳转到系统用户主页
@@ -54,15 +56,9 @@ public class SystemUserController {
         Map<String,Object> map = new HashMap<>();
         map.put("type","公司");
         List<Org> orgCompany = orgService.findByType(map);
-//        map.clear();;
-//        map.put("type","部门");
-//        List<Org> orgDept = orgService.findByType(map);
-//        map.clear();;
-//        map.put("type","岗位");
-//        List<Org> orgJob = orgService.findByType(map);
+
         model.addAttribute("orgCompany",orgCompany);
-//        model.addAttribute("orgDept",orgDept);
-//        model.addAttribute("orgJob",orgJob);
+
         return "systemUser/addSystemUser";
     }
 
@@ -78,7 +74,7 @@ public class SystemUserController {
         systemUser.setCreateBy(SubjectUtil.getUser());
         systemUser.setCreateTime(new Date());
         int result = userService.insert(systemUser);
-        return  this.check(result);
+        return StatusCodeUtil.check(result);
     }
 
     /**
@@ -105,20 +101,10 @@ public class SystemUserController {
         systemUser.setUpdateTime(new Date());
         systemUser.setUpdateBy(SubjectUtil.getUser());
         int result = userService.update(systemUser);
-        return this.check(result);
+        return StatusCodeUtil.check(result);
     }
 
-    public StatusCode check(int result){
-        StatusCode sc = new StatusCode();
-        if(result > 0){
-            sc.setCode(200);
-            sc.setMsg("保存成功!");
-        }else{
-            sc.setCode(500);
-            sc.setMsg("保存失败!");
-        }
-        return sc;
-    }
+    
 
     /**
      * 禁用与启用用户
@@ -133,7 +119,7 @@ public class SystemUserController {
         map.put("userId", userId);
         map.put("isLock", isLock);
         int result = userService.lockUser(map);
-        return this.check(result);
+        return StatusCodeUtil.check(result);
 
     }
 
@@ -146,6 +132,45 @@ public class SystemUserController {
     @ResponseBody
     public StatusCode deleteSystemUser(String[] userId){
         int result = userService.deleteByIds(userId);
-        return this.check(result);
+        return StatusCodeUtil.check(result);
+    }
+
+    /**
+     * 获取在线用户信息
+     * @return
+     */
+    @RequestMapping(value = {"onlineUser"})
+    @ResponseBody
+    public String onlineUser(){
+        Collection<Session> sessions = sessionDAO.getActiveSessions();
+        for(Session session : sessions){
+            System.out.println(session.getHost());
+            System.out.println(session.getTimeout());
+            System.out.println(session.getLastAccessTime());   //上次访问时间
+            System.out.println(session.getAttribute("org.apache.shiro.subject.support.DefaultSubjectContext_PRINCIPALS_SESSION_KEY"));
+        }
+        return "哈哈";
+    }
+
+    /**
+     * 展示个人信息
+     * @return
+     */
+    @RequestMapping(value={"/showUser"},method = RequestMethod.GET)
+    public String showUser(Model model){
+        Map<String,Object> map = new HashMap<>();
+        map.put("userName",SubjectUtil.getUser());
+        List<SystemUser> systemUsers = userService.selectByParams(map);
+        model.addAttribute("systemUser",systemUsers.get(0));
+        return "systemUser/showUser";
+    }
+
+    /**
+     * 修改密码
+     * @return
+     */
+    @RequestMapping(value={"/changePwd"},method = RequestMethod.GET)
+    public String changePwd(){
+        return "systemUser/changePwd";
     }
 }

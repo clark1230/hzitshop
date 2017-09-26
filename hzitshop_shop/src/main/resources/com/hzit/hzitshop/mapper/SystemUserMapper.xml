@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hzit.hzitshop.mapper.SystemUserMapper">
-
     <sql id="tbSystemUserBaseColumnSql">
         user_id,
         user_name,
@@ -17,7 +16,6 @@
         update_time,
         update_by
     </sql>
-
     <sql id="tbSystemUserBaseWhereSql">
         <if test="map!=null">
             <where>
@@ -69,7 +67,7 @@
             </where>
         </if>
     </sql>
-
+    <!--添加用户数据-->
     <insert id="insertTbSystemUser" parameterType="com.hzit.hzitshop.entity.SystemUser">
         INSERT INTO tb_system_user(
         user_id,
@@ -119,10 +117,11 @@
         ,password
         from tb_system_user where user_name=#{map.username}
     </select>
+    <!--根据id删除用户数据-->
     <delete id="deleteTbSystemUserByUserId" parameterType="Integer">
         DELETE FROM tb_system_user WHERE user_id = #{userId}
     </delete>
-
+    <!--修改用户数据-->
     <update id="updateTbSystemUser" parameterType="com.hzit.hzitshop.entity.SystemUser">
         UPDATE tb_system_user
         <set>
@@ -147,6 +146,7 @@
         UPDATE  tb_system_user
         set is_lock = #{map.isLock} where user_id=#{map.userId}
     </update>
+    <!---查询用户数据-->
     <select id="searchTbSystemUserByParams" parameterType="map" resultMap="tbSystemUserMap">
         SELECT
         <include refid="tbSystemUserBaseColumnSql"/>
@@ -165,12 +165,17 @@
         ,LEFT(job_id,LOCATE('_',dept)-1) AS dept
         ,LEFT(job_id,LOCATE('_',job_id)-1) AS job_id
         from tb_system_user
-
         <where>
             user_id = #{userId}
         </where>
     </select>
-
+    <!--根据参数查询用户数据-->
+    <select id="selectByParams"  resultMap="tbSystemUserMap" parameterType="map">
+        SELECT  
+        <include refid="tbSystemUserBaseColumnSql"/>
+        from tb_system_user
+        <include refid="tbSystemUserBaseWhereSql"/>
+    </select>
     <!--批量删除数据-->
     <delete id="deleteByIds" parameterType="java.lang.String">
         DELETE from tb_system_user

@@ -62,6 +62,12 @@
         <filter-name>shiroFilter</filter-name>
         <url-pattern>*.action</url-pattern>
     </filter-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/404.jsp</location>
+    </error-page>
+    
     <!--加强https访问-->
     <!--<login-config>-->
         <!--<auth-method>CLIENT-CERT</auth-method>-->

@@ -80,6 +80,7 @@ public class OrgController {
     public StatusCode addOrg(Org org){
         org.setCreateTime(new Date());
         org.setCreateBy(SubjectUtil.getUser());
+        org.setCreateBy(SubjectUtil.getUser());
         //保存组织信息
         int result = orgService.insert(org);
         return StatusCodeUtil.check(result);
@@ -107,6 +108,7 @@ public class OrgController {
     @ResponseBody
     public StatusCode editOrg(Org org){
         org.setUpdateTime(new Date());
+        org.setUpdateBy(SubjectUtil.getUser());
         org.setUpdateBy(SubjectUtil.getUser());
         int result = orgService.update(org);
         return StatusCodeUtil.check(result);

@@ -8,7 +8,7 @@
 	"children": [{
 		"id": "2",
 		"pid": "0",
-		"title": "后台首页",
+		"title": "工作台",
 		"icon": "&#xe697;",
 		"url": "/main.action",
 		"spread": false
@@ -24,14 +24,14 @@
 			"pid": "0",
 			"title": "个人信息",
 			"icon": "&#xe680;",
-			"url": "html/panel/personal.html",
+			"url": "/showUser.action",
 			"spread": false
 		}, {
 			"id": "5",
 			"pid": "0",
 			"title": "修改密码",
 			"icon": "&#xe7f3;",
-			"url": "html/panel/password.html",
+			"url": "/changePwd.action",
 			"spread": false
 		}]
 	}, {
@@ -40,7 +40,7 @@
 		"title": "系统设置",
 		"icon": "&#xe8bd;",
 		"url": "",
-		"spread": false,
+		"spread": true,
 		"children": [{
 			"id": "7",
 			"pid": "0",
@@ -72,7 +72,7 @@
 		}, {
 			"id": "10",
 			"pid": "0",
-			"title": "系统参数配置",
+			"title": "在线用户",
 			"icon": "&#xe6af;",
 			"url": "temp.html",
 			"spread": false
@@ -95,7 +95,7 @@
 }, {
 	"id": "1",
 	"pid": "0",
-	"title": "内容管理",
+	"title": "咨询管理",
 	"icon": "&#xe63d;",
 	"url": "",
 	"spread": false,
