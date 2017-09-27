@@ -2,6 +2,7 @@ package com.hzit.hzitshop.service;
 
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.SystemUser;
+import com.hzit.hzitshop.vo.SystemUserVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface SystemUserService extends BaseService<SystemUser>{
      * @param limit
      * @return
      */
-    LayuiData<SystemUser> selectPage(int page,int limit);
+    LayuiData<SystemUserVo> selectPage(int page, int limit);
 
     /**
      * 禁用与启用用户

@@ -52,6 +52,7 @@
                         <input type="text" name="search" value="" id="search_input" placeholder="请输入搜索内容!" class="layui-input">
                     </div>
                     <a class="layui-btn search_btn layui-btn-normal" data-type="getSelect"><i class="layui-icon">&#xe615;</i>查询</a>
+                    <button class="layui-btn layui-btn-danger"  data-type="colvis">显示/隐藏列</button>
                 </div>
             <%--</div>--%>
 

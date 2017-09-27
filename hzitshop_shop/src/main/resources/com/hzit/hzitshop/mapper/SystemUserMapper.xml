@@ -150,9 +150,9 @@
     <select id="searchTbSystemUserByParams" parameterType="map" resultMap="tbSystemUserMap">
         SELECT
         <include refid="tbSystemUserBaseColumnSql"/>
-        ,LEFT(job_id,LOCATE('_',company)-1) AS company
-        ,LEFT(job_id,LOCATE('_',dept)-1) AS dept
-        ,LEFT(job_id,LOCATE('_',job_id)-1) AS job_id
+        ,company
+        ,dept
+        ,job_id
         FROM tb_system_user
         <include refid="tbSystemUserBaseWhereSql"/>
         limit #{map.offset},#{map.limit}
@@ -161,9 +161,9 @@
     <select id="selectOne" parameterType="int" resultMap="tbSystemUserMap">
         select 
         <include refid="tbSystemUserBaseColumnSql"></include>
-        ,LEFT(job_id,LOCATE('_',company)-1) AS company
-        ,LEFT(job_id,LOCATE('_',dept)-1) AS dept
-        ,LEFT(job_id,LOCATE('_',job_id)-1) AS job_id
+        ,company
+        ,dept
+        ,job_id
         from tb_system_user
         <where>
             user_id = #{userId}

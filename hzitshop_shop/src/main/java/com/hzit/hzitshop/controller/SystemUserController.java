@@ -8,6 +8,7 @@ import com.hzit.hzitshop.service.SystemUserService;
 import com.hzit.hzitshop.util.StatusCode;
 import com.hzit.hzitshop.util.StatusCodeUtil;
 import com.hzit.hzitshop.util.SubjectUtil;
+import com.hzit.hzitshop.vo.SystemUserVo;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public class SystemUserController {
      */
     @RequestMapping(value = {"systemUserAjax"})
     @ResponseBody
-    public LayuiData<SystemUser> systemUserAjajx(int page,int limit){
-        LayuiData<SystemUser> layuiData = userService.selectPage(page,limit);
+    public LayuiData<SystemUserVo> systemUserAjajx(int page, int limit){
+        LayuiData<SystemUserVo> layuiData = userService.selectPage(page,limit);
         return layuiData;
     }
 
@@ -85,6 +86,18 @@ public class SystemUserController {
     public String editSystemUser(int userId, Model model){
         SystemUser systemUser = userService.selectOne(userId);
         model.addAttribute("systemUser",systemUser);
+        //获取公司，部门，岗位信息
+        Map<String,Object> map = new HashMap<>();
+        map.put("type","公司");
+        List<Org> orgCompany = orgService.findByType(map);
+        model.addAttribute("orgCompany",orgCompany);
+
+        map.clear();
+        map.put("type","部门");
+        model.addAttribute("orgDept",orgService.findByType(map));
+        map.clear();
+        map.put("type","岗位");
+        model.addAttribute("orgJob",orgService.findByType(map));
         //获取要修改的用户信息
         return "systemUser/editSystemUser";
     }

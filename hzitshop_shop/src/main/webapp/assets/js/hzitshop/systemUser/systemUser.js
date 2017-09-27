@@ -107,19 +107,24 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                 //启用
                 isLock =1;
                 msg = '启用成功!';
+                //刷新当表格数据
+                setTimeout(function(){
+                    reload();
+                },1500);
             }else{
                 //禁用
                 isLock =0;
                 msg = '禁用成功!';
+                setTimeout(function(){
+                    reload();
+                },1500);
             }
             var reqData = 'userId='+data.userId +"&isLock="+isLock;
             //异步修改数据
             $.post('/lockUser.action',reqData,function(resp){
                if(resp.code === 200){
                     layer.msg(msg,{icon:1});
-
                     //修改按钮的文本
-
                }else{
                     layer.msg('操作失败!',{icon:2});
                }
@@ -139,7 +144,9 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             });
         }
     });
-
+    function reload(){
+        tableIns.reload();
+    }
     $('#larry_group .layui-btn').on('click',function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
@@ -177,12 +184,18 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                     $.get('/deleteSystemUser.action?userId='+userIdArr,function(resp){
                         if(resp.code === 200){
                             layer.msg('删除成功!',{icon:1});
+                            //刷新当表格数据
+                            setTimeout(function(){
+                                reload();
+                            },1500);
                         }else{
                             layer.msg('删除失败!',{icon:2})
                         }
                     });
                 });
             }
+        },colvis:function(){//显示/隐藏列
+
         }
     };
 });

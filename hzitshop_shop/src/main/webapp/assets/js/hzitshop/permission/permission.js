@@ -144,15 +144,16 @@ $(function(){
                     layer.msg('所选节点不能大于1个,请选择一个具体的节点!',{icon:3});
                 }else{
                     //获取父级组织编号和名称
-                    var orgId = checkNodes[0].orgId;
-                    var param = '?orgId='+orgId;
+                    var id = checkNodes[0].id;
+                    var pid = '?pid='+checkNodes[0].pid;
+                    var param = pid+'&id='+id;
                     layer.open({
                         type: 2,
                         title: '编辑权限信息',
                         shadeClose: true,
                         shade: false,
                         maxmin: true,
-                        area: ['500px', '500px'],
+                        area: ['100%', '100%'],
                         content: '/editPermission.action'+param //iframe的url
                     });
                 }

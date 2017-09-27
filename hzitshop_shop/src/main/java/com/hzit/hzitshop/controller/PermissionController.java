@@ -8,6 +8,7 @@ import com.hzit.hzitshop.util.StatusCode;
 import com.hzit.hzitshop.util.StatusCodeUtil;
 import com.hzit.hzitshop.util.SubjectUtil;
 import com.hzit.hzitshop.vo.PermissionVo;
+import com.sun.deploy.nativesandbox.comm.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,4 +87,21 @@ public class PermissionController {
         return  "permission/icon";
     }
 
+    /**
+     * 跳转到编辑页面
+     * @param permissionId
+     * @param parentId
+     * @return
+     */
+    @RequestMapping(value={"editPermission"},method = RequestMethod.GET)
+    public String editPermission(String permissionId,String parentId,Model model){
+            return "permission/editPermission";
+    }
+
+    @RequestMapping(value={"editPermission"},method=RequestMethod.POST)
+    @ResponseBody
+    public StatusCode editPermission(Permission permission){
+        int result = permissionService.update(permission);
+        return StatusCodeUtil.check(result);
+    }
 }

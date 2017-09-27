@@ -48,6 +48,7 @@ public class UserRealm extends AuthorizingRealm {
         Map<String,Object> map = new HashMap<>();
         map.put("username",username);
         map.put("password",password);
+
         SystemUser user = userService.login(map);
         System.out.println("user"+user);
 

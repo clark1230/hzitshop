@@ -86,39 +86,33 @@
         <div class="layui-form-item">
             <label class="layui-form-label">公司:</label>
             <div class="layui-input-block">
-                <select name="company" >
+                <select name="company" lay-filter="company">
                     <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
+                    <c:forEach items="${orgCompany}" var="com">
+                        <option value="${com.orgId}" <c:if test="${com.orgId == systemUser.company}">selected</c:if>>${com.name}</option>
+                    </c:forEach>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">部门:</label>
             <div class="layui-input-block">
-                <select name="dept" >
+                <select name="dept" id="dept" lay-filter="dept">
                     <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
+                    <c:forEach items="${orgDept}" var="dept">
+                        <option value="${dept.orgId}" <c:if test="${dept.orgId == systemUser.dept}">selected</c:if>>${dept.name}</option>
+                    </c:forEach>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">岗位:</label>
             <div class="layui-input-block">
-                <select name="jobId" >
+                <select name="jobId" id="job" lay-filter="job">
                     <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
+                    <c:forEach items="${orgJob}" var="job">
+                        <option value="${job.orgId}" <c:if test="${job.orgId == systemUser.jobId}">selected</c:if>>${job.name}</option>
+                    </c:forEach>
                 </select>
             </div>
         </div>
@@ -149,6 +143,40 @@
         layui.use('form', function(){
             var form = layui.form;
             //监听提交
+            //监听下拉列表事件
+            form.on('select(company)',function(data){
+                //截取数据
+                var orgParentId = data.value;
+                //异步获取部门信息
+                getOrg(orgParentId,$('#dept'));
+                $('#job').find('option:gt(0)').remove();
+            });
+            form.on('select(dept)', function(data){
+                var  value= data.value;
+                if(value ==''){
+                    layer.msg('请先选择公司!',{icon:3});
+                }else{
+                    var orgParentId = value;
+                    getOrg(orgParentId,$('#job'))
+                }
+            });
+            form.on('select(job)',function(data){
+                if(data.value ==''){
+                    layer.msg('请先选择部门!',{icon:3});
+                }
+            });
+            function getOrg(orgId,selctor){
+
+                $.get('/orgTypeAjax.action?orgParentId='+orgId,function(resp){
+                    //拼接标签
+                    selctor.find('option:gt(0)').remove();//删除生成的标签
+                    for(var i=0;i<resp.length;i++){
+                        var $option = $('<option value="'+resp[i].orgId+'">'+resp[i].name+'</option>');
+                        selctor.append($option);
+                    }
+                    form.render(); //重新渲染
+                });
+            }
             form.on('submit(edit)', function(data){
                 //layer.msg(JSON.stringify(data.field));
                 $.ajax({

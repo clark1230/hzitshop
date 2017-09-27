@@ -1,13 +1,18 @@
 package com.hzit.hzitshop.service.impl;
 
 import com.hzit.hzitshop.entity.LayuiData;
+import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.entity.SystemUser;
+import com.hzit.hzitshop.mapper.OrgMapper;
 import com.hzit.hzitshop.mapper.SystemUserMapper;
 import com.hzit.hzitshop.service.SystemUserService;
+import com.hzit.hzitshop.vo.SystemUserVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,16 +21,34 @@ import java.util.Map;
 public class SystemUserServiceImpl  implements SystemUserService {
     @Autowired
     private SystemUserMapper userMapper;
+    @Autowired
+    private OrgMapper orgMapper;
     @Override
-    public LayuiData<SystemUser> selectPage(int page,int limit) {
-        LayuiData<SystemUser> layuiData = new LayuiData<>();
+    public LayuiData<SystemUserVo> selectPage(int page,int limit) {
+        LayuiData<SystemUserVo> layuiData = new LayuiData<>();
         layuiData.setCode(0);
         layuiData.setCount(userMapper.getTotal());
         layuiData.setMsg("系统用户列表");
         Map<String,Object> map = new HashMap<>();
         map.put("offset",(page-1)*limit);
         map.put("limit",limit);
-        layuiData.setData(userMapper.searchTbSystemUserByParams(map));
+
+
+        List<SystemUserVo> systemUserVos = new ArrayList<>();
+        SystemUserVo systemUserVo = null;
+        for(SystemUser systemUser : userMapper.searchTbSystemUserByParams(map)){
+            systemUserVo = new SystemUserVo();
+            //根据id查询公司,部门岗位信息
+            BeanUtils.copyProperties(systemUser,systemUserVo);
+            Org org = orgMapper.selectOne(Integer.parseInt(systemUser.getCompany()));
+            systemUserVo.setCompany(org.getName());
+            org =orgMapper.selectOne(Integer.parseInt(systemUser.getDept()));
+            systemUserVo.setDept(org.getName());
+            org = orgMapper.selectOne(Integer.parseInt(systemUser.getJobId()));
+            systemUserVo.setJobId(org.getName());
+            systemUserVos.add(systemUserVo);
+        }
+        layuiData.setData(systemUserVos);
         return layuiData;
     }
 

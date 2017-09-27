@@ -87,7 +87,7 @@
                 <select name="company" lay-filter="company">
                     <option value=""></option>
                     <c:forEach items="${orgCompany}" var="org">
-                        <option value="${org.name}_${org.orgId}">${org.name}</option>
+                        <option value="${org.orgId}">${org.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -134,11 +134,10 @@
 
         layui.use('form', function(){
             var form = layui.form;
-            
             //监听下拉列表事件
             form.on('select(company)',function(data){
                 //截取数据
-                var orgParentId = data.value.substring(data.value.indexOf("_")+1);
+                var orgParentId = data.value;
                 //异步获取部门信息
                 getOrg(orgParentId,$('#dept'));
             });
@@ -147,7 +146,7 @@
                 if(value ==''){
                     layer.msg('请先选择公司!',{icon:3});
                 }else{
-                    var orgParentId = value.substring(value.indexOf("_")+1);
+                    var orgParentId = value;
                     getOrg(orgParentId,$('#job'))
                 }
             });
@@ -164,7 +163,7 @@
                     //拼接标签
                     selctor.find('option:gt(0)').remove();//删除生成的标签
                     for(var i=0;i<resp.length;i++){
-                        var $option = $('<option value="'+resp[i].name+'_'+resp[i].orgId+'">'+resp[i].name+'</option>');
+                        var $option = $('<option value="'+resp[i].orgId+'">'+resp[i].name+'</option>');
                         selctor.append($option);
                     }
                     form.render(); //重新渲染
