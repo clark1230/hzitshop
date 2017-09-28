@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>合众艾特系统登陆</title>
+    <title>合众艾特营销系统登陆</title>
     <link rel="stylesheet" href="${path}/assets/login/css/font-awesome.min.css">
     <link rel="stylesheet" href="${path}/assets/login/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${path}/assets/login/css/htmleaf-demo.css">
@@ -156,7 +156,7 @@
 <body>
 <div class="htmleaf-container">
     <header class="htmleaf-header">
-        <h1>合众艾特系统登陆!</h1>
+        <h1>合众艾特营销系统登陆!</h1>
         <h3>学IT选合众!</h3>
     </header>
     <div class="demo form-bg" style="padding: 20px 0;">
@@ -202,6 +202,7 @@
         });
 
         $('#loginFrom').validate({
+            //表单验证规则
             rules:{
                 username:{
                     required:true
@@ -210,6 +211,7 @@
                     required:true
                 }
             },
+            //表单验证消息
             messages:{
                 username:'请输入用户名!',
                 password:'请输入密码!'

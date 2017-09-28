@@ -68,8 +68,11 @@
 		<property name="sessionValidationSchedulerEnabled" value="true"/>
 		<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
 		<property name="sessionDAO" ref="sessionDAO" />
-	</bean>
 
+		<!--配置会话监听器-->
+		<property name="sessionListeners" ref="sessionListener"></property>
+	</bean>
+	<bean id="sessionListener" class="com.hzit.hzitshop.shiro.SessioonListener"></bean>
 	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
 		<property name="interval" value="180000"/>
 		<property name="sessionManager" ref="sessionManager"/>
@@ -79,7 +82,9 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!--自定义域-->
 		<property name="realm" ref="userRealm"></property>
+		<!--session 管理器-->
 		<property name="sessionManager" ref="sessionManager"></property>
+		<!--缓存管理器-->
 		<property name="cacheManager" ref="cacheManager"/>
 		<!--RememberMe 管理器-->
 		<property name="rememberMeManager" ref="rememberMeManager"></property>
@@ -88,17 +93,25 @@
 	<!-- 基于 Form 表单的身份验证过滤器 -->
 	<bean id="formAuthenticationFilter"
 		  class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+		<!--用户名-->
 		<property name="usernameParam" value="username"/>
+		<!--密码-->
 		<property name="passwordParam" value="password"/>
+		<!--RememberMe-->
 		<property name="rememberMeParam" value="rememberMe"></property>
+		<!--登陆地址-->
 		<property name="loginUrl" value="/login.action"/>
+		<!--登陆成功，所跳转的地址-->
 		<property name="successUrl" value="/index.action"/>
 	</bean>
 
 	<!-- Shiro 的 Web 过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!--安全管理器-->
 		<property name="securityManager" ref="securityManager"/>
+		<!--登陆地址-->
 		<property name="loginUrl" value="/login.action"/>
+		<!--未授权地址-->
 		<property name="unauthorizedUrl" value="/unauthorized.action"/>
 		<property name="filters">
 			<util:map>
@@ -106,6 +119,7 @@
 				<!--ssl 过滤器-->
 			</util:map>
 		</property>
+		<!--配置过滤器链-->
 		<property name="filterChainDefinitions">
 			<value>
 				/unauthorized.action =anon

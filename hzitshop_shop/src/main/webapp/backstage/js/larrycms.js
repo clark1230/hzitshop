@@ -206,17 +206,20 @@ layui.use(['jquery','larryElem','layer','common','form','larryMenu','larryTab'],
 		    		}
 		    	});
 		    }
-		},{
-			text: "重载主框架",
-			func: function() {
-				document.location.reload();
-			}
-		},{
-			text: "设置系统主题",
-		    func: function() {
-			    $("#larryTheme").trigger("click");
-		    }
-		},{
+		}
+		// ,{
+		// 	text: "重载主框架",
+		// 	func: function() {
+		// 		document.location.reload();
+		// 	}
+		// }
+		//,{
+		// 	text: "设置系统主题",
+		//     func: function() {
+		// 	    $("#larryTheme").trigger("click");
+		//     }
+		// }
+		,{
             text: "关闭当前选项卡",
             func: function() {
                 $("#tabCtrA").trigger("click");
