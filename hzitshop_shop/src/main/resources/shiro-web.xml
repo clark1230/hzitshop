@@ -24,7 +24,6 @@
 		<!--在客户端存储session信息的cookie名称-->
 		<constructor-arg value="sid"></constructor-arg>
 		<property name="httpOnly" value="true"></property>
-
 		<property name="maxAge" value="180000"></property>
 	</bean>
 	<!--Remember Me-->
@@ -62,10 +61,18 @@
 		<property name="globalSessionTimeout" value="180000"></property>
 		<!--在路径后面重写sessionid-->
 		<property name="sessionIdUrlRewritingEnabled" value="true"></property>
+		<!--<property name="sessionValidationInterval" value="180000"/>-->
 		<!--删除无效的session-->
-		<!--<property name="deleteInvalidSessions" value="true"></property>-->
+		<property name="deleteInvalidSessions" value="true"></property>
 		<property name="sessionIdCookie" ref="sessionCookie"></property>
+		<property name="sessionValidationSchedulerEnabled" value="true"/>
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
 		<property name="sessionDAO" ref="sessionDAO" />
+	</bean>
+
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<property name="interval" value="180000"/>
+		<property name="sessionManager" ref="sessionManager"/>
 	</bean>
 	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO" ></bean>
 	<!--安全管理器-->

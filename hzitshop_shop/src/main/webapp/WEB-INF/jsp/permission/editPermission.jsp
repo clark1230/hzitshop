@@ -96,7 +96,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">图标:</label>
             <div class="layui-input-block" style="position:relative;"id="showIcon">
-                <input type="text" name="icon" id="icon" value="${permission.icon}>"
+                <input type="text" name="icon" id="icon" value="${permission.icon}"
                        lay-verify="required" placeholder="请输入图标名称!" autocomplete="off" class="layui-input">
                 <div id="myDiv" class="icon-show"><i class="larry-icon" style="font-size:35px;">${permission.icon}</i></div>
                 <div class="icon"  id="iconDiv">
@@ -754,9 +754,9 @@
         $('#icon').focus(function(){
             $('#iconDiv').show(100);
         });
-        $('#icon').mouseover(function(){
-            $('#iconDiv').show(100);
-        });
+//        $('#icon').mouseover(function(){
+//            $('#iconDiv').show(100);
+//        });
 
 
         //********************弹出图标层 end********************************

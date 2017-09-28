@@ -26,6 +26,12 @@
     <link rel="stylesheet" type="text/css" href="${path}/backstage/css/common.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/backstage/css/user.css" media="all">
     <link rel="stylesheet" type="text/css" href="${path}/assets/ztree/css/zTreeStyle/zTreeStyle.css" media="all">
+    <style>
+        .disabled{
+            background-color:lightgray;
+        }
+
+    </style>
 </head>
 <body>
 <div class="layui-fluid larry-wrapper">
@@ -40,10 +46,10 @@
                     <button class="layui-btn layui-btn-warm"  data-type="edit"><i class="layui-icon">&#xe642;</i><cite>修改</cite></button>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal"  data-type="expand"><i class="layui-icon">&#xe61a;</i><cite>展开</cite></button>
+                    <button class="layui-btn layui-btn-normal disabled" id="expand"  data-type="expand" disabled="disabled" ><i class="layui-icon" >&#xe61a;</i><cite>展开</cite></button>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal"  data-type="close"><i class="layui-icon">&#xe619;</i><cite>收缩</cite></button>
+                    <button class="layui-btn layui-btn-normal" id="close"  data-type="close"><i class="layui-icon">&#xe619;</i><cite>收缩</cite></button>
                 </div>
                 <div class="layui-input-inline" style="display: inline-block;">
                     <input type="text" name="search" value="" id="search_input" placeholder="请输入搜索内容!" class="layui-input">
@@ -70,7 +76,7 @@
 </script>
 <script type="text/html" id="spreadTpl">
     {{#  if(d.spread == 'true'){ }}
-        <span class="layui-badge layui-bg-blue">展开</span>
+        <button class="layui-badge layui-bg-blue" >展开</button>
     {{#  } else { }}
         <span class="layui-badge layui-bg-orange">收缩</span>
     {{#  } }}

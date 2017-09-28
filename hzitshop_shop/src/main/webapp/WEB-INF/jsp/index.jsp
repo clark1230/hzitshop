@@ -140,7 +140,7 @@
     <!-- 底部固定区域 -->
     <div class="layui-footer pos-a larrycms-footer" id="larry_footer">
         <div class="layui-main">
-            <p class="inline-block">©2017 <a href="#" target="_blank" class="fp">hzitxx.com</a>版权信息</p>
+            <p class="inline-block">版权信息©2017 <a href="#" target="_blank" class="fp">深圳合众艾特信息技术有限公司</a></p>
         </div>
     </div>
 </div>

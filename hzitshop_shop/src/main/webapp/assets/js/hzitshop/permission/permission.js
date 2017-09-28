@@ -1,41 +1,44 @@
 $(function(){
     var treeObj;
-    $.get('/permissionAjaxTree.action', function (result) {
-        var setting = {
-            //页面上的显示效果
-            view: {
-                dblClickExpand: false,
-                showLine: true,
-                selectedMulti: false
-            },
-            key:{
-                name: "orgName"
-            },
-            check: {
-                enable: true,
-                //勾选 checkbox 对于父子节点的关联关系
-                chkboxType: { "Y": "", "N": "" }  //Y 属性定义 checkbox 被勾选后的情况；
-                //N 属性定义 checkbox 取消勾选后的情况；
-                //"p" 表示操作会影响父级节点；
-                //"s" 表示操作会影响子级节点。
-                //请注意大小写，不要改变
-            },
-            data: {
-                simpleData: {
-                    enable: true,
-                    idKey: "id",
-                    pIdKey: "pid",
-                    rootPId: 0
-                }
-            }
-        };
+    showTree();
+   function showTree(){
+       $.get('/permissionAjaxTree.action', function (result) {
+           var setting = {
+               //页面上的显示效果
+               view: {
+                   dblClickExpand: false,
+                   showLine: true,
+                   selectedMulti: false
+               },
+               key:{
+                   name: "orgName"
+               },
+               check: {
+                   enable: true,
+                   //勾选 checkbox 对于父子节点的关联关系
+                   chkboxType: { "Y": "", "N": "" }  //Y 属性定义 checkbox 被勾选后的情况；
+                   //N 属性定义 checkbox 取消勾选后的情况；
+                   //"p" 表示操作会影响父级节点；
+                   //"s" 表示操作会影响子级节点。
+                   //请注意大小写，不要改变
+               },
+               data: {
+                   simpleData: {
+                       enable: true,
+                       idKey: "id",
+                       pIdKey: "pid",
+                       rootPId: 0
+                   }
+               }
+           };
 
-        $(function () {
-            treeObj = $.fn.zTree.init($("#tree"), setting, result);
-            //展开所有的节点
-            treeObj.expandAll(true);
-        });
-    });
+           $(function () {
+               treeObj = $.fn.zTree.init($("#tree"), setting, result);
+               //展开所有的节点
+               treeObj.expandAll(true);
+           });
+       });
+   }
 
 
     //------------------------------layui start------------------------------------------------
@@ -56,12 +59,7 @@ $(function(){
             limit: 20, //默认采用60
             cols: [
                 [{
-                    checkbox: true,
-                    width: 60,
-                    fixed: true
-                },{
                     field: 'title',
-                    // edit:true,  //单元格编辑
                     width: 120,
                     title: '权限名称'
                 },{
@@ -143,7 +141,11 @@ $(function(){
                         shade: false,
                         maxmin: true,
                         area: ['100%', '100%'],
-                        content: '/addPermission.action'+param //iframe的url
+                        content: '/addPermission.action'+param, //iframe的url
+                        end:function(){
+                            showTree();
+                            reload();
+                        }
                     });
                 }
 
@@ -166,18 +168,34 @@ $(function(){
                         shade: false,
                         maxmin: true,
                         area: ['100%', '100%'],
-                        content: '/editPermission.action'+param //iframe的url
+                        content: '/editPermission.action'+param, //iframe的url
+                        end:function(){
+                            showTree();
+                            //重新加载表格数据
+                            reload();
+                        }
                     });
                 }
             },
             expand:function(){     //展开
                 treeObj.expandAll(true);//true表示展开
+                $('#expand').attr('disabled','disabled').addClass('disabled');
+                $('#close').removeAttr("disabled").removeClass('disabled');
             },
             close:function(){
                 treeObj.expandAll(false);//收缩
+                //启用展开按钮
+                $('#expand').removeAttr("disabled").removeClass('disabled');
+                //禁用收缩按钮
+                $('#close').attr('disabled','disabled').addClass('disabled');
             }
         };
+        //表格数据重载函数
+        function reload(){
+            tableIns.reload();
+        }
     });
+
 
     //-----------------------------layui end -------------------------------------------------
 

@@ -159,9 +159,15 @@ $(function(){
             },
             expand:function(){     //展开
                 treeObj.expandAll(true);//true表示展开
+                $('#expand').attr('disabled','disabled').addClass('disabled');
+                $('#close').removeAttr("disabled").removeClass('disabled');
             },
             close:function(){
                 treeObj.expandAll(false);//收缩
+                //启用展开按钮
+                $('#expand').removeAttr("disabled").removeClass('disabled');
+                //禁用收缩按钮
+                $('#close').attr('disabled','disabled').addClass('disabled');
             }
         };
     });

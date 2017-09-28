@@ -33,6 +33,13 @@
 			"icon": "&#xe7f3;",
 			"url": "/changePwd.action",
 			"spread": false
+		},{
+			"id": "5",
+			"pid": "0",
+			"title": "系统帮助",
+			"icon": "&#xe63a;",
+			"url": "/changePwd.action",
+			"spread": false
 		}]
 	}, {
 		"id": "6",
