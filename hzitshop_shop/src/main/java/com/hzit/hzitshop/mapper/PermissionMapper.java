@@ -17,9 +17,20 @@ public interface PermissionMapper {
 
 	List<Permission> searchTbPermissionByParams(@Param("map") Map<String, Object> map);
 
+	/**
+	 * 根据id查询数据
+	 * @param id
+	 * @return
+	 */
 	Permission selectOne(int id);
 
-
+	/**
+	 * 获取总记录数
+	 * @param map
+	 * @return
+	 */
 	int getTotal(@Param("map")Map<String,Object> map);
+
+
 
 } 

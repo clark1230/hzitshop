@@ -60,20 +60,32 @@ $(function(){
                     width: 60,
                     fixed: true
                 },{
-                    field: 'name',
+                    field: 'title',
                     // edit:true,  //单元格编辑
                     width: 120,
-                    title: '组织名称'
+                    title: '权限名称'
                 },{
-                    field: 'orgCode',
+                    field: 'url',
                     // edit:true,  //单元格编辑
                     width: 120,
-                    title: '组织代码'
+                    title: '地址'
                 },{
-                    field: 'orgParentId',
+                    field: 'pid',
                     // edit:true,  //单元格编辑
                     width: 120,
                     title: '父级'
+                },{
+                    field:'icon',
+                    width:100,
+                    title:'图标',
+                    align:'center',
+                    templet :'#iconTpl'
+                },{
+                    field:'spread',
+                    width:120,
+                    title:'是否展开',
+                    align:'center',
+                    templet :'#spreadTpl'
                 },{
                     field:'description',
                     title:'描述',
@@ -97,7 +109,7 @@ $(function(){
                 }]
 
             ],
-            url: '/orgAjax.action',
+            url: '/permissionAjax.action',
             page: true,
             even: true,
 

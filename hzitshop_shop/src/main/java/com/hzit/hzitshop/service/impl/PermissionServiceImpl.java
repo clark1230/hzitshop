@@ -25,7 +25,8 @@ public class PermissionServiceImpl  implements PermissionService {
         map.put("limit",permissionMapper.getTotal(null));
         List<PermissionVo> list = new ArrayList<>();
         PermissionVo vo = null;
-        for(Permission p : permissionMapper.searchTbPermissionByParams(map)){
+        List<Permission> permissionList = permissionMapper.searchTbPermissionByParams(map);
+        for(Permission p : permissionList){
             vo = new PermissionVo();
             BeanUtils.copyProperties(p,vo,"icon");
             list.add(vo);

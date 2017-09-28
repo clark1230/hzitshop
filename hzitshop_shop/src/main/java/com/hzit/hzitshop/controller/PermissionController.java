@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.security.auth.Subject;
 import java.util.Date;
 import java.util.List;
 
@@ -89,18 +90,25 @@ public class PermissionController {
 
     /**
      * 跳转到编辑页面
-     * @param permissionId
-     * @param parentId
+     * @param id
+     * @param pid
      * @return
      */
     @RequestMapping(value={"editPermission"},method = RequestMethod.GET)
-    public String editPermission(String permissionId,String parentId,Model model){
+    public String editPermission(String id,String pid,Model model){
+            //到数据库中根据id查询权限信息
+            Permission permission = permissionService.selectOne(Integer.parseInt(id));
+            model.addAttribute("permission",permission);
+            model.addAttribute("pid",pid);
+            
             return "permission/editPermission";
     }
 
     @RequestMapping(value={"editPermission"},method=RequestMethod.POST)
     @ResponseBody
     public StatusCode editPermission(Permission permission){
+        permission.setUpdateBy(SubjectUtil.getUser());
+        permission.setUpdateTime(new Date());
         int result = permissionService.update(permission);
         return StatusCodeUtil.check(result);
     }

@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加组织</title>
+    <title>添加权限</title>
     <meta name="keywords" content="" />
     <meta name="description" content="LarryCMS Version:1.09" />
     <meta name="Author" content="larry" />
@@ -83,7 +83,7 @@
 </head>
 </head>
 <body>
-<div class="larry-grid larry-wrapper">
+<div class="larry-grid larry-wrapper" id="container">
     <form id="addPermission" class="layui-form form" action="/addPermission.action" method="post">
         <div class="layui-form-item">
             <label class="layui-form-label">权限名:</label>
@@ -748,13 +748,18 @@
 
         //********************弹出图标层 start********************************
         $('#icon').focus(function(){
-               $('#iconDiv').show();
+               $('#iconDiv').show(100);
         });
-//        $('#icon').blur(function(){
-//
-//        });
+        $('#icon').mouseover(function(){
+           $('#iconDiv').show(100);
+        });
+       
+        
         //********************弹出图标层 end********************************
-
+        //点击其他地方关闭图标层
+        $('#iconDiv').mouseleave(function(){
+           $(this).hide(200);
+        });
         //获取选择的图标
         $('#icon-list li').click(function(){
             var $myDiv = $('#myDiv');
@@ -764,13 +769,7 @@
             $('#icon').val(txt);
             $('#iconDiv').hide();
             //动态生成一个div
-            console.log(txt);
-//            var $i = $('<i class="layui-icon">&#xe60c;</i>');
-            //var $i = $('<i class="layui-icon">&#xe715;</i>');
-            //$i.html(txt);
-            //$i.css('font-size','30px');
             var $div = '<div id="myDiv" class="icon-show"><i class="larry-icon" style="font-size:35px;">'+txt+'</i></div>';
-            
             $('#showIcon').append($div);
         });
     });

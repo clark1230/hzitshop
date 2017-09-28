@@ -64,6 +64,17 @@
         </div>
     </div>
 </div>
+<!--自定义图标模板-->
+<script type="text/html" id="iconTpl">
+   <i class="larry-icon" style="color:#1E9FFF;font-size: 25px;">{{d.icon}}</i>
+</script>
+<script type="text/html" id="spreadTpl">
+    {{#  if(d.spread == 'true'){ }}
+        <span class="layui-badge layui-bg-blue">展开</span>
+    {{#  } else { }}
+        <span class="layui-badge layui-bg-orange">收缩</span>
+    {{#  } }}
+</script>
 <!-- 加载js文件 -->
 <script type="text/javascript" src="${path}/common/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="${path}/assets/ztree/jquery.ztree.all.js"></script>

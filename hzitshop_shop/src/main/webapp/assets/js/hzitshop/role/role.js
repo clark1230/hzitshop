@@ -79,10 +79,16 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                 //启用
                 isLock =1;
                 msg = '启用成功!';
+                setTimeout(function(){
+                    reload();
+                },1500);
             }else{
                 //禁用
                 isLock =0;
                 msg = '禁用成功!';
+                setTimeout(function(){
+                    reload();
+                },1500);
             }
             var reqData = 'roleId='+data.roleId +"&isLock="+isLock;
             //异步修改数据
@@ -112,6 +118,12 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
         }
     });
 
+    /**
+     * 表格重载
+     */
+     function  reload(){
+             tableIns.reload();
+     }
     $('#larry_group .layui-btn').on('click',function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';

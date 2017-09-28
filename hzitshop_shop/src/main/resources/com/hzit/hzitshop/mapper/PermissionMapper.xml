@@ -20,39 +20,15 @@
     <sql id="tbPermissionBaseWhereSql">
         <if test="map!=null">
             <where>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.id)">
                     id = #{map.id}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.pid)">
                     AND pid = #{map.pid}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.title)">
                     AND title = #{map.title}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.icon)">
                     AND icon = #{map.icon}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.url)">
                     AND url = #{map.url}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.spread)">
                     AND spread = #{map.spread}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.description)">
                     AND description = #{map.description}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.createTime)">
-                    AND create_time = #{map.createTime}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.createBy)">
-                    AND create_by = #{map.createBy}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateBy)">
                     AND update_by = #{map.updateBy}
-                </if>
-                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.updateTime)">
                     AND update_time = #{map.updateTime}
-                </if>
             </where>
         </if>
     </sql>
@@ -83,36 +59,14 @@
     <update id="updateTbPermission" parameterType="com.hzit.hzitshop.entity.Permission">
         UPDATE tb_permission
         <set>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(pid)">
                 pid = #{pid} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(title)">
                 title = #{title} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(icon)">
                 icon = #{icon} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(url)">
                 url = #{url} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(spread)">
                 spread = #{spread} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(description)">
                 description = #{description} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(createTime)">
-                create_time = #{createTime} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(createBy)">
-                create_by = #{createBy} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateBy)">
                 update_by = #{updateBy} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(updateTime)">
                 update_time = #{updateTime} ,
-            </if>
         </set>
         WHERE id = #{id}
     </update>
@@ -121,7 +75,6 @@
         SELECT
         <include refid="tbPermissionBaseColumnSql"/>
         FROM tb_permission
-        <include refid="tbPermissionBaseWhereSql"/>
         limit #{map.offset},#{map.limit}
     </select>
     <!--根据id获取指定的数据-->
