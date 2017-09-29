@@ -1,5 +1,6 @@
 package com.hzit.hzitshop.controller;
 
+import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.service.SystemUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -19,7 +20,8 @@ public class LoginController {
     public String login(){
         return "login";
     }
-
+    
+    @SystemLog(module = "登录",methods = "login")
     @RequestMapping(value = {"login"},method = RequestMethod.POST)
     public String login(String username, String password, String rememberMe, Model model){
         Subject subject = SecurityUtils.getSubject();//获取主体
@@ -56,6 +58,7 @@ public class LoginController {
      * 系统登出
      * @return
      */
+    @SystemLog(module = "注销",methods = "logout")
     @RequestMapping(value = "logout")
     public String logout(){
         SecurityUtils.getSubject().logout();//注销 (RememberMe功能也消失了)

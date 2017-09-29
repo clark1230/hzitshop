@@ -76,7 +76,7 @@
 </script>
 <script type="text/html" id="spreadTpl">
     {{#  if(d.spread == 'true'){ }}
-        <button class="layui-badge layui-bg-blue" >展开</button>
+        <span class="layui-badge layui-bg-blue" >展开</span>
     {{#  } else { }}
         <span class="layui-badge layui-bg-orange">收缩</span>
     {{#  } }}

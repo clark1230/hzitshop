@@ -17,7 +17,7 @@
 		http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	 <!--缓存管理器-->
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-	<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
+		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
 	</bean>
 	
 	<bean id="sessionCookie" class="org.apache.shiro.web.servlet.SimpleCookie">

@@ -21,7 +21,7 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                 field: 'roleName',
                 // edit:true,  //单元格编辑
                 width: 120,
-                title: '用户名'
+                title: '角色名'
             },{
                 field:'description',
                 title:'描述',

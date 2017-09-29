@@ -1,5 +1,6 @@
 package com.hzit.hzitshop.controller;
 
+import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.service.OrgService;
@@ -30,6 +31,7 @@ public class OrgController {
      * 跳转到组织页面
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "org")
     @RequestMapping(value = {"org"})
     public String org(){
         return "org/org";
@@ -39,6 +41,7 @@ public class OrgController {
      * 异步获取组织数据
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "orgAjaxTree")
     @RequestMapping(value = {"orgAjaxTree"},method = RequestMethod.GET)
     @ResponseBody
     public List<Org>  orgAjaxTree(){
@@ -52,6 +55,7 @@ public class OrgController {
      * @param limit
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "orgAjax")
     @RequestMapping(value = {"orgAjax"},method = RequestMethod.GET)
     @ResponseBody
     public LayuiData<Org> orgAjax(int page,int limit){
@@ -62,6 +66,7 @@ public class OrgController {
      * 跳转到添加组织页面
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "addOrg")
     @RequestMapping(value = {"addOrg"},method = RequestMethod.GET)
     public String addOrg(String parentOrgId, String parentOrgName, Model model){
         //保存到域对象中
@@ -75,6 +80,7 @@ public class OrgController {
      * @param org
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "addOrg")
     @RequestMapping(value={"addOrg"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addOrg(Org org){
@@ -91,6 +97,7 @@ public class OrgController {
      * @param orgId
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "editOrg")
     @RequestMapping(value={"editOrg"},method=RequestMethod.GET)
     public String editOrg(int orgId,Model model){
         Org org = orgService.selectOne(orgId);
@@ -104,6 +111,7 @@ public class OrgController {
      * 
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "editOrg")
     @RequestMapping(value={"editOrg"},method=RequestMethod.POST)
     @ResponseBody
     public StatusCode editOrg(Org org){
@@ -116,9 +124,10 @@ public class OrgController {
 
     /**
      * 异步获取组织信息
-     * @param type
+     * @param orgParentId
      * @return
      */
+    @SystemLog(module = "组织管理",methods = "orgTypeAjax")
     @RequestMapping(value ={"orgTypeAjax"},method = RequestMethod.GET)
     @ResponseBody
     public List<Org> orgTypeAjax(String orgParentId){

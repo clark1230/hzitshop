@@ -1,5 +1,6 @@
 package com.hzit.hzitshop.controller;
 
+import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.util.SubjectUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -15,6 +16,7 @@ public class IndexController {
      * 后台系统主页
      * @return
      */
+    @SystemLog(module = "系统主页",methods = "index")
     @RequiresPermissions("index")
     @RequestMapping(value={"/","/index"})
     public String index(Model model){
@@ -31,18 +33,16 @@ public class IndexController {
      * @return
      */
 //    @RequiresPermissions("main")
+    @SystemLog(module = "工作台",methods = "main")
     @RequestMapping(value = {"main"})
     public String main(Model model){
         model.addAttribute("username",SubjectUtil.getUser());
         return "main";
     }
+    @SystemLog(module = "未授权",methods = "unauthorized")
     @RequestMapping(value={"unauthorized"})
     public  String unauthorized(){
         return "unauthorized";
     }
 
-    @RequestMapping(value="notFound")
-    public String notFound(){
-             return "403";
-    }
 }

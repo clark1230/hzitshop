@@ -1,5 +1,6 @@
 package com.hzit.hzitshop.controller;
 
+import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.entity.Permission;
@@ -24,7 +25,7 @@ import java.util.List;
 public class PermissionController {
     @Autowired
     private PermissionService permissionService;
-
+    @SystemLog(module = "权限管理",methods = "permission")
     @RequestMapping(value = {"permission"})
     public String permission(){
         return "permission/permission";
@@ -34,6 +35,7 @@ public class PermissionController {
      * 异步获取权限树信息
      * @return
      */
+    @SystemLog(module = "权限管理",methods = "permissionAjaxTree")
     @RequestMapping(value = {"permissionAjaxTree"},method = RequestMethod.GET)
     @ResponseBody
     public List<PermissionVo> pemissionAjaxTree(){
@@ -46,6 +48,7 @@ public class PermissionController {
      * @param limit
      * @return
      */
+    @SystemLog(module = "权限管理",methods = "permissionAjax")
     @RequestMapping(value = {"permissionAjax"})
     @ResponseBody
     public LayuiData<Permission> permissionAjax(int page,int limit){
@@ -57,6 +60,7 @@ public class PermissionController {
      * 跳转到添加组织页面
      * @return
      */
+    @SystemLog(module = "权限管理",methods = "addPermission")
     @RequestMapping(value = {"addPermission"},method = RequestMethod.GET)
     public String addOrg(String pid, String pName, Model model){
         //保存到域对象中
@@ -69,6 +73,7 @@ public class PermissionController {
      * 处理添加组织表单
      * @return
      */
+    @SystemLog(module = "权限管理",methods = "addPermission")
     @RequestMapping(value={"addPermission"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addOrg(Permission permission){
@@ -83,6 +88,7 @@ public class PermissionController {
      * 跳转到图标页面
      * @return
      */
+    @SystemLog(module = "权限管理",methods = "icon")
     @RequestMapping(value={"icon"})
     public String icon(){
         return  "permission/icon";
@@ -94,6 +100,7 @@ public class PermissionController {
      * @param pid
      * @return
      */
+    @SystemLog(module = "权限管理",methods = "editPemission")
     @RequestMapping(value={"editPermission"},method = RequestMethod.GET)
     public String editPermission(String id,String pid,Model model){
             //到数据库中根据id查询权限信息
@@ -104,6 +111,12 @@ public class PermissionController {
             return "permission/editPermission";
     }
 
+    /**
+     * 处理修改权限表单请求
+     * @param permission
+     * @return
+     */
+    @SystemLog(module = "权限管理",methods = "editPermission")
     @RequestMapping(value={"editPermission"},method=RequestMethod.POST)
     @ResponseBody
     public StatusCode editPermission(Permission permission){

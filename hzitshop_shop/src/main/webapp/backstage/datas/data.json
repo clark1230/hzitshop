@@ -38,7 +38,7 @@
 			"pid": "0",
 			"title": "系统帮助",
 			"icon": "&#xe63a;",
-			"url": "/changePwd.action",
+			"url": "/help.action",
 			"spread": false
 		}]
 	}, {
@@ -86,7 +86,7 @@
 		}, {
 			"id": "10",
 			"pid": "0",
-			"title": "系统配置管理",
+			"title": "服务器信息",
 			"icon": "&#xe66e;",
 			"url": "html/systemset/sysmanage.html",
 			"spread": false
@@ -95,7 +95,7 @@
 			"pid": "0",
 			"title": "系统日志管理",
 			"icon": "&#xe6ab;",
-			"url": "temp.html",
+			"url": "/log.action",
 			"spread": false
 		}]
 	}]

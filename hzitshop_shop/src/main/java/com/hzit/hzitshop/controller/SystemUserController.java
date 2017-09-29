@@ -1,5 +1,6 @@
 package com.hzit.hzitshop.controller;
 
+import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.entity.SystemUser;
@@ -33,6 +34,7 @@ public class SystemUserController {
      * 跳转到系统用户主页
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "systemUser")
     @RequestMapping(value = {"systemUser"})
     public String systemUser(){
         return "/systemUser/systemUser";
@@ -41,6 +43,7 @@ public class SystemUserController {
      * 获取json数据
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "systemUserAjax")
     @RequestMapping(value = {"systemUserAjax"})
     @ResponseBody
     public LayuiData<SystemUserVo> systemUserAjajx(int page, int limit){
@@ -52,6 +55,7 @@ public class SystemUserController {
      * 跳转到添加用户页面
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "addSystemUser")
     @RequestMapping(value = {"addSystemUser"},method = RequestMethod.GET)
     public String addSystemUser(Model model){
         Map<String,Object> map = new HashMap<>();
@@ -68,6 +72,7 @@ public class SystemUserController {
      * @param systemUser
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "addSystemUser")
     @RequestMapping(value = {"addSystemUser"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addSystemUser(SystemUser systemUser){
@@ -82,6 +87,7 @@ public class SystemUserController {
      * 跳转到修改用户页面
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "editSystemUser")
     @RequestMapping(value = {"editSystemUser"},method = RequestMethod.GET)
     public String editSystemUser(int userId, Model model){
         SystemUser systemUser = userService.selectOne(userId);
@@ -107,6 +113,7 @@ public class SystemUserController {
      * @param systemUser
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "editSystemUser")
     @RequestMapping(value = {"editSystemUser"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode editSystemUser(SystemUser systemUser){
@@ -125,6 +132,7 @@ public class SystemUserController {
      * @param isLock
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "lockUser")
     @RequestMapping(value = {"lockUser"})
     @ResponseBody
     public StatusCode lockUser(int userId,int isLock) {
@@ -141,6 +149,7 @@ public class SystemUserController {
      * @param userId
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "deleteSystemUser")
     @RequestMapping(value = {"deleteSystemUser"})
     @ResponseBody
     public StatusCode deleteSystemUser(String[] userId){
@@ -152,6 +161,7 @@ public class SystemUserController {
      * 获取在线用户信息
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "onlineUser")
     @RequestMapping(value = {"onlineUser"})
     @ResponseBody
     public String onlineUser(){
@@ -169,6 +179,7 @@ public class SystemUserController {
      * 展示个人信息
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "showUser")
     @RequestMapping(value={"/showUser"},method = RequestMethod.GET)
     public String showUser(Model model){
         Map<String,Object> map = new HashMap<>();
@@ -182,6 +193,7 @@ public class SystemUserController {
      * 修改密码
      * @return
      */
+    @SystemLog(module = "用户管理",methods = "changePwd")
     @RequestMapping(value={"/changePwd"},method = RequestMethod.GET)
     public String changePwd(){
         return "systemUser/changePwd";

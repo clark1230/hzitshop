@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>角色管理</title>
+    <title>系统日志管理</title>
     <meta name="keywords" content="" />
     <meta name="description" content="hzitxx" />
     <meta name="Author" content="larry" />
@@ -37,59 +37,41 @@
 <div class="layui-fluid larry-wrapper">
     <div class="layui-row  animated bounceIn">
         <div class="layui-col-lg12 layui-col-md12 layui-col-sm12 layui-col-xs12">
-            <%--<div class="layui-btn-group larry-group" >--%>
             <div class="" id="larry_group">
-                <div class="layui-inline">
-                    <button class="layui-btn"  data-type="add"><i class="layui-icon">&#xe61f;</i><cite>增加角色</cite></button>
-                </div>
-                <div class="layui-inline">
-                    <button class="layui-btn layui-btn-danger"  data-type="del"><i class="layui-icon">&#xe640;</i><cite>(批量)删除</cite></button>
-                </div>
-                <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal"  data-type="grant"><i class="layui-icon">&#xe613;</i><cite>(批量)授权</cite></button>
-                </div>
                 <div class="layui-input-inline" style="display: inline-block;">
                     <input type="text" name="search" value="" id="search_input" placeholder="请输入搜索内容!" class="layui-input">
                 </div>
                 <a class="layui-btn search_btn layui-btn-normal" data-type="getSelect"><i class="layui-icon">&#xe615;</i>查询</a>
             </div>
-            <%--</div>--%>
-
         </div>
 
         <div class="layui-col-lg12 layui-col-md12 layui-col-sm12 layui-col-xs12">
             <div class="user-tables">
-                <table id="roleTables" lay-filter="userTables"></table>
+                <table id="logTables" lay-filter="logTables"></table>
             </div>
         </div>
     </div>
 </div>
-<script type="text/html" id="roleBar">
-    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="edit">编辑</a>
-    <a class="layui-btn  layui-btn-mini" lay-event="shouquan">授权</a>
-    <!-- laytpl 语法，-->
-    {{#  if(d.isLock == 0){ }}
-    <a class="layui-btn layui-btn-normal  layui-btn-mini"  lay-event="disable">启用</a>
-    {{#  } }}
-    {{#  if(d.isLock == 1){ }}
-    <a class="layui-btn layui-btn-warm  layui-btn-mini"  lay-event="disable">禁用</a>
-    {{#  } }}
-    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
-
-</script>
-
-
-<script type="text/html" id="isLockTpl">
-    {{#  if(d.isLock == 0){ }}
-    <span class="layui-badge layui-bg-orange">禁用</span>
+<!--操作结果模板-->
+<script type="text/html" id="commitTpl">
+    {{#  if(d.commit == 'success'){ }}
+    <span class="layui-badge layui-bg-blue">成功</span>
     {{#  } else { }}
-    <span class="layui-badge layui-bg-blue">启用</span>
+        <span class="layui-badge">失败</span>
+    {{#  } }}
+</script>
+<!--响应时间操作结果-->
+<script type="text/html" id="responseDateTpl">
+    {{#  if(d.responseDate >100){ }}  <%-- 响应时间大于100毫秒使用红色标注 --%>
+        <span class="layui-badge">{{d.responseDate}}</span>
+    {{#  } else { }}
+            <span class="layui-badge layui-bg-blue">{{d.responseDate}}</span>
     {{#  } }}
 </script>
 <!-- 加载js文件 -->
 <script type="text/javascript" src="${path}/common/frame/layui/layui.js"></script>
 <script type="text/javascript" src="${path}/backstage/js/common.js"></script>
-<script type="text/javascript" src="${path}/assets/js/hzitshop/role/role.js"></script>
+<script type="text/javascript" src="${path}/assets/js/hzitshop/log/log.js"></script>
 </body>
 </html>
 

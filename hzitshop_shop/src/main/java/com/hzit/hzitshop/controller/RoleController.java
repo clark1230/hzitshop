@@ -1,10 +1,12 @@
 package com.hzit.hzitshop.controller;
 
+import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Role;
 import com.hzit.hzitshop.entity.SystemUser;
 import com.hzit.hzitshop.service.RoleService;
 import com.hzit.hzitshop.util.StatusCode;
+import com.hzit.hzitshop.util.StatusCodeUtil;
 import com.hzit.hzitshop.util.SubjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+    @SystemLog(module = "角色管理",methods = "role")
     @RequestMapping(value = {"role"},method = RequestMethod.GET)
     public String role(){
         return "role/role";
@@ -34,6 +37,7 @@ public class RoleController {
      * 获取异步数据
      * @return
      */
+    @SystemLog(module = "角色管理",methods = "roleAjax")
     @RequestMapping(value = {"roleAjax"},method = RequestMethod.GET)
     @ResponseBody
     public LayuiData<Role> roleAjax(int page,int limit){
@@ -45,6 +49,7 @@ public class RoleController {
      * 跳转到添加角色页面
      * @return
      */
+    @SystemLog(module = "角色管理",methods = "addRole")
     @RequestMapping(value = {"addRole"},method = RequestMethod.GET)
     public String addRole(){
         return "role/addRole";
@@ -53,30 +58,22 @@ public class RoleController {
      * 保存添加的角色信息
      * @return
      */
+    @SystemLog(module = "角色管理",methods = "addRole")
     @RequestMapping(value = {"addRole"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addRole(Role role){
         role.setCreateTime(new Date());
         role.setCreateBy(SubjectUtil.getUser());
         int result = roleService.insert(role);
-        return this.check(result);
+        return StatusCodeUtil.check(result);
     }
 
-    public StatusCode check(int result){
-        StatusCode sc = new StatusCode();
-        if(result > 0){
-            sc.setCode(200);
-            sc.setMsg("保存成功!");
-        }else{
-            sc.setCode(500);
-            sc.setMsg("保存失败!");
-        }
-        return sc;
-    }
+
     /**
      * 跳转到修改用户页面
      * @return
      */
+    @SystemLog(module = "角色管理",methods = "editRole")
     @RequestMapping(value = {"editRole"},method = RequestMethod.GET)
     public String editRole(int roleId, Model model){
         Role role = roleService.selectOne(roleId);
@@ -90,25 +87,27 @@ public class RoleController {
      * @param role
      * @return
      */
+    @SystemLog(module = "角色管理",methods = "editRole")
     @RequestMapping(value = {"editRole"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode editRole(Role role){
         role.setUpdateTime(new Date());
         role.setUpdateBy(SubjectUtil.getUser());
         int result = roleService.update(role);
-        return this.check(result);
+        return StatusCodeUtil.check(result);
     }
 
     /**
      * 批量删除数据
-     * @param userId
+     * @param roleId
      * @return
      */
+    @SystemLog(module = "角色管理",methods = "deleteRole")
     @RequestMapping(value = {"deleteRole"})
     @ResponseBody
     public StatusCode deleteSystemUser(String[] roleId){
         int result = roleService.deleteByIds(roleId);
-        return this.check(result);
+        return StatusCodeUtil.check(result);
     }
 
     /**
@@ -117,6 +116,7 @@ public class RoleController {
      * @param isLock
      * @return
      */
+    @SystemLog(module = "角色管理",methods = "lockRole")
     @RequestMapping(value = {"lockRole"})
     @ResponseBody
     public StatusCode lockRole(int roleId,int isLock) {
@@ -124,7 +124,7 @@ public class RoleController {
         map.put("roleId", roleId);
         map.put("isLock", isLock);
         int result = roleService.lockRole(map);
-        return this.check(result);
+        return StatusCodeUtil.check(result);
 
     }
 }
