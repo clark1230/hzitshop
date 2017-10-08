@@ -1,11 +1,13 @@
 package com.hzit.hzitshop.controller;
 
 import com.hzit.hzitshop.annotation.SystemLog;
+import com.hzit.hzitshop.email.EmailUtil;
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.entity.SystemUser;
 import com.hzit.hzitshop.service.OrgService;
 import com.hzit.hzitshop.service.SystemUserService;
+import com.hzit.hzitshop.util.Md5Util;
 import com.hzit.hzitshop.util.StatusCode;
 import com.hzit.hzitshop.util.StatusCodeUtil;
 import com.hzit.hzitshop.util.SubjectUtil;
@@ -34,7 +36,7 @@ public class SystemUserController {
      * 跳转到系统用户主页
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "systemUser")
+    @SystemLog(module = "用户管理",methods = "systemUser",msg="跳转到用户管理界面")
     @RequestMapping(value = {"systemUser"})
     public String systemUser(){
         return "/systemUser/systemUser";
@@ -43,7 +45,7 @@ public class SystemUserController {
      * 获取json数据
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "systemUserAjax")
+    @SystemLog(module = "用户管理",methods = "systemUserAjax",msg="异步获取用户分页数据")
     @RequestMapping(value = {"systemUserAjax"})
     @ResponseBody
     public LayuiData<SystemUserVo> systemUserAjajx(int page, int limit){
@@ -55,15 +57,13 @@ public class SystemUserController {
      * 跳转到添加用户页面
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "addSystemUser")
+    @SystemLog(module = "用户管理",methods = "addSystemUser",msg="跳转到添加用户页面")
     @RequestMapping(value = {"addSystemUser"},method = RequestMethod.GET)
     public String addSystemUser(Model model){
         Map<String,Object> map = new HashMap<>();
         map.put("type","公司");
         List<Org> orgCompany = orgService.findByType(map);
-
         model.addAttribute("orgCompany",orgCompany);
-
         return "systemUser/addSystemUser";
     }
 
@@ -72,13 +72,22 @@ public class SystemUserController {
      * @param systemUser
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "addSystemUser")
+    @SystemLog(module = "用户管理",methods = "addSystemUser",msg="异步保存添加用户信息数据")
     @RequestMapping(value = {"addSystemUser"},method = RequestMethod.POST)
     @ResponseBody
-    public StatusCode addSystemUser(SystemUser systemUser){
+    public StatusCode addSystemUser(SystemUser systemUser) throws Exception {
         StatusCode sc = new StatusCode();
         systemUser.setCreateBy(SubjectUtil.getUser());
         systemUser.setCreateTime(new Date());
+        Random random = new Random();
+        int randomValue = random.nextInt(1000000);
+        systemUser.setPassword(Md5Util.getMD5(Md5Util.getMD5("hzit#"+randomValue)));
+        try{
+            EmailUtil.sendEmail("","",systemUser.getEmail(),
+                    "合众艾特咨询系统登陆用户名:"+systemUser.getUserName()+",密码:"+randomValue);
+        }catch (Exception e){
+            systemUser.setPassword(Md5Util.getMD5(Md5Util.getMD5("hzit#hzit123456")));
+        }
         int result = userService.insert(systemUser);
         return StatusCodeUtil.check(result);
     }
@@ -87,7 +96,7 @@ public class SystemUserController {
      * 跳转到修改用户页面
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "editSystemUser")
+    @SystemLog(module = "用户管理",methods = "editSystemUser",msg="跳转到编辑用户信息页面")
     @RequestMapping(value = {"editSystemUser"},method = RequestMethod.GET)
     public String editSystemUser(int userId, Model model){
         SystemUser systemUser = userService.selectOne(userId);
@@ -113,7 +122,7 @@ public class SystemUserController {
      * @param systemUser
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "editSystemUser")
+    @SystemLog(module = "用户管理",methods = "editSystemUser",msg="异步保存编辑用户信息")
     @RequestMapping(value = {"editSystemUser"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode editSystemUser(SystemUser systemUser){
@@ -132,7 +141,7 @@ public class SystemUserController {
      * @param isLock
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "lockUser")
+    @SystemLog(module = "用户管理",methods = "lockUser",msg="禁用/启用用户")
     @RequestMapping(value = {"lockUser"})
     @ResponseBody
     public StatusCode lockUser(int userId,int isLock) {
@@ -149,7 +158,7 @@ public class SystemUserController {
      * @param userId
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "deleteSystemUser")
+    @SystemLog(module = "用户管理",methods = "deleteSystemUser",msg="批量删除用户数据")
     @RequestMapping(value = {"deleteSystemUser"})
     @ResponseBody
     public StatusCode deleteSystemUser(String[] userId){
@@ -161,7 +170,7 @@ public class SystemUserController {
      * 获取在线用户信息
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "onlineUser")
+    @SystemLog(module = "用户管理",methods = "onlineUser",msg="获取在线用户信息")
     @RequestMapping(value = {"onlineUser"})
     @ResponseBody
     public String onlineUser(){
@@ -179,12 +188,12 @@ public class SystemUserController {
      * 展示个人信息
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "showUser")
-    @RequestMapping(value={"/showUser"},method = RequestMethod.GET)
+    @SystemLog(module = "用户管理",methods = "showUser",msg="展示个人信息")
+    @RequestMapping(value={"showUser"})
     public String showUser(Model model){
         Map<String,Object> map = new HashMap<>();
         map.put("userName",SubjectUtil.getUser());
-        List<SystemUser> systemUsers = userService.selectByParams(map);
+        List<SystemUserVo> systemUsers = userService.selectByParams(map);
         model.addAttribute("systemUser",systemUsers.get(0));
         return "systemUser/showUser";
     }
@@ -193,9 +202,75 @@ public class SystemUserController {
      * 修改密码
      * @return
      */
-    @SystemLog(module = "用户管理",methods = "changePwd")
+    @SystemLog(module = "用户管理",methods = "changePwd",msg="修改密码")
     @RequestMapping(value={"/changePwd"},method = RequestMethod.GET)
     public String changePwd(){
         return "systemUser/changePwd";
     }
+
+    /**
+     * 异步处理用户修改密码
+     * @param oldPwd  旧密码
+     * @param newPwd  新密码
+     * @param newPwd2  校验密码
+     * @return
+     */
+    @SystemLog(module = "用户管理",methods = "changePwd",msg="异步获取用户修改的密码")
+    @RequestMapping(value="changePwd",method = RequestMethod.POST)
+    @ResponseBody
+    public StatusCode changePwd(String oldPwd,String newPwd,String newPwd2) throws Exception {
+        if(newPwd!= null &&!newPwd.trim().equals(newPwd2.trim())){
+            StatusCode sc = new StatusCode();
+            sc.setMsg("两次密码不一致！");
+            sc.setCode(500);
+            return  sc;
+        }else{
+            Map<String,Object> paramsMap =new HashMap<>();
+            paramsMap.put("userName", SubjectUtil.getUser());
+            paramsMap.put("newPwd",Md5Util.getMD5(Md5Util.getMD5("hzit#"+oldPwd)));
+            paramsMap.put("oldPwd",Md5Util.getMD5(Md5Util.getMD5("hzit#"+newPwd)));
+            int result = userService.changePwd(paramsMap);
+            System.out.println(result);
+            return StatusCodeUtil.check(result);
+        }
+
+    }
+
+    /**
+     * 跳转到分配岗位
+     * @param userId  用户编号
+     * @param model
+     * @return
+     */
+    @RequestMapping(value={"grantJob"},method = RequestMethod.GET)
+    public String grantJob(String userId,Model model){
+        model.addAttribute("userId",userId);
+        return "systemUser/grantJob";
+    }
+
+    /**
+     * 重置密码
+     * @param systemUser
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="resetPwd",method = RequestMethod.POST)
+    @ResponseBody
+    public StatusCode resetPwd(SystemUser systemUser) throws Exception {
+        Random random = new Random();
+        int randomValue = random.nextInt(1000000);
+        systemUser.setPassword(Md5Util.getMD5(Md5Util.getMD5("hzit#"+randomValue)));
+        try{
+            EmailUtil.sendEmail("","",systemUser.getEmail(),
+                    "合众艾特咨询系统登陆用户名:"+systemUser.getUserName()+",密码:"+randomValue);
+        }catch (Exception e){
+            systemUser.setPassword(Md5Util.getMD5(Md5Util.getMD5("hzit#hzit123456")));
+        }
+
+        int result = userService.resetPwd(systemUser);
+        return StatusCodeUtil.check(result);
+    }
+
+
+
 }

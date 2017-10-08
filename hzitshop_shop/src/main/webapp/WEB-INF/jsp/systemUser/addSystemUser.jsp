@@ -77,8 +77,17 @@
         <div class="layui-form-item">
             <label class="layui-form-label">是否禁用:</label>
             <div class="layui-input-block">
-                <input type="radio" name="isLock" value="0" title="禁用">
                 <input type="radio" name="isLock" value="1" title="启用" checked>
+                <input type="radio" name="isLock" value="0" title="禁用">
+            </div>
+        </div>
+
+        <!--在职状态-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">在职状态:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="1" title="在职" checked>
+                <input type="radio" name="status" value="2" title="离职">
             </div>
         </div>
         <div class="layui-form-item">

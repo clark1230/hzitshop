@@ -11,7 +11,8 @@
         response_date,
         ip,
         date,
-        commit
+        commit,
+        msg
     </sql>
 
     <sql id="tbLogBaseWhereSql">
@@ -41,6 +42,9 @@
                 <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.commit)">
                     AND commit = #{map.commit}
                 </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.msg)">
+                    AND commit = #{map.msg}
+                </if>
             </where>
         </if>
     </sql>
@@ -56,7 +60,8 @@
             #{responseDate},
             #{ip},
             #{date},
-            #{commit}
+            #{commit},
+            #{msg}
         )
     </insert>
     <!--查询日志信息-->
@@ -82,6 +87,7 @@
         <result column="ip" property="ip"/>
         <result column="date" property="date"/>
         <result column="commit" property="commit"/>
+        <result column="msg" property="msg"/>
     </resultMap>
 
 </mapper>

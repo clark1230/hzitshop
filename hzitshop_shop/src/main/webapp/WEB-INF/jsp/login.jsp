@@ -78,12 +78,13 @@
             float: left;
             width: 20px;
             height: 20px;
-            background: #11a3fc;
+            background: #f8fcfa;
             border-radius: 50%;
             position: relative;
             margin: 5px 0 0 5px;
             border: 1px solid #11a3fc;
         }
+        /*checkbox 的默认效果*/
         .form-horizontal .main-checkbox label{
             width: 20px;
             height: 20px;
@@ -92,6 +93,7 @@
             left: 0;
             cursor: pointer;
         }
+        /*checkbox 勾选后的效果*/
         .form-horizontal .main-checkbox label:after{
             content: "";
             width: 10px;
@@ -99,7 +101,7 @@
             position: absolute;
             top: 5px;
             left: 4px;
-            border: 3px solid #fff;
+            border: 3px solid #1479d0;
             border-top: none;
             border-right: none;
             background: transparent;
@@ -165,7 +167,7 @@
                 <div class="col-md-offset-3 col-md-6">
                     <form id="loginFrom" action="/login.action" method="post" class="form-horizontal">
                         <span class="heading">用户登录</span>
-                        <p class="error">${error}</p>
+                        <p class="error" id="error">${error}</p>
                         <div class="form-group">
                             <input type="text" class="form-control" name="username" placeholder="请输入用户名!">
                             <i class="fa fa-user"></i>
@@ -181,7 +183,7 @@
                                 <label for="rememberMe"></label>
                             </div>
                             <span class="text" style="color:red;">记住我!(勾选后7天内直接自动登陆系统)</span>
-                            <button type="submit" class="btn btn-default">登录</button><br/>
+                            <button type="submit"  id="login" class="btn btn-default">登录</button><br/>
 
                         </div>
                     </form>
@@ -200,7 +202,9 @@
         $('#forgetPwd').click(function(){
            layer.alert('<p style="color:black;font-size: 23px;">忘记密码，请联系管理员<br/>邮箱:xianyaoji@hzitxx.com</p>',{shade:0});
         });
-
+        $('#login').click(function(){
+           $('#error').html('');
+        });
         $('#loginFrom').validate({
             //表单验证规则
             rules:{

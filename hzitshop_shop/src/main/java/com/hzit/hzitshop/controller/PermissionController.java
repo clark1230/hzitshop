@@ -2,14 +2,12 @@ package com.hzit.hzitshop.controller;
 
 import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.entity.LayuiData;
-import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.entity.Permission;
 import com.hzit.hzitshop.service.PermissionService;
 import com.hzit.hzitshop.util.StatusCode;
 import com.hzit.hzitshop.util.StatusCodeUtil;
 import com.hzit.hzitshop.util.SubjectUtil;
 import com.hzit.hzitshop.vo.PermissionVo;
-import com.sun.deploy.nativesandbox.comm.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.security.auth.Subject;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +22,7 @@ import java.util.List;
 public class PermissionController {
     @Autowired
     private PermissionService permissionService;
-    @SystemLog(module = "权限管理",methods = "permission")
+    @SystemLog(module = "权限管理",methods = "permission",msg="跳转到权限管理页面")
     @RequestMapping(value = {"permission"})
     public String permission(){
         return "permission/permission";
@@ -35,7 +32,7 @@ public class PermissionController {
      * 异步获取权限树信息
      * @return
      */
-    @SystemLog(module = "权限管理",methods = "permissionAjaxTree")
+    @SystemLog(module = "权限管理",methods = "permissionAjaxTree",msg="异步获取树形权限管理数据")
     @RequestMapping(value = {"permissionAjaxTree"},method = RequestMethod.GET)
     @ResponseBody
     public List<PermissionVo> pemissionAjaxTree(){
@@ -48,7 +45,7 @@ public class PermissionController {
      * @param limit
      * @return
      */
-    @SystemLog(module = "权限管理",methods = "permissionAjax")
+    @SystemLog(module = "权限管理",methods = "permissionAjax",msg="异步获取权限管理分页数据")
     @RequestMapping(value = {"permissionAjax"})
     @ResponseBody
     public LayuiData<Permission> permissionAjax(int page,int limit){
@@ -60,7 +57,7 @@ public class PermissionController {
      * 跳转到添加组织页面
      * @return
      */
-    @SystemLog(module = "权限管理",methods = "addPermission")
+    @SystemLog(module = "权限管理",methods = "addPermission",msg="跳转到权限管理页面")
     @RequestMapping(value = {"addPermission"},method = RequestMethod.GET)
     public String addOrg(String pid, String pName, Model model){
         //保存到域对象中
@@ -73,7 +70,7 @@ public class PermissionController {
      * 处理添加组织表单
      * @return
      */
-    @SystemLog(module = "权限管理",methods = "addPermission")
+    @SystemLog(module = "权限管理",methods = "addPermission",msg="异步保存添加权限信息数据")
     @RequestMapping(value={"addPermission"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addOrg(Permission permission){
@@ -88,7 +85,7 @@ public class PermissionController {
      * 跳转到图标页面
      * @return
      */
-    @SystemLog(module = "权限管理",methods = "icon")
+    @SystemLog(module = "权限管理",methods = "icon",msg="跳转到图标页面")
     @RequestMapping(value={"icon"})
     public String icon(){
         return  "permission/icon";
@@ -100,14 +97,13 @@ public class PermissionController {
      * @param pid
      * @return
      */
-    @SystemLog(module = "权限管理",methods = "editPemission")
+    @SystemLog(module = "权限管理",methods = "editPemission",msg="跳转到权限信息编辑页面")
     @RequestMapping(value={"editPermission"},method = RequestMethod.GET)
     public String editPermission(String id,String pid,Model model){
             //到数据库中根据id查询权限信息
             Permission permission = permissionService.selectOne(Integer.parseInt(id));
             model.addAttribute("permission",permission);
             model.addAttribute("pid",pid);
-            
             return "permission/editPermission";
     }
 
@@ -116,7 +112,7 @@ public class PermissionController {
      * @param permission
      * @return
      */
-    @SystemLog(module = "权限管理",methods = "editPermission")
+    @SystemLog(module = "权限管理",methods = "editPermission",msg="异步保存编辑权限信息数据")
     @RequestMapping(value={"editPermission"},method=RequestMethod.POST)
     @ResponseBody
     public StatusCode editPermission(Permission permission){

@@ -275,7 +275,6 @@ layui.use(['jquery','larryElem','layer','common','form','larryMenu','larryTab'],
     var locked = 0;
     // 锁定屏幕
    function lockSystem(){
-   		
    	   var url = '/backstage/datas/lock.json';
    	   locked = 1;
    	   $.post(
@@ -288,7 +287,6 @@ layui.use(['jquery','larryElem','layer','common','form','larryMenu','larryTab'],
    	   	   }
    	   });
    	   startTimer();
-   	   
    }
    
    // 点击锁屏
@@ -300,12 +298,12 @@ layui.use(['jquery','larryElem','layer','common','form','larryMenu','larryTab'],
    	    unlockSys();
    });
    function unlockSys(){
-   	   if($('#unlock_pass').val() == 'larrycms'){
+   	   if($('#unlock_pass').val() == 'admin'){
            locked = 0;
    	   	   checkLockStatus(locked);
    	   	   return;
    	   }else{
-   	   	   layer.tips('模拟锁屏，输入密码：larrycms 解锁', $('#unlock'), {
+   	   	   layer.tips('模拟锁屏，输入密码：admin 解锁', $('#unlock'), {
 				tips: [3, '#FF5722'],
 				time:1000
 			});

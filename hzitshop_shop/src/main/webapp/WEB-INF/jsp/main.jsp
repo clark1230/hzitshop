@@ -51,8 +51,8 @@
             <section class="panel pos-r larry-ico-rotate">
                 <div class="inline-block layui-bg-red larry-ico"><i class="larry-icon">&#xe6aa;</i></div>
                 <div class="inline-block right-value">
-                    <a data-href="html/content/article_list.html">
-                        <h3 class="no-count">所有档案列表</h3>
+                    <a data-href="/showUser.action">
+                        <h3 class="no-count">个人信息</h3>
                     </a>
                 </div>
             </section>

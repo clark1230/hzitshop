@@ -4,6 +4,7 @@ import com.hzit.hzitshop.annotation.SystemLog;
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Org;
 import com.hzit.hzitshop.service.OrgService;
+import com.hzit.hzitshop.service.RoleService;
 import com.hzit.hzitshop.util.StatusCode;
 import com.hzit.hzitshop.util.StatusCodeUtil;
 import com.hzit.hzitshop.util.SubjectUtil;
@@ -27,11 +28,14 @@ public class OrgController {
     @Autowired
     private OrgService orgService;
 
+    @Autowired
+    private RoleService roleService;
+
     /**
      * 跳转到组织页面
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "org")
+    @SystemLog(module = "组织管理",methods = "org",msg="跳转到组织管理页面")
     @RequestMapping(value = {"org"})
     public String org(){
         return "org/org";
@@ -41,7 +45,7 @@ public class OrgController {
      * 异步获取组织数据
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "orgAjaxTree")
+    @SystemLog(module = "组织管理",methods = "orgAjaxTree",msg="异步获取树形组织管理数据")
     @RequestMapping(value = {"orgAjaxTree"},method = RequestMethod.GET)
     @ResponseBody
     public List<Org>  orgAjaxTree(){
@@ -55,7 +59,7 @@ public class OrgController {
      * @param limit
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "orgAjax")
+    @SystemLog(module = "组织管理",methods = "orgAjax",msg="异步获取组织管理分页数据")
     @RequestMapping(value = {"orgAjax"},method = RequestMethod.GET)
     @ResponseBody
     public LayuiData<Org> orgAjax(int page,int limit){
@@ -66,7 +70,7 @@ public class OrgController {
      * 跳转到添加组织页面
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "addOrg")
+    @SystemLog(module = "组织管理",methods = "addOrg",msg="跳转到组织管理页面")
     @RequestMapping(value = {"addOrg"},method = RequestMethod.GET)
     public String addOrg(String parentOrgId, String parentOrgName, Model model){
         //保存到域对象中
@@ -80,7 +84,7 @@ public class OrgController {
      * @param org
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "addOrg")
+    @SystemLog(module = "组织管理",methods = "addOrg",msg="异步获取添加组织管理数据")
     @RequestMapping(value={"addOrg"},method = RequestMethod.POST)
     @ResponseBody
     public StatusCode addOrg(Org org){
@@ -97,7 +101,7 @@ public class OrgController {
      * @param orgId
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "editOrg")
+    @SystemLog(module = "组织管理",methods = "editOrg",msg="跳转到编辑组织管理页面")
     @RequestMapping(value={"editOrg"},method=RequestMethod.GET)
     public String editOrg(int orgId,Model model){
         Org org = orgService.selectOne(orgId);
@@ -111,7 +115,7 @@ public class OrgController {
      * 
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "editOrg")
+    @SystemLog(module = "组织管理",methods = "editOrg",msg="异步获取编辑组织管理数据")
     @RequestMapping(value={"editOrg"},method=RequestMethod.POST)
     @ResponseBody
     public StatusCode editOrg(Org org){
@@ -127,7 +131,7 @@ public class OrgController {
      * @param orgParentId
      * @return
      */
-    @SystemLog(module = "组织管理",methods = "orgTypeAjax")
+    @SystemLog(module = "组织管理",methods = "orgTypeAjax",msg="异步获取组织类型数据")
     @RequestMapping(value ={"orgTypeAjax"},method = RequestMethod.GET)
     @ResponseBody
     public List<Org> orgTypeAjax(String orgParentId){
@@ -135,4 +139,42 @@ public class OrgController {
         map.put("orgParentId",orgParentId);
         return orgService.findByType(map);
     }
+
+    /**
+     * 授权角色
+     * @param orgId  组织编号
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = {"grantRole"},method = RequestMethod.GET)
+    public String grantRole(String orgId,Model model){
+        model.addAttribute("orgId",orgId);
+        model.addAttribute("roles",roleService.getAll());
+        model.addAttribute("roleIds",orgService.checkRole(orgId));
+        return "org/grantRole";
+    }
+
+    /**
+     * 为岗位授予角色信息
+     * @param orgId  岗位编号
+     * @param roleIds  角色编号,使用","分割
+     * @return
+     */
+    @RequestMapping(value={"grantRole"},method = RequestMethod.POST)
+    @ResponseBody
+    public StatusCode grantRole(String orgId,String roleIds){
+        int result = orgService.grantRole(orgId,roleIds);
+        return StatusCodeUtil.check(result);
+    }
+
+    /**
+     * 角色信息回显
+     * @param orgId
+     * @return
+     */
+//    @RequestMapping(value="checkRole",method = RequestMethod.GET)
+//    @ResponseBody
+//    public List<Integer> checkRole(String orgId){
+//        return orgService.checkRole(Integer.parseInt(orgId));
+//    }
 }

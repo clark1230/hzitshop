@@ -50,6 +50,9 @@
                 <div class="layui-inline">
                     <button class="layui-btn layui-btn-normal" id="close"  data-type="close"><i class="layui-icon">&#xe619;</i><cite>收缩</cite></button>
                 </div>
+                <div class="layui-inline">
+                    <button class="layui-btn " id="grantRole"  data-type="grantRole"><i class="layui-icon">&#xe613;</i><cite>角色授权</cite></button>
+                </div>
                 <div class="layui-input-inline" style="display: inline-block;">
                     <input type="text" name="search" value="" id="search_input" placeholder="请输入搜索内容!" class="layui-input">
                 </div>

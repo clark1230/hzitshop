@@ -76,6 +76,7 @@ public class SystemLogAspect {
                 SystemLog systemlog = method.getAnnotation(SystemLog.class);
                 log.setModule(systemlog.module());
                 log.setMethod(systemlog.methods());
+                log.setMsg(systemlog.msg());
                 try {
                     object = pjp.proceed();
                     long end = System.currentTimeMillis();
@@ -85,6 +86,7 @@ public class SystemLogAspect {
                     //保存进数据库
                     logservice.saveLog(log);
                 } catch (Throwable e) {
+                    e.printStackTrace();
                     long end = System.currentTimeMillis();
                     log.setResponseDate(""+(end-start));
                     log.setCommit("error");

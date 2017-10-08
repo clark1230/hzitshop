@@ -38,6 +38,10 @@ public class LogEntityVo {
 	 */
 	private String commit;
 	/**
+	 * 说明
+	 */
+	private String msg;
+	/**
 	 * 主键
 	 * @param logId
 	 */

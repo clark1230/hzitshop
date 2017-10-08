@@ -17,6 +17,15 @@ public class OrgRole {
 	 *  角色编号
 	 */
 	private Integer roleId;
+
+	public OrgRole() {
+	}
+
+	public OrgRole(Integer orgId, Integer roleId) {
+		this.orgId = orgId;
+		this.roleId = roleId;
+	}
+
 	/**
 	 * 编号
 	 * @param id

@@ -69,8 +69,7 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             //layer.alert('编辑行：<br>' + JSON.stringify(data))
             location.href='/editRole.action?roleId='+data.roleId;
         }else if (obj.event === 'shouquan') {//授权
-
-            layer.alert('授权行：<br>' + JSON.stringify(data))
+            grantPermission(data.roleId);
         }else if (obj.event === 'disable') {//禁用或者启用角色
             // layer.alert('禁用行：<br>' + JSON.stringify(data))
             var isLock;
@@ -95,9 +94,7 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             $.post('/lockRole.action',reqData,function(resp){
                 if(resp.code === 200){
                     layer.msg(msg,{icon:1});
-
                     //修改按钮的文本
-
                 }else{
                     layer.msg('操作失败!',{icon:2});
                 }
@@ -134,19 +131,18 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             //common.larryCmsMessage('最近好累，还是过段时间在写吧！','error');
             location.href ='/addRole.action';
         },grant:function(){//批量授权
-            common.larryCmsMessage('最近好累，还是过段时间在写吧！','error');
+
             var roleIdArr =[];
-            var selectData = table.checkStatus('userTable'); //test即为基础参数id对应的值
+            var selectData = table.checkStatus('roleTable'); //test即为基础参数id对应的值
             if(selectData.data.length ==0){
                 layer.msg('请选择要授权的数据!',{icon:3});
             }else{
                 for(var i=0;i<selectData.data.length;i++){
                     roleIdArr.push(selectData.data[i].roleId);
                 }
-
-                //跳转到授权页面
-
+                grantPermission(roleIdArr);
             }
+
         },del:function(){//批量删除数据
             var roleIdArr =[];
             var selectData = table.checkStatus('roleTable');
@@ -169,4 +165,21 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             }
         }
     };
+
+    function grantPermission(roleIdArr){
+        //跳转到授权页面
+        layer.open({
+            type: 2,
+            title: '角色授权',
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['50%', '70%'],
+            content: '/grantPermission.action?roleIds='+roleIdArr//iframe的url
+            // end:function(){
+            //     //重新加载表格数据
+            //     tableIns.reload();
+            // }
+        });
+    }
 });

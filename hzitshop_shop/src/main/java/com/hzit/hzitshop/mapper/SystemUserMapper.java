@@ -3,6 +3,7 @@ package com.hzit.hzitshop.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.hzit.hzitshop.entity.Permission;
 import org.apache.ibatis.annotations.Param;
 import com.hzit.hzitshop.entity.SystemUser;
 
@@ -74,4 +75,20 @@ public interface SystemUserMapper {
 	 * @return
 	 */
 	List<SystemUser> selectByParams(@Param("map")Map<String,Object> map);
+
+	/**
+	 *用户修改密码
+	 * @param map  参数集合
+	 * @return  返回受影响的行数
+	 */
+	int changePwd(@Param("map")Map<String,Object> map);
+
+	/**
+	 * 重置密码
+	 * @param systemUser
+	 * @return
+	 */
+	int resetPwd(SystemUser systemUser);
+
+
 } 

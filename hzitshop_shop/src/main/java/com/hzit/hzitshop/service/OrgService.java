@@ -27,4 +27,19 @@ public interface OrgService extends  BaseService<Org> {
     */
    List<Org> findByType(Map<String,Object> map);
 
+   /**
+    * 为岗位授予权限
+    * @param orgId
+    * @param roleIds
+    * @return
+    */
+   int grantRole(String orgId,String roleIds);
+
+   /**
+    * 角色信息回显
+    * @param orgId
+    * @return
+    */
+   String checkRole(String orgId);
+
 }

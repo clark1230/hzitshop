@@ -105,46 +105,46 @@
 	"title": "咨询管理",
 	"icon": "&#xe63d;",
 	"url": "",
-	"spread": false,
+	"spread": true,
 	"children": [{
 		"id": "6",
 		"pid": "0",
-		"title": "网站管理",
+		"title": "前台管理",
 		"icon": "&#xe743;",
 		"url": "",
 		"spread": true,
 		"children": [{
 			"id": "7",
 			"pid": "0",
-			"title": "网站栏目管理",
+			"title": "前台录入",
 			"icon": "&#xe6c4;",
 			"url": "temp.html",
 			"spread": false
 		}, {
 			"id": "8",
 			"pid": "0",
-			"title": "所有档案列表",
+			"title": "前台统计",
 			"icon": "&#xe7ec;",
 			"url": "html/content/article_list.html",
 			"spread": false
 		}, {
 			"id": "9",
 			"pid": "0",
-			"title": "待审核的档案",
+			"title": "咨询管理",
 			"icon": "&#xe6cd;",
 			"url": "temp.html",
 			"spread": false
 		}, {
 			"id": "10",
 			"pid": "0",
-			"title": "我发布的文档",
+			"title": "咨询统计",
 			"icon": "&#xe6aa;",
 			"url": "temp.html",
 			"spread": false
 		}, {
 			"id": "10",
 			"pid": "0",
-			"title": "Tags管理",
+			"title": "客户跟进",
 			"icon": "&#xea1b;",
 			"url": "temp.html",
 			"spread": false

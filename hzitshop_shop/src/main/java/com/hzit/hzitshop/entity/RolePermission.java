@@ -17,6 +17,15 @@ public class RolePermission {
 	 *  权限编号
 	 */
 	private Integer permissionId;
+
+	public RolePermission(Integer roleId, Integer permissionId) {
+		this.roleId = roleId;
+		this.permissionId = permissionId;
+	}
+
+	public RolePermission() {
+	}
+
 	/**
 	 * 编号
 	 * @param id

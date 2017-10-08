@@ -8,12 +8,15 @@ import com.hzit.hzitshop.entity.RolePermission;
 
 public interface RolePermissionMapper {
 
-	void insertTbRolePermission(RolePermission tbRolePermission);
+	int insertTbRolePermission(RolePermission tbRolePermission);
 
-	void deleteTbRolePermissionById(Integer id);
+	/**
+	 * 根据roleId删除数据
+	 * @param roleId
+	 * @return
+	 */
+	int deleteByRoleId(int roleId);
 
-	void updateTbRolePermission(RolePermission tbRolePermission);
-
-	List<RolePermission> searchTbRolePermissionByParams(@Param("map") Map<String, String> map);
+	List<RolePermission> searchTbRolePermissionByParams(@Param("map") Map<String, Object> map);
 
 } 

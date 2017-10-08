@@ -31,6 +31,13 @@ public interface PermissionMapper {
 	 */
 	int getTotal(@Param("map")Map<String,Object> map);
 
+	/**
+	 * 展示菜单信息
+	 * @param map
+	 * @return
+	 */
+	List<Permission> showMenu(@Param("map")Map<String,Object> map);
+
 
 
 } 

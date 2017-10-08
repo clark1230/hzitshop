@@ -2,11 +2,14 @@ package com.hzit.hzitshop.service.impl;
 
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.Org;
+import com.hzit.hzitshop.entity.OrgRole;
 import com.hzit.hzitshop.mapper.OrgMapper;
+import com.hzit.hzitshop.mapper.OrgRoleMapper;
 import com.hzit.hzitshop.service.OrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +18,8 @@ import java.util.Map;
 public class OrgServiceImpl  implements OrgService {
     @Autowired
     private OrgMapper orgMapper;
+    @Autowired
+    private OrgRoleMapper orgRoleMapper;
     @Override
     public int insert(Org org) {
         return orgMapper.insertTbOrg(org);
@@ -78,5 +83,41 @@ public class OrgServiceImpl  implements OrgService {
         map.put("offset",0);
         map.put("limit",orgMapper.getTotal(map));
         return  orgMapper.searchTbOrgByParams(map);
+    }
+
+    /**
+     * 为岗位授予权限
+     * @param orgId
+     * @param roleIds
+     * @return
+     */
+    @Override
+    public int grantRole(String orgId, String roleIds) {
+        //删除数据
+        orgRoleMapper.deleteByOrgId(Integer.parseInt(orgId));
+        int result = 0;
+        for(String roleId : roleIds.split(",")){
+            result+=orgRoleMapper.insertTbOrgRole(new OrgRole(Integer.parseInt(orgId),Integer.parseInt(roleId)));
+        }
+        return result;
+    }
+
+    /**
+     * 角色信息回显
+     * @param orgId
+     * @return
+     */
+    @Override
+    public String checkRole(String orgId) {
+        //List<Integer> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder(" ");
+        Map<String,Object> map = new HashMap<>();
+        map.put("orgId",orgId);
+        List<OrgRole> orgRoles = orgRoleMapper.searchTbOrgRoleByParams(map);
+        for(OrgRole orgRole : orgRoles){
+            sb.append(orgRole.getRoleId()+",");
+        }
+        String roleIds = sb.toString();
+        return roleIds.substring(0,roleIds.length()-1).trim();
     }
 }

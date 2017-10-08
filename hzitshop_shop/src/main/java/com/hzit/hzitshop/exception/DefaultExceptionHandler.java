@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
+/**
+ * 异常处理器
+ */
 @ControllerAdvice
 public class DefaultExceptionHandler {
     private Logger logger = org.slf4j.LoggerFactory.getLogger(DefaultExceptionHandler.class);

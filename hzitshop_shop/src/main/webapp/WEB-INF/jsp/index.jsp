@@ -122,9 +122,6 @@
                                 <dd id="tabCtrC">
                                     <a data-ename="closeAll"><i class="larry-icon">&#xe702;</i>关闭全部选项卡</a>
                                 </dd>
-                                <dd>
-                                    <a data-ename="refreshAdmin"><i class="larry-icon">&#xe700;</i>刷新最外层框架</a>
-                                </dd>
                             </dl>
                         </li>
                     </ul>
@@ -197,14 +194,14 @@
     <div class="lock-wrapper" id="lock-screen">
         <div id="time"></div>
         <div class="lock-box">
-            <img src="${path}/backstage/images/user.jpg" alt="">
+            <img src="${path}/assets/images/user.png" alt="">
             <h1>admin</h1>
             <form action="" class="layui-form lock-form">
                 <div class="layui-form-item">
                     <input type="password" id="unlock_pass" name="lock_password" lay-verify="pass" placeholder="锁屏状态，请输入密码解锁" autocomplete="off" class="layui-input"  autofocus="">
                 </div>
                 <div class="layui-form-item">
-                    <span class="layui-btn larry-btn" id="unlock">立即解锁</span>
+                    <span class="layui-btn larry-btn  layui-btn-warm" id="unlock">立即解锁</span>
                 </div>
             </form>
         </div>

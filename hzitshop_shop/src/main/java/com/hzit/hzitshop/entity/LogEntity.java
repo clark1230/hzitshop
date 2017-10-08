@@ -38,6 +38,10 @@ public class LogEntity {
 	 */
 	private String commit;
 	/**
+	 * 说明
+	 */
+	private String msg;
+	/**
 	 * 主键
 	 * @param logId
 	 */
@@ -157,4 +161,13 @@ public class LogEntity {
     public String getCommit(){
     	return commit;
     }
+
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 }

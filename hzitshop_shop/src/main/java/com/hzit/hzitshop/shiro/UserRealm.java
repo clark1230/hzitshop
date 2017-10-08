@@ -2,6 +2,7 @@ package com.hzit.hzitshop.shiro;
 
 
 import com.hzit.hzitshop.entity.SystemUser;
+import com.hzit.hzitshop.exception.JobStatusException;
 import com.hzit.hzitshop.service.SystemUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -56,12 +57,14 @@ public class UserRealm extends AuthorizingRealm {
             // 抛出 帐号找不到异常
             throw  new UnknownAccountException();
         }
-        // 该账号已被禁用
-        if ("0".equals(user.getIsLock())) {
+        // 该账号已被禁用/离职
+        if ("0".equals(user.getIsLock()) ) {
             // 账号禁用异常
             throw new DisabledAccountException();
         }
-
+        if("2".equals(user.getStatus())){
+            throw  new JobStatusException("该员工已经离职了!");
+        }
         // 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUserName(), // 用户名

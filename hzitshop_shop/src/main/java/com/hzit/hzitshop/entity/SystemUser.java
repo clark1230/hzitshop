@@ -70,6 +70,10 @@ public class SystemUser {
 	 */
 	private String password;
 	/**
+	 * 在职状态  1:在职  2:离职
+	 */
+	private String status;
+	/**
 	 * 用户编号
 	 * @param userId
 	 */
@@ -301,6 +305,14 @@ public class SystemUser {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

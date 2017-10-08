@@ -2,6 +2,7 @@ package com.hzit.hzitshop.service;
 
 import com.hzit.hzitshop.entity.LayuiData;
 import com.hzit.hzitshop.entity.SystemUser;
+import com.hzit.hzitshop.vo.PermissionVo;
 import com.hzit.hzitshop.vo.SystemUserVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,5 +43,26 @@ public interface SystemUserService extends BaseService<SystemUser>{
      * @param map
      * @return
      */
-    List<SystemUser> selectByParams(Map<String,Object> map);
+    List<SystemUserVo> selectByParams(Map<String,Object> map);
+
+    /**
+     * 修改密码
+     * @param map
+     * @return
+     */
+    int changePwd(Map<String,Object> map);
+
+    /**
+     * 重置密码
+     * @param systemUser
+     * @return
+     */
+    int resetPwd(SystemUser systemUser);
+
+    /**
+     * 根据用户名查询该用户所能访问的权限信息
+     * @param userName
+     * @return
+     */
+    List<PermissionVo> showMenu(String userName);
 }

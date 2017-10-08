@@ -67,14 +67,17 @@
                 </select>
             </div>
         </div>
-        <!--组织类型-->
-        <div class="layui-input-block">
+        <div class="layui-form-item">
+            <label class="layui-form-label">组织类型:</label>
+            <!--组织类型-->
+            <div class="layui-input-block">
             <select name="type" >
                 <option value=""></option>
                 <option value="公司" <c:if test="${org.type =='公司'}">selected</c:if>>公司</option>
                 <option value="部门" <c:if test="${org.type =='部门'}">selected</c:if>>部门</option>
                 <option value="岗位" <c:if test="${org.type =='岗位'}">selected</c:if>>岗位</option>
             </select>
+             </div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">描述:</label>

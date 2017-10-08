@@ -35,23 +35,12 @@
         )
     </insert>
 
-    
-    <delete id="deleteTbOrgRoleById" parameterType="Integer">
-        DELETE FROM tb_org_role WHERE id = #{id}
+    <!--根据组织编号删除数据-->
+    <delete id="deleteByOrgId" parameterType="Integer">
+        DELETE FROM tb_org_role WHERE org_id = #{id}
     </delete>
 
-    <update id="updateTbOrgRole" parameterType="com.hzit.hzitshop.entity.OrgRole">
-        UPDATE tb_org_role
-        <set>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orgId)">
-                org_id = #{orgId} ,
-            </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(roleId)">
-                role_id = #{roleId} ,
-            </if>
-        </set>
-        WHERE id = #{id}
-    </update>
+
 
     <select id="searchTbOrgRoleByParams" parameterType="map" resultMap="tbOrgRoleMap">
         SELECT

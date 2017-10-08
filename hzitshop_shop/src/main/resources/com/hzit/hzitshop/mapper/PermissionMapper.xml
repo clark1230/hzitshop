@@ -14,7 +14,8 @@
         create_time,
         create_by,
         update_by,
-        update_time
+        update_time,
+        level
     </sql>
 
     <sql id="tbPermissionBaseWhereSql">
@@ -47,7 +48,8 @@
             #{createTime},
             #{createBy},
             #{updateBy},
-            #{updateTime}
+            #{updateTime},
+            #{level}
         )
     </insert>
 
@@ -67,6 +69,7 @@
                 description = #{description} ,
                 update_by = #{updateBy} ,
                 update_time = #{updateTime} ,
+                level =#{level}
         </set>
         WHERE id = #{id}
     </update>
@@ -87,6 +90,34 @@
     <select id="getTotal" resultType="int" parameterType="map">
         select count(*) from tb_permission
     </select>
+
+    <!--根据用户名获取该用户所能访问的菜单-->
+    <select id="showMenu" resultMap="tbPermissionMap" parameterType="map">
+        SELECT
+        per.id,per.pid,per.`title`,per.`url`,per.`spread`,per.`icon`,per.level
+        FROM
+        tb_system_user sys,
+        tb_org org,
+        tb_role role,
+        tb_org_role org_role,
+        tb_permission per,
+        tb_role_permission role_per
+
+        WHERE
+        sys.`user_name`=#{map.userName}
+        AND
+        sys.`job_id` = org.`org_id`
+        AND
+        org.`org_id` = org_role.`org_id`
+        AND
+        org_role.`role_id` = role.`role_id`
+        AND
+        role.`role_id` =  role_per.`role_id`
+        AND
+        role_per.`permission_id` = per.`id`
+        AND
+        per.`level` != '5'
+    </select>
     <resultMap type="com.hzit.hzitshop.entity.Permission" id="tbPermissionMap">
         <id column="id" property="id"/>
         <result column="pid" property="pid"/>
@@ -99,6 +130,7 @@
         <result column="create_by" property="createBy"/>
         <result column="update_by" property="updateBy"/>
         <result column="update_time" property="updateTime"/>
+        <result column="level" property="level"/>
     </resultMap>
 
 </mapper>

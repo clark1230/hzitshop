@@ -86,19 +86,19 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">公司</label>
                             <div class="layui-input-block">
-                                <input type="text" name="company"  value="${systemUser.company}" autocomplete="off" class="layui-input" placeholder="公司">
+                                <input type="text"  readonly="readonly" value="${systemUser.company}" autocomplete="off" class="layui-input layui-disabled" placeholder="公司">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">部门</label>
                             <div class="layui-input-block">
-                                <input type="text" name="dept"  value="${systemUser.dept}" autocomplete="off" class="layui-input" placeholder="部门">
+                                <input type="text"  readonly="readonly" value="${systemUser.dept}" autocomplete="off" class="layui-input layui-disabled" placeholder="部门">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">岗位</label>
                             <div class="layui-input-block">
-                                <input type="text" name="jobId"  value="${systemUser.jobId}" autocomplete="off" class="layui-input" placeholder="岗位">
+                                <input type="text"  readonly="readonly" value="${systemUser.jobId}" autocomplete="off" class="layui-input layui-disabled" placeholder="岗位">
                             </div>
                         </div>
                         

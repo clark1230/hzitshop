@@ -11,7 +11,7 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
         id:'logTable',
         width:'auto',
         limits: [10,20,50,100],
-        limit: 20, //默认采用60
+        limit: 20, //默认采用20
         cols: [
             [{
                 checkbox: true,
@@ -49,7 +49,12 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                 width:100,
                 align:'center',
                 templet:'#commitTpl'
+            },{
+                field:'msg',
+                title:'说明',
+                width:200
             }]
+
 
         ],
         url: '/logAjax.action',

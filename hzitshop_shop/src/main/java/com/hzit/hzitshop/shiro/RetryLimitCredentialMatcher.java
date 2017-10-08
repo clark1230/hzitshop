@@ -20,19 +20,26 @@ public class RetryLimitCredentialMatcher extends HashedCredentialsMatcher {
         passwordRetryCache = cacheManager.getCache("passwordRetryCache");
     }
 
+    /**
+     * 做密码验证
+     * @param token
+     * @param info
+     * @return
+     */
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         String username = (String)token.getPrincipal();
         //retry count + 1
         AtomicInteger retryCount =passwordRetryCache.get(username);//从缓存中根据用户名获取缓存信息
+
         //可以替换为redis数据库
         if(null == retryCount) {
             retryCount = new AtomicInteger(0);
             passwordRetryCache.put(username, retryCount);//缓存   将信息添加到缓存中
         }
-        if(retryCount.incrementAndGet() > 3) {
-            throw new ExcessiveAttemptsException("username: " + username + " tried to login more than 3 times in period"
-            ); }
+        if(retryCount.incrementAndGet() > 2) {
+            throw new ExcessiveAttemptsException("username: " + username + " tried to login more than 3 times in period");
+        }
         boolean matches = super.doCredentialsMatch(token, info);
         if(matches) {
             //clear retry data

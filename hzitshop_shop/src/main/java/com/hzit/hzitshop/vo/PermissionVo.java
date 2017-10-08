@@ -1,5 +1,10 @@
 package com.hzit.hzitshop.vo;
 
+import com.hzit.hzitshop.entity.Permission;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
  * @author xianyaoji
@@ -17,6 +22,7 @@ public class PermissionVo {
 	 *  权限名称
 	 */
 	private String title;
+
 	private String name;
 	/**
 	 *  权限的图标
@@ -34,22 +40,9 @@ public class PermissionVo {
 	 *  描述
 	 */
 	private String description;
-	/**
-	 *  录入时间
-	 */
-	private java.util.Date createTime;
-	/**
-	 *  录入人
-	 */
-	private String createBy;
-	/**
-	 *  修改人
-	 */
-	private String updateBy;
-	/**
-	 *  修改时间
-	 */
-	private java.util.Date updateTime;
+
+	private List<PermissionVo>  children = new ArrayList<>();
+
 	/**
 	 * 权限编号，主键，自增长
 	 * @param id
@@ -155,71 +148,19 @@ public class PermissionVo {
     public String getDescription(){
     	return description;
     }
-	/**
-	 * 录入时间
-	 * @param createTime
-	 */
-	public void setCreateTime(java.util.Date createTime){
-		this.createTime = createTime;
-	}
-	
-    /**
-     * 录入时间
-     * @return java.util.Date
-     */	
-    public java.util.Date getCreateTime(){
-    	return createTime;
-    }
-	/**
-	 * 录入人
-	 * @param createBy
-	 */
-	public void setCreateBy(String createBy){
-		this.createBy = createBy;
-	}
-	
-    /**
-     * 录入人
-     * @return String
-     */	
-    public String getCreateBy(){
-    	return createBy;
-    }
-	/**
-	 * 修改人
-	 * @param updateBy
-	 */
-	public void setUpdateBy(String updateBy){
-		this.updateBy = updateBy;
-	}
-	
-    /**
-     * 修改人
-     * @return String
-     */	
-    public String getUpdateBy(){
-    	return updateBy;
-    }
-	/**
-	 * 修改时间
-	 * @param updateTime
-	 */
-	public void setUpdateTime(java.util.Date updateTime){
-		this.updateTime = updateTime;
-	}
-	
-    /**
-     * 修改时间
-     * @return java.util.Date
-     */	
-    public java.util.Date getUpdateTime(){
-    	return updateTime;
-    }
+
 
 	public String getName() {
 		return title;
 	}
 
+	public List<PermissionVo> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<PermissionVo> children) {
+		this.children = children;
+	}
 //	public void setName(String name) {
 //		this.name = name;
 //	}

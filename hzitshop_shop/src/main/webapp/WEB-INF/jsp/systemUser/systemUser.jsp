@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: GIGABYTE
-  Date: 2017/9/16
-  Time: 22:54
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -45,8 +38,11 @@
                     <div class="layui-inline">
                         <button class="layui-btn layui-btn-danger"  data-type="del"><i class="layui-icon">&#xe640;</i><cite>(批量)删除</cite></button>
                     </div>
+                    <%--<div class="layui-inline">--%>
+                        <%--<button class="layui-btn layui-btn-normal"  data-type="grant"><i class="layui-icon">&#xe613;</i><cite>(批量)分配岗位</cite></button>--%>
+                    <%--</div>--%>
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal"  data-type="grant"><i class="layui-icon">&#xe613;</i><cite>(批量)授权</cite></button>
+                        <button class="layui-btn layui-btn-normal"  data-type="resetPwd"><i class="larry-icon">&#xe7f3;</i><cite>重置密码</cite></button>
                     </div>
                     <div class="layui-input-inline" style="display: inline-block;">
                         <input type="text" name="search" value="" id="search_input" placeholder="请输入搜索内容!" class="layui-input">
@@ -66,16 +62,16 @@
     </div>
 </div>
 <script type="text/html" id="userbar">
-    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="edit">编辑</a>
-    <a class="layui-btn  layui-btn-mini" lay-event="shouquan">授权</a>
+    <a class="layui-btn layui-btn-normal layui-btn-mini" title="编辑用户信息" lay-event="edit">编辑</a>
+    <%--<a class="layui-btn  layui-btn-mini" title="分配岗位" lay-event="shouquan">分配</a>--%>
     <!-- laytpl 语法，-->
     {{#  if(d.isLock == 0){ }}
-        <a class="layui-btn layui-btn-normal  layui-btn-mini"  lay-event="disable">启用</a>
+        <a class="layui-btn layui-btn-normal  layui-btn-mini" title="启用"  lay-event="disable">启用</a>
     {{#  } }}
     {{#  if(d.isLock == 1){ }}
-    <a class="layui-btn layui-btn-warm  layui-btn-mini"  lay-event="disable">禁用</a>
+    <a class="layui-btn layui-btn-warm  layui-btn-mini" title="禁用" lay-event="disable">禁用</a>
     {{#  } }}
-    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" title="删除用户" lay-event="del">删除</a>
 
 </script>
 
@@ -85,6 +81,14 @@
     {{#  } else { }}
     <span class="layui-badge layui-bg-blue">启用</span>
     {{#  } }}
+</script>
+
+<script type="text/html" id="statusTpl">
+    {{#  if(d.status == 1){ }}
+    <span class="layui-badge layui-bg-blue">在职</span>
+    {{# } else { }}
+    <span class="layui-badge layui-bg-orange">离职</span>
+    {{# } }}
 </script>
 <!-- 加载js文件 -->
 <script type="text/javascript" src="${path}/common/frame/layui/layui.js"></script>

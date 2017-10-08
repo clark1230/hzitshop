@@ -44,6 +44,11 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
                 title:'禁用',
                 templet :'#isLockTpl'
             },{
+                field:'status',
+                width:70,
+                title:'在职状态',
+                templet:'#statusTpl'
+            },{
                 field:'address',
                 width:100,
                 title:'地址'
@@ -66,7 +71,7 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             },{
                 field:'createTime',
                 title:'录入时间',
-                width:180
+                width:120
             },{
                 field:'updateBy',
                 title:'修改人',
@@ -74,7 +79,7 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             },{
                 field:'updateTime',
                 title:'修改时间',
-                width:180
+                width:120
             },{
 
                 title: '常用操作',
@@ -157,22 +162,28 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             //common.larryCmsMessage('最近好累，还是过段时间在写吧！','error');
             location.href ='/addSystemUser.action';
          },grant:function(){//批量授权
-             common.larryCmsMessage('最近好累，还是过段时间在写吧！','error');
             var userIdArr =[];
             var selectData = table.checkStatus('userTable'); //test即为基础参数id对应的值
             if(selectData.data.length ==0){
-                layer.msg('请选择要授权的数据!',{icon:3});
+                layer.msg('请选择要分配岗位的用户!',{icon:3});
             }else{
                 for(var i=0;i<selectData.data.length;i++){
                     userIdArr.push(selectData.data[i].userId);
                 }
-
                 //跳转到授权页面
-
+                layer.open({
+                    type: 2,
+                    title: '授予角色',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true,
+                    area: ['800px', '500px'],
+                    content: '/grantJob.action?userId='+userIdArr //iframe的url
+                });
             }
         },del:function(){//批量删除数据
             var userIdArr =[];
-            var selectData = table.checkStatus('userTable'); //test即为基础参数id对应的值
+            var selectData = table.checkStatus('userTable');
             if(selectData.data.length ==0){
                 layer.msg('请选择要删除的数据!',{icon:3});
             }else{
@@ -196,6 +207,24 @@ layui.use(['layer', 'form', 'table', 'common','jquery'], function() {
             }
         },colvis:function(){//显示/隐藏列
 
+        },
+        resetPwd:function(){
+            var selectData = table.checkStatus('userTable');
+            if(selectData.data.length ==0){
+                layer.msg('请选择要重置密码的用户!',{icon:3});
+            }else if(selectData.data.length >1){
+                layer.msg('所选用户个数不能大于1个!',{icon:2});
+            }else{
+                var url = '/resetPwd.action';
+                var data ='userId='+selectData.data[0].userId+"&userName="+selectData.data[0].userName+"&email="+selectData.data[0].email;
+                $.post(url,data,function(resp){
+                    if(resp.code == 200){
+                        layer.msg('密码重置成功!',{icon:1});
+                    }else{
+                        layer.msg('密码重置失败!',{icon:2});
+                    }
+                });
+            }
         }
     };
 });

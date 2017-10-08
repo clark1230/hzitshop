@@ -66,6 +66,10 @@ public class SystemUserVo {
 	 */
 	private String updateBy;
 	/**
+	 * 在职状态  1:在职  2:离职
+	 */
+	private String status;
+	/**
 	 * 用户编号
 	 * @param userId
 	 */
@@ -290,4 +294,12 @@ public class SystemUserVo {
     public String getUpdateBy(){
     	return updateBy;
     }
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

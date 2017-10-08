@@ -168,6 +168,33 @@ $(function(){
                 $('#expand').removeAttr("disabled").removeClass('disabled');
                 //禁用收缩按钮
                 $('#close').attr('disabled','disabled').addClass('disabled');
+            },
+            grantRole:function(){//为岗位授予角色
+
+                var checkNodes = treeObj.getCheckedNodes(true);//获取所有勾选的节点
+                if(checkNodes.length ==0){
+                    layer.msg('请选择要授予角色的岗位!',{icon:3});
+                }else if(checkNodes.length  >1){
+                    layer.msg('所选节点大于1个!',{icon:3});
+                }else{
+                    //获取岗位编号
+                    var type = checkNodes[0].type;
+                    if(type==='岗位'){
+                            //
+                        var orgId = checkNodes[0].orgId;
+                        layer.open({
+                            type: 2,
+                            title: '授予角色',
+                            shadeClose: true,
+                            shade: false,
+                            maxmin: true,
+                            area: ['800px', '500px'],
+                            content: '/grantRole.action?orgId='+orgId //iframe的url
+                        });
+                    }else{
+                        layer.msg('请选择为岗位授予角色!',{icon:2});
+                    }
+                }
             }
         };
     });

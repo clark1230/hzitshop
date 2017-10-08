@@ -50,6 +50,10 @@ public class Permission {
 	 */
 	private java.util.Date updateTime;
 	/**
+	 * 菜单级别
+	 */
+	private String level;
+	/**
 	 * 权限编号，主键，自增长
 	 * @param id
 	 */
@@ -214,4 +218,12 @@ public class Permission {
     public java.util.Date getUpdateTime(){
     	return updateTime;
     }
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
 }

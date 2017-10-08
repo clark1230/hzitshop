@@ -8,13 +8,13 @@ import com.hzit.hzitshop.entity.OrgRole;
 
 public interface OrgRoleMapper {
 
-	void insertTbOrgRole(OrgRole tbOrgRole);
+	int insertTbOrgRole(OrgRole tbOrgRole);
 
-	void deleteTbOrgRoleById(Integer id);
-
-	void updateTbOrgRole(OrgRole tbOrgRole);
+	int deleteByOrgId(int orgId);
 
 
-	List<OrgRole> searchTbOrgRoleByParams(@Param("map") Map<String, String> map);
+
+
+	List<OrgRole> searchTbOrgRoleByParams(@Param("map") Map<String, Object> map);
 
 } 

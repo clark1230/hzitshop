@@ -79,8 +79,17 @@
         <div class="layui-form-item">
             <label class="layui-form-label">是否禁用:</label>
             <div class="layui-input-block">
-                <input type="radio" name="isLock" value="0" title="禁用" <c:if test="${systemUser.isLock == '0'}">checked</c:if>/>
                 <input type="radio" name="isLock" value="1" title="启用" <c:if test="${systemUser.isLock == '1'}">checked</c:if>/>
+                <input type="radio" name="isLock" value="0" title="禁用" <c:if test="${systemUser.isLock == '0'}">checked</c:if>/>
+            </div>
+        </div>
+
+        <!--在职状态-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">在职状态:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="1" title="在职" <c:if test="${systemUser.isLock == '1'}">checked</c:if>/>
+                <input type="radio" name="status" value="2" title="离职" <c:if test="${systemUser.isLock == '2'}">checked</c:if>/>
             </div>
         </div>
         <div class="layui-form-item">
