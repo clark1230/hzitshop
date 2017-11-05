@@ -1,0 +1,64 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util-4.2.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd"> 
+		<!-- 包扫描 -->
+	    <context:component-scan base-package="com.hzit.hzitshop.log"></context:component-scan>
+		<context:component-scan base-package="com.hzit.hzitshop.service"></context:component-scan>
+		<!-- 配置数据源 -->
+		<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+			<!-- 配置数据库驱动类 -->
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+			<property name="url" value="jdbc:mysql:///hzit_shop"></property>
+			<property name="username" value="root"></property>
+			<property name="password" value="root"></property>
+		</bean>
+		
+		<!-- 配置SqlSession工厂 -->
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<!-- 配置数据源 -->
+			<property name="dataSource" ref="dataSource"></property>
+			<!-- 配置sql映射文件的路径 -->
+			<property name="mapperLocations" value="classpath:com/hzit/hzitshop/mapper/*.xml"></property>
+		</bean>
+		
+		<!-- 配置接口 -->
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<!-- 接口所在包 -->
+			<property name="basePackage"  value="com.hzit.hzitshop.mapper"></property>
+			<!-- 配置sqlSessionFactory -->
+			<property name="sqlSessionFactory"  ref="sqlSessionFactory"></property>
+		</bean>
+		<!-- 配置事务管理器 -->
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource"></property>
+		</bean>
+		<!-- 配置事务注解驱动 -->
+		<tx:annotation-driven transaction-manager="transactionManager" />
+
+		<!--配置日志切面-->
+	    <bean id="logAspect" class="com.hzit.hzitshop.log.SystemLogAspect"></bean>
+		<!-- 需要配置aop的切入功能 -->
+		<aop:config  proxy-target-class="true">
+			<!-- 配置一个切面类 -->
+			<aop:aspect  id="log" ref="logAspect">
+				<aop:pointcut expression="execution(* com.hzit.hzitshop.controller.*.*(..)))" id="pointcut"/>
+				<!--环绕通知-->
+				<aop:around method="around" pointcut-ref="pointcut"/>
+			</aop:aspect>
+		</aop:config>
+		<import resource="shiro-web.xml"></import>
+</beans>

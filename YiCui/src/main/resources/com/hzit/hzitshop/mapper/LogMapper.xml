@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hzit.hzitshop.mapper.LogMapper">
+
+    <sql id="tbLogBaseColumnSql">
+        log_id,
+        username,
+        module,
+        method,
+        response_date,
+        ip,
+        date,
+        commit,
+        msg
+    </sql>
+
+    <sql id="tbLogBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.logId)">
+                    log_id = #{map.logId}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.username)">
+                    AND username = #{map.username}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.module)">
+                    AND module = #{map.module}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.method)">
+                    AND method = #{map.method}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.responseDate)">
+                    AND response_date = #{map.responseDate}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.ip)">
+                    AND ip = #{map.ip}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.date)">
+                    AND date = #{map.date}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.commit)">
+                    AND commit = #{map.commit}
+                </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(map.msg)">
+                    AND commit = #{map.msg}
+                </if>
+            </where>
+        </if>
+    </sql>
+    <!--添加系统日志-->
+    <insert id="insertTbLog" parameterType="com.hzit.hzitshop.entity.LogEntity">
+        INSERT INTO tb_log(
+        <include refid="tbLogBaseColumnSql"/>
+        )VALUES(
+            #{logId},
+            #{username},
+            #{module},
+            #{method},
+            #{responseDate},
+            #{ip},
+            #{date},
+            #{commit},
+            #{msg}
+        )
+    </insert>
+    <!--查询日志信息-->
+    <select id="searchTbLogByParams" parameterType="map" resultMap="tbLogMap">
+        SELECT
+        <include refid="tbLogBaseColumnSql"/>
+        FROM tb_log
+        <include refid="tbLogBaseWhereSql"/>
+        limit #{map.offset},#{map.limit}
+    </select>
+    <!--获取总记录数-->
+    <select id="getTotal" resultType="int" parameterType="map">
+           select count(*) from tb_log 
+           <include refid="tbLogBaseWhereSql"/>
+    </select>
+    <!--实体类属性与表中列的配置-->
+    <resultMap type="com.hzit.hzitshop.entity.LogEntity" id="tbLogMap">
+        <id column="log_id" property="logId"/>
+        <result column="username" property="username"/>
+        <result column="module" property="module"/>
+        <result column="method" property="method"/>
+        <result column="response_date" property="responseDate"/>
+        <result column="ip" property="ip"/>
+        <result column="date" property="date"/>
+        <result column="commit" property="commit"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+</mapper>
